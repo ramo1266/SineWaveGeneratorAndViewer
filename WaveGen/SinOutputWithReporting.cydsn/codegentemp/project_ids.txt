@@ -1,0 +1,7 @@
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|98ef4911-b733-4fb8-be8d-f3accefd7367
+C:\Users\minime\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|126249a9-6194-4ade-8b1b-4fc7849d1391
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|3a0c886d-d2a3-4f7f-91f7-75e0cbf53584
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|4c1d892d-5ea4-40c0-a340-04b1073fb352
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|57131e5f-5c2b-4523-980f-83fb1d8d7dea
+C:\Users\minime\Downloads\Rosendyne\PSoC Creator\WaveGen\SinOutputWithReporting.cydsn\SinOutputWithReporting.cyprj|295f596b-889a-41ad-b41c-d405a767d374
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|9d18b228-a754-48b9-adaf-82f97fcb93bb

@@ -1,0 +1,96 @@
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/CortexM3/ARM_GCC_541/Debug/main.o : C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/AnalogClock.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CYDMAC.H C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CYFITTER.H C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CyDmac.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CyFlash.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CyLib.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CySpc.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dm.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dm_aliases.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dp.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dp_aliases.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_audio.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_cdc.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_cydmac.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_hid.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_midi.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_msc.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_pvt.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/VAnalogOut.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/VAnalogOut_aliases.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_Bypass.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_Bypass_aliases.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_IRQ.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_theACLK.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormSelect.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormSelect_aliases.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen_VDAC8.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen_Wave1_DMA_dma.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen_Wave2_DMA_dma.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cmsis_armcc.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cmsis_compiler.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cmsis_gcc.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/core_cm3.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cyPm.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cydevice.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cydevice_trm.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cydisabledsheets.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cyfitter.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cypins.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cytypes.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/project.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/cyapicallbacks.h C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/main.c 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/AnalogClock.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CYDMAC.H : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CYFITTER.H : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CyFlash.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CyLib.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/CySpc.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dm.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dm_aliases.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dp.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_Dp_aliases.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_audio.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_cdc.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_cydmac.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_hid.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_midi.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_msc.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/USBCOMM_pvt.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/VAnalogOut.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/VAnalogOut_aliases.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_Bypass.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_Bypass_aliases.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_IRQ.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormReader_theACLK.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormSelect.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveFormSelect_aliases.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen_VDAC8.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen_Wave1_DMA_dma.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/WaveGen_Wave2_DMA_dma.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cmsis_armcc.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cmsis_compiler.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cmsis_gcc.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/core_cm3.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cyPm.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cydevice.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cydevice_trm.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cydisabledsheets.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cypins.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/cytypes.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/Generated_Source/PSoC5/project.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/cyapicallbacks.h : 
+
+C:/Users/minime/Downloads/Rosendyne/PSoC\ Creator/Workspace01/SinOutputWithReporting.cydsn/main.c : 
+

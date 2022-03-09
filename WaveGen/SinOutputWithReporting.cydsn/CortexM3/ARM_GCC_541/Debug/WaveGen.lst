@@ -1,0 +1,4238 @@
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"WaveGen.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.WaveGen_Enable,"ax",%progbits
+  20              		.align	2
+  21              		.global	WaveGen_Enable
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	WaveGen_Enable, %function
+  25              	WaveGen_Enable:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC5\\WaveGen.c"
+   1:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/WaveGen.c **** * File Name: WaveGen.c
+   3:Generated_Source\PSoC5/WaveGen.c **** * Version 2.10
+   4:Generated_Source\PSoC5/WaveGen.c **** *
+   5:Generated_Source\PSoC5/WaveGen.c **** * Description:
+   6:Generated_Source\PSoC5/WaveGen.c **** *  This file provides the source code for the 8-bit Waveform DAC 
+   7:Generated_Source\PSoC5/WaveGen.c **** *  (WaveDAC8) Component.
+   8:Generated_Source\PSoC5/WaveGen.c **** *
+   9:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+  10:Generated_Source\PSoC5/WaveGen.c **** * Copyright 2013, Cypress Semiconductor Corporation.  All rights reserved.
+  11:Generated_Source\PSoC5/WaveGen.c **** * You may use this file only in accordance with the license, terms, conditions,
+  12:Generated_Source\PSoC5/WaveGen.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  13:Generated_Source\PSoC5/WaveGen.c **** * the software package with which this file was provided.
+  14:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+  15:Generated_Source\PSoC5/WaveGen.c **** 
+  16:Generated_Source\PSoC5/WaveGen.c **** #include "WaveGen.h"
+  17:Generated_Source\PSoC5/WaveGen.c **** 
+  18:Generated_Source\PSoC5/WaveGen.c **** uint8  WaveGen_initVar = 0u;
+  19:Generated_Source\PSoC5/WaveGen.c **** 
+  20:Generated_Source\PSoC5/WaveGen.c **** const uint8 CYCODE WaveGen_wave1[WaveGen_WAVE1_LENGTH] = { 128u,128u,129u,130u,131u,131u,132u,133u,
+  21:Generated_Source\PSoC5/WaveGen.c **** const uint8 CYCODE WaveGen_wave2[WaveGen_WAVE2_LENGTH] = { 128u,128u,129u,130u,131u,131u,132u,133u,
+  22:Generated_Source\PSoC5/WaveGen.c **** 
+  23:Generated_Source\PSoC5/WaveGen.c **** static uint8  WaveGen_Wave1Chan;
+  24:Generated_Source\PSoC5/WaveGen.c **** static uint8  WaveGen_Wave2Chan;
+  25:Generated_Source\PSoC5/WaveGen.c **** static uint8  WaveGen_Wave1TD;
+  26:Generated_Source\PSoC5/WaveGen.c **** static uint8  WaveGen_Wave2TD;
+  27:Generated_Source\PSoC5/WaveGen.c **** 
+  28:Generated_Source\PSoC5/WaveGen.c **** 
+  29:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+  30:Generated_Source\PSoC5/WaveGen.c **** * Function Name: WaveGen_Init
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 2
+
+
+  31:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+  32:Generated_Source\PSoC5/WaveGen.c **** *
+  33:Generated_Source\PSoC5/WaveGen.c **** * Summary:
+  34:Generated_Source\PSoC5/WaveGen.c **** *  Initializes component with parameters set in the customizer.
+  35:Generated_Source\PSoC5/WaveGen.c **** *
+  36:Generated_Source\PSoC5/WaveGen.c **** * Parameters:  
+  37:Generated_Source\PSoC5/WaveGen.c **** *  None
+  38:Generated_Source\PSoC5/WaveGen.c **** *
+  39:Generated_Source\PSoC5/WaveGen.c **** * Return: 
+  40:Generated_Source\PSoC5/WaveGen.c **** *  None
+  41:Generated_Source\PSoC5/WaveGen.c **** *
+  42:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+  43:Generated_Source\PSoC5/WaveGen.c **** void WaveGen_Init(void) 
+  44:Generated_Source\PSoC5/WaveGen.c **** {
+  45:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_Init();
+  46:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_SetSpeed(WaveGen_HIGHSPEED);
+  47:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_SetRange(WaveGen_DAC_RANGE);
+  48:Generated_Source\PSoC5/WaveGen.c **** 
+  49:Generated_Source\PSoC5/WaveGen.c **** 	#if(WaveGen_DAC_MODE == WaveGen_CURRENT_MODE)
+  50:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_IDAC8_SetPolarity(WaveGen_DAC_POL);
+  51:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* WaveGen_DAC_MODE == WaveGen_CURRENT_MODE */
+  52:Generated_Source\PSoC5/WaveGen.c **** 
+  53:Generated_Source\PSoC5/WaveGen.c **** 	#if(WaveGen_OUT_MODE == WaveGen_BUFFER_MODE)
+  54:Generated_Source\PSoC5/WaveGen.c **** 	   WaveGen_BuffAmp_Init();
+  55:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* WaveGen_OUT_MODE == WaveGen_BUFFER_MODE */
+  56:Generated_Source\PSoC5/WaveGen.c **** 
+  57:Generated_Source\PSoC5/WaveGen.c **** 	/* Get the TD Number for the DMA channel 1 and 2   */
+  58:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave1TD = CyDmaTdAllocate();
+  59:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave2TD = CyDmaTdAllocate();
+  60:Generated_Source\PSoC5/WaveGen.c **** 	
+  61:Generated_Source\PSoC5/WaveGen.c **** 	/* Initialize waveform pointers  */
+  62:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave1Setup(WaveGen_wave1, WaveGen_WAVE1_LENGTH) ;
+  63:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave2Setup(WaveGen_wave2, WaveGen_WAVE2_LENGTH) ;
+  64:Generated_Source\PSoC5/WaveGen.c **** 	
+  65:Generated_Source\PSoC5/WaveGen.c **** 	/* Initialize the internal clock if one present  */
+  66:Generated_Source\PSoC5/WaveGen.c **** 	#if defined(WaveGen_DacClk_PHASE)
+  67:Generated_Source\PSoC5/WaveGen.c **** 	   WaveGen_DacClk_SetPhase(WaveGen_CLK_PHASE_0nS);
+  68:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* defined(WaveGen_DacClk_PHASE) */
+  69:Generated_Source\PSoC5/WaveGen.c **** }
+  70:Generated_Source\PSoC5/WaveGen.c **** 
+  71:Generated_Source\PSoC5/WaveGen.c **** 
+  72:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+  73:Generated_Source\PSoC5/WaveGen.c **** * Function Name: WaveGen_Enable
+  74:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+  75:Generated_Source\PSoC5/WaveGen.c **** *  
+  76:Generated_Source\PSoC5/WaveGen.c **** * Summary: 
+  77:Generated_Source\PSoC5/WaveGen.c **** *  Enables the DAC block and DMA operation.
+  78:Generated_Source\PSoC5/WaveGen.c **** *
+  79:Generated_Source\PSoC5/WaveGen.c **** * Parameters:  
+  80:Generated_Source\PSoC5/WaveGen.c **** *  None
+  81:Generated_Source\PSoC5/WaveGen.c **** *
+  82:Generated_Source\PSoC5/WaveGen.c **** * Return: 
+  83:Generated_Source\PSoC5/WaveGen.c **** *  None
+  84:Generated_Source\PSoC5/WaveGen.c **** *
+  85:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+  86:Generated_Source\PSoC5/WaveGen.c **** void WaveGen_Enable(void) 
+  87:Generated_Source\PSoC5/WaveGen.c **** {
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 3
+
+
+  28              		.loc 1 87 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  88:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_Enable();
+  36              		.loc 1 88 0
+  37 0002 FFF7FEFF 		bl	WaveGen_VDAC8_Enable
+  38              	.LVL0:
+  89:Generated_Source\PSoC5/WaveGen.c **** 
+  90:Generated_Source\PSoC5/WaveGen.c **** 	#if(WaveGen_OUT_MODE == WaveGen_BUFFER_MODE)
+  91:Generated_Source\PSoC5/WaveGen.c **** 	   WaveGen_BuffAmp_Enable();
+  92:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* WaveGen_OUT_MODE == WaveGen_BUFFER_MODE */
+  93:Generated_Source\PSoC5/WaveGen.c **** 
+  94:Generated_Source\PSoC5/WaveGen.c **** 	/* 
+  95:Generated_Source\PSoC5/WaveGen.c **** 	* Enable the channel. It is configured to remember the TD value so that
+  96:Generated_Source\PSoC5/WaveGen.c **** 	* it can be restored from the place where it has been stopped.
+  97:Generated_Source\PSoC5/WaveGen.c **** 	*/
+  98:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaChEnable(WaveGen_Wave1Chan, 1u);
+  39              		.loc 1 98 0
+  40 0006 064C     		ldr	r4, .L3
+  41 0008 0121     		movs	r1, #1
+  42 000a 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+  43 000c FFF7FEFF 		bl	CyDmaChEnable
+  44              	.LVL1:
+  99:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaChEnable(WaveGen_Wave2Chan, 1u);
+  45              		.loc 1 99 0
+  46 0010 0121     		movs	r1, #1
+  47 0012 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+  48 0014 FFF7FEFF 		bl	CyDmaChEnable
+  49              	.LVL2:
+ 100:Generated_Source\PSoC5/WaveGen.c **** 	
+ 101:Generated_Source\PSoC5/WaveGen.c **** 	/* set the initial value */
+ 102:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_SetValue(0u);
+  50              		.loc 1 102 0
+  51 0018 0020     		movs	r0, #0
+  52 001a FFF7FEFF 		bl	WaveGen_VDAC8_SetValue
+  53              	.LVL3:
+  54 001e 10BD     		pop	{r4, pc}
+  55              	.L4:
+  56              		.align	2
+  57              	.L3:
+  58 0020 00000000 		.word	.LANCHOR0
+  59              		.cfi_endproc
+  60              	.LFE1:
+  61              		.size	WaveGen_Enable, .-WaveGen_Enable
+  62              		.section	.text.WaveGen_Stop,"ax",%progbits
+  63              		.align	2
+  64              		.global	WaveGen_Stop
+  65              		.thumb
+  66              		.thumb_func
+  67              		.type	WaveGen_Stop, %function
+  68              	WaveGen_Stop:
+  69              	.LFB4:
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 4
+
+
+ 103:Generated_Source\PSoC5/WaveGen.c **** 	
+ 104:Generated_Source\PSoC5/WaveGen.c **** 	#if(WaveGen_CLOCK_SRC == WaveGen_CLOCK_INT)  	
+ 105:Generated_Source\PSoC5/WaveGen.c **** 	   WaveGen_DacClk_Start();
+ 106:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* WaveGen_CLOCK_SRC == WaveGen_CLOCK_INT */
+ 107:Generated_Source\PSoC5/WaveGen.c **** }
+ 108:Generated_Source\PSoC5/WaveGen.c **** 
+ 109:Generated_Source\PSoC5/WaveGen.c **** 
+ 110:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+ 111:Generated_Source\PSoC5/WaveGen.c **** * Function Name: WaveGen_Start
+ 112:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+ 113:Generated_Source\PSoC5/WaveGen.c **** *
+ 114:Generated_Source\PSoC5/WaveGen.c **** * Summary:
+ 115:Generated_Source\PSoC5/WaveGen.c **** *  The start function initializes the voltage DAC with the default values, 
+ 116:Generated_Source\PSoC5/WaveGen.c **** *  and sets the power to the given level.  A power level of 0, is the same as 
+ 117:Generated_Source\PSoC5/WaveGen.c **** *  executing the stop function.
+ 118:Generated_Source\PSoC5/WaveGen.c **** *
+ 119:Generated_Source\PSoC5/WaveGen.c **** * Parameters:  
+ 120:Generated_Source\PSoC5/WaveGen.c **** *  None
+ 121:Generated_Source\PSoC5/WaveGen.c **** *
+ 122:Generated_Source\PSoC5/WaveGen.c **** * Return: 
+ 123:Generated_Source\PSoC5/WaveGen.c **** *  None
+ 124:Generated_Source\PSoC5/WaveGen.c **** *
+ 125:Generated_Source\PSoC5/WaveGen.c **** * Reentrant:
+ 126:Generated_Source\PSoC5/WaveGen.c **** *  No
+ 127:Generated_Source\PSoC5/WaveGen.c **** *
+ 128:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+ 129:Generated_Source\PSoC5/WaveGen.c **** void WaveGen_Start(void) 
+ 130:Generated_Source\PSoC5/WaveGen.c **** {
+ 131:Generated_Source\PSoC5/WaveGen.c **** 	/* If not Initialized then initialize all required hardware and software */
+ 132:Generated_Source\PSoC5/WaveGen.c **** 	if(WaveGen_initVar == 0u)
+ 133:Generated_Source\PSoC5/WaveGen.c **** 	{
+ 134:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Init();
+ 135:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_initVar = 1u;
+ 136:Generated_Source\PSoC5/WaveGen.c **** 	}
+ 137:Generated_Source\PSoC5/WaveGen.c **** 	
+ 138:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Enable();
+ 139:Generated_Source\PSoC5/WaveGen.c **** }
+ 140:Generated_Source\PSoC5/WaveGen.c **** 
+ 141:Generated_Source\PSoC5/WaveGen.c **** 
+ 142:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+ 143:Generated_Source\PSoC5/WaveGen.c **** * Function Name: WaveGen_StartEx
+ 144:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+ 145:Generated_Source\PSoC5/WaveGen.c **** *
+ 146:Generated_Source\PSoC5/WaveGen.c **** * Summary:
+ 147:Generated_Source\PSoC5/WaveGen.c **** *  The StartEx function sets pointers and sizes for both waveforms
+ 148:Generated_Source\PSoC5/WaveGen.c **** *  and then starts the component.
+ 149:Generated_Source\PSoC5/WaveGen.c **** *
+ 150:Generated_Source\PSoC5/WaveGen.c **** * Parameters:  
+ 151:Generated_Source\PSoC5/WaveGen.c **** *   uint8 * wavePtr1:     Pointer to the waveform 1 array.
+ 152:Generated_Source\PSoC5/WaveGen.c **** *   uint16  sampleSize1:  The amount of samples in the waveform 1.
+ 153:Generated_Source\PSoC5/WaveGen.c **** *   uint8 * wavePtr2:     Pointer to the waveform 2 array.
+ 154:Generated_Source\PSoC5/WaveGen.c **** *   uint16  sampleSize2:  The amount of samples in the waveform 2.
+ 155:Generated_Source\PSoC5/WaveGen.c **** *
+ 156:Generated_Source\PSoC5/WaveGen.c **** * Return: 
+ 157:Generated_Source\PSoC5/WaveGen.c **** *  None
+ 158:Generated_Source\PSoC5/WaveGen.c **** *
+ 159:Generated_Source\PSoC5/WaveGen.c **** * Reentrant:
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 5
+
+
+ 160:Generated_Source\PSoC5/WaveGen.c **** *  No
+ 161:Generated_Source\PSoC5/WaveGen.c **** *
+ 162:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+ 163:Generated_Source\PSoC5/WaveGen.c **** void WaveGen_StartEx(const uint8 * wavePtr1, uint16 sampleSize1, const uint8 * wavePtr2, uint16 sam
+ 164:Generated_Source\PSoC5/WaveGen.c **** 
+ 165:Generated_Source\PSoC5/WaveGen.c **** {
+ 166:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave1Setup(wavePtr1, sampleSize1);
+ 167:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave2Setup(wavePtr2, sampleSize2);
+ 168:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Start();
+ 169:Generated_Source\PSoC5/WaveGen.c **** }
+ 170:Generated_Source\PSoC5/WaveGen.c **** 
+ 171:Generated_Source\PSoC5/WaveGen.c **** 
+ 172:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+ 173:Generated_Source\PSoC5/WaveGen.c **** * Function Name: WaveGen_Stop
+ 174:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+ 175:Generated_Source\PSoC5/WaveGen.c **** *
+ 176:Generated_Source\PSoC5/WaveGen.c **** * Summary:
+ 177:Generated_Source\PSoC5/WaveGen.c **** *  Stops the clock (if internal), disables the DMA channels
+ 178:Generated_Source\PSoC5/WaveGen.c **** *  and powers down the DAC.
+ 179:Generated_Source\PSoC5/WaveGen.c **** *
+ 180:Generated_Source\PSoC5/WaveGen.c **** * Parameters:  
+ 181:Generated_Source\PSoC5/WaveGen.c **** *  None  
+ 182:Generated_Source\PSoC5/WaveGen.c **** *
+ 183:Generated_Source\PSoC5/WaveGen.c **** * Return: 
+ 184:Generated_Source\PSoC5/WaveGen.c **** *  None
+ 185:Generated_Source\PSoC5/WaveGen.c **** *
+ 186:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+ 187:Generated_Source\PSoC5/WaveGen.c **** void WaveGen_Stop(void) 
+ 188:Generated_Source\PSoC5/WaveGen.c **** {
+  70              		.loc 1 188 0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 0
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74 0000 10B5     		push	{r4, lr}
+  75              		.cfi_def_cfa_offset 8
+  76              		.cfi_offset 4, -8
+  77              		.cfi_offset 14, -4
+ 189:Generated_Source\PSoC5/WaveGen.c **** 	/* Turn off internal clock, if one present */
+ 190:Generated_Source\PSoC5/WaveGen.c **** 	#if(WaveGen_CLOCK_SRC == WaveGen_CLOCK_INT)  	
+ 191:Generated_Source\PSoC5/WaveGen.c **** 	   WaveGen_DacClk_Stop();
+ 192:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* WaveGen_CLOCK_SRC == WaveGen_CLOCK_INT */
+ 193:Generated_Source\PSoC5/WaveGen.c **** 	
+ 194:Generated_Source\PSoC5/WaveGen.c **** 	/* Disble DMA channels */
+ 195:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaChDisable(WaveGen_Wave1Chan);
+  78              		.loc 1 195 0
+  79 0002 054C     		ldr	r4, .L7
+  80 0004 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+  81 0006 FFF7FEFF 		bl	CyDmaChDisable
+  82              	.LVL4:
+ 196:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaChDisable(WaveGen_Wave2Chan);
+  83              		.loc 1 196 0
+  84 000a 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+  85 000c FFF7FEFF 		bl	CyDmaChDisable
+  86              	.LVL5:
+ 197:Generated_Source\PSoC5/WaveGen.c **** 
+ 198:Generated_Source\PSoC5/WaveGen.c **** 	/* Disable power to DAC */
+ 199:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_Stop();
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 6
+
+
+  87              		.loc 1 199 0
+  88 0010 FFF7FEFF 		bl	WaveGen_VDAC8_Stop
+  89              	.LVL6:
+  90 0014 10BD     		pop	{r4, pc}
+  91              	.L8:
+  92 0016 00BF     		.align	2
+  93              	.L7:
+  94 0018 00000000 		.word	.LANCHOR0
+  95              		.cfi_endproc
+  96              	.LFE4:
+  97              		.size	WaveGen_Stop, .-WaveGen_Stop
+  98              		.section	.text.WaveGen_Wave1Setup,"ax",%progbits
+  99              		.align	2
+ 100              		.global	WaveGen_Wave1Setup
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.type	WaveGen_Wave1Setup, %function
+ 104              	WaveGen_Wave1Setup:
+ 105              	.LFB5:
+ 200:Generated_Source\PSoC5/WaveGen.c **** }
+ 201:Generated_Source\PSoC5/WaveGen.c **** 
+ 202:Generated_Source\PSoC5/WaveGen.c **** 
+ 203:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+ 204:Generated_Source\PSoC5/WaveGen.c **** * Function Name: WaveGen_Wave1Setup
+ 205:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+ 206:Generated_Source\PSoC5/WaveGen.c **** *
+ 207:Generated_Source\PSoC5/WaveGen.c **** * Summary:
+ 208:Generated_Source\PSoC5/WaveGen.c **** *  Sets pointer and size for waveform 1.                                    
+ 209:Generated_Source\PSoC5/WaveGen.c **** *
+ 210:Generated_Source\PSoC5/WaveGen.c **** * Parameters:  
+ 211:Generated_Source\PSoC5/WaveGen.c **** *  uint8 * WavePtr:     Pointer to the waveform array.
+ 212:Generated_Source\PSoC5/WaveGen.c **** *  uint16  SampleSize:  The amount of samples in the waveform.
+ 213:Generated_Source\PSoC5/WaveGen.c **** *
+ 214:Generated_Source\PSoC5/WaveGen.c **** * Return: 
+ 215:Generated_Source\PSoC5/WaveGen.c **** *  None 
+ 216:Generated_Source\PSoC5/WaveGen.c **** *
+ 217:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+ 218:Generated_Source\PSoC5/WaveGen.c **** void WaveGen_Wave1Setup(const uint8 * wavePtr, uint16 sampleSize)
+ 219:Generated_Source\PSoC5/WaveGen.c **** 
+ 220:Generated_Source\PSoC5/WaveGen.c **** {
+ 106              		.loc 1 220 0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110              	.LVL7:
+ 111 0000 70B5     		push	{r4, r5, r6, lr}
+ 112              		.cfi_def_cfa_offset 16
+ 113              		.cfi_offset 4, -16
+ 114              		.cfi_offset 5, -12
+ 115              		.cfi_offset 6, -8
+ 116              		.cfi_offset 14, -4
+ 117 0002 0546     		mov	r5, r0
+ 118 0004 0E46     		mov	r6, r1
+ 221:Generated_Source\PSoC5/WaveGen.c **** 	#if (CY_PSOC3)
+ 222:Generated_Source\PSoC5/WaveGen.c **** 		uint16 memoryType; /* determining the source memory type */
+ 223:Generated_Source\PSoC5/WaveGen.c **** 		memoryType = (WaveGen_HI16FLASHPTR == HI16(wavePtr)) ? HI16(CYDEV_FLS_BASE) : HI16(CYDEV_SRAM_BAS
+ 224:Generated_Source\PSoC5/WaveGen.c **** 		
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 7
+
+
+ 225:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave1Chan = WaveGen_Wave1_DMA_DmaInitialize(
+ 226:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave1_DMA_BYTES_PER_BURST, WaveGen_Wave1_DMA_REQUEST_PER_BURST,
+ 227:Generated_Source\PSoC5/WaveGen.c **** 		memoryType, HI16(CYDEV_PERIPH_BASE));
+ 228:Generated_Source\PSoC5/WaveGen.c **** 	#else /* PSoC 5 */
+ 229:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave1Chan = WaveGen_Wave1_DMA_DmaInitialize(
+ 119              		.loc 1 229 0
+ 120 0006 4FF48043 		mov	r3, #16384
+ 121 000a 020C     		lsrs	r2, r0, #16
+ 122 000c 0121     		movs	r1, #1
+ 123              	.LVL8:
+ 124 000e 0846     		mov	r0, r1
+ 125              	.LVL9:
+ 126 0010 FFF7FEFF 		bl	WaveGen_Wave1_DMA_DmaInitialize
+ 127              	.LVL10:
+ 128 0014 094C     		ldr	r4, .L11
+ 129 0016 2070     		strb	r0, [r4]
+ 230:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave1_DMA_BYTES_PER_BURST, WaveGen_Wave1_DMA_REQUEST_PER_BURST,
+ 231:Generated_Source\PSoC5/WaveGen.c **** 		HI16(wavePtr), HI16(WaveGen_DAC8__D));
+ 232:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* CY_PSOC3 */
+ 233:Generated_Source\PSoC5/WaveGen.c **** 	
+ 234:Generated_Source\PSoC5/WaveGen.c **** 	/*
+ 235:Generated_Source\PSoC5/WaveGen.c **** 	* TD is looping on itself. 
+ 236:Generated_Source\PSoC5/WaveGen.c ****     * Increment the source address, but not the destination address. 
+ 237:Generated_Source\PSoC5/WaveGen.c **** 	*/
+ 238:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaTdSetConfiguration(WaveGen_Wave1TD, sampleSize, WaveGen_Wave1TD, 
+ 130              		.loc 1 238 0
+ 131 0018 A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
+ 132 001a 0123     		movs	r3, #1
+ 133 001c 0246     		mov	r2, r0
+ 134 001e 3146     		mov	r1, r6
+ 135 0020 FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 136              	.LVL11:
+ 239:Generated_Source\PSoC5/WaveGen.c ****                                     (uint8)CY_DMA_TD_INC_SRC_ADR | (uint8)WaveGen_Wave1_DMA__TD_TER
+ 240:Generated_Source\PSoC5/WaveGen.c **** 	
+ 241:Generated_Source\PSoC5/WaveGen.c **** 	/* Set the TD source and destination address */
+ 242:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaTdSetAddress(WaveGen_Wave1TD, LO16((uint32)wavePtr), LO16(WaveGen_DAC8__D));
+ 137              		.loc 1 242 0
+ 138 0024 45F68332 		movw	r2, #23427
+ 139 0028 A9B2     		uxth	r1, r5
+ 140 002a A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
+ 141 002c FFF7FEFF 		bl	CyDmaTdSetAddress
+ 142              	.LVL12:
+ 243:Generated_Source\PSoC5/WaveGen.c **** 	
+ 244:Generated_Source\PSoC5/WaveGen.c **** 	/* Associate the TD with the channel */
+ 245:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaChSetInitialTd(WaveGen_Wave1Chan, WaveGen_Wave1TD);
+ 143              		.loc 1 245 0
+ 144 0030 A178     		ldrb	r1, [r4, #2]	@ zero_extendqisi2
+ 145 0032 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 146 0034 FFF7FEFF 		bl	CyDmaChSetInitialTd
+ 147              	.LVL13:
+ 148 0038 70BD     		pop	{r4, r5, r6, pc}
+ 149              	.LVL14:
+ 150              	.L12:
+ 151 003a 00BF     		.align	2
+ 152              	.L11:
+ 153 003c 00000000 		.word	.LANCHOR0
+ 154              		.cfi_endproc
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 8
+
+
+ 155              	.LFE5:
+ 156              		.size	WaveGen_Wave1Setup, .-WaveGen_Wave1Setup
+ 157              		.section	.text.WaveGen_Wave2Setup,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	WaveGen_Wave2Setup
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.type	WaveGen_Wave2Setup, %function
+ 163              	WaveGen_Wave2Setup:
+ 164              	.LFB6:
+ 246:Generated_Source\PSoC5/WaveGen.c **** }
+ 247:Generated_Source\PSoC5/WaveGen.c **** 
+ 248:Generated_Source\PSoC5/WaveGen.c **** 
+ 249:Generated_Source\PSoC5/WaveGen.c **** /*******************************************************************************
+ 250:Generated_Source\PSoC5/WaveGen.c **** * Function Name: WaveGen_Wave2Setup
+ 251:Generated_Source\PSoC5/WaveGen.c **** ********************************************************************************
+ 252:Generated_Source\PSoC5/WaveGen.c **** *
+ 253:Generated_Source\PSoC5/WaveGen.c **** * Summary:
+ 254:Generated_Source\PSoC5/WaveGen.c **** *  Sets pointer and size for waveform 2.                                    
+ 255:Generated_Source\PSoC5/WaveGen.c **** *
+ 256:Generated_Source\PSoC5/WaveGen.c **** * Parameters:  
+ 257:Generated_Source\PSoC5/WaveGen.c **** *  uint8 * WavePtr:     Pointer to the waveform array.
+ 258:Generated_Source\PSoC5/WaveGen.c **** *  uint16  SampleSize:  The amount of samples in the waveform.
+ 259:Generated_Source\PSoC5/WaveGen.c **** *
+ 260:Generated_Source\PSoC5/WaveGen.c **** * Return: 
+ 261:Generated_Source\PSoC5/WaveGen.c **** *  None
+ 262:Generated_Source\PSoC5/WaveGen.c **** *
+ 263:Generated_Source\PSoC5/WaveGen.c **** *******************************************************************************/
+ 264:Generated_Source\PSoC5/WaveGen.c **** void WaveGen_Wave2Setup(const uint8 * wavePtr, uint16 sampleSize)
+ 265:Generated_Source\PSoC5/WaveGen.c ****  
+ 266:Generated_Source\PSoC5/WaveGen.c **** {
+ 165              		.loc 1 266 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169              	.LVL15:
+ 170 0000 70B5     		push	{r4, r5, r6, lr}
+ 171              		.cfi_def_cfa_offset 16
+ 172              		.cfi_offset 4, -16
+ 173              		.cfi_offset 5, -12
+ 174              		.cfi_offset 6, -8
+ 175              		.cfi_offset 14, -4
+ 176 0002 0546     		mov	r5, r0
+ 177 0004 0E46     		mov	r6, r1
+ 267:Generated_Source\PSoC5/WaveGen.c **** 	#if (CY_PSOC3)
+ 268:Generated_Source\PSoC5/WaveGen.c **** 		uint16 memoryType; /* determining the source memory type */
+ 269:Generated_Source\PSoC5/WaveGen.c **** 		memoryType = (WaveGen_HI16FLASHPTR == HI16(wavePtr)) ? HI16(CYDEV_FLS_BASE) : HI16(CYDEV_SRAM_BAS
+ 270:Generated_Source\PSoC5/WaveGen.c **** 			
+ 271:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave2Chan = WaveGen_Wave2_DMA_DmaInitialize(
+ 272:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave2_DMA_BYTES_PER_BURST, WaveGen_Wave2_DMA_REQUEST_PER_BURST,
+ 273:Generated_Source\PSoC5/WaveGen.c **** 		memoryType, HI16(CYDEV_PERIPH_BASE));
+ 274:Generated_Source\PSoC5/WaveGen.c **** 	#else /* PSoC 5 */
+ 275:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave2Chan = WaveGen_Wave2_DMA_DmaInitialize(
+ 178              		.loc 1 275 0
+ 179 0006 4FF48043 		mov	r3, #16384
+ 180 000a 020C     		lsrs	r2, r0, #16
+ 181 000c 0121     		movs	r1, #1
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 9
+
+
+ 182              	.LVL16:
+ 183 000e 0846     		mov	r0, r1
+ 184              	.LVL17:
+ 185 0010 FFF7FEFF 		bl	WaveGen_Wave2_DMA_DmaInitialize
+ 186              	.LVL18:
+ 187 0014 094C     		ldr	r4, .L15
+ 188 0016 6070     		strb	r0, [r4, #1]
+ 276:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_Wave2_DMA_BYTES_PER_BURST, WaveGen_Wave2_DMA_REQUEST_PER_BURST,
+ 277:Generated_Source\PSoC5/WaveGen.c **** 		HI16(wavePtr), HI16(WaveGen_DAC8__D));
+ 278:Generated_Source\PSoC5/WaveGen.c **** 	#endif /* CY_PSOC3 */
+ 279:Generated_Source\PSoC5/WaveGen.c **** 	
+ 280:Generated_Source\PSoC5/WaveGen.c **** 	/*
+ 281:Generated_Source\PSoC5/WaveGen.c **** 	* TD is looping on itself. 
+ 282:Generated_Source\PSoC5/WaveGen.c **** 	* Increment the source address, but not the destination address. 
+ 283:Generated_Source\PSoC5/WaveGen.c **** 	*/
+ 284:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaTdSetConfiguration(WaveGen_Wave2TD, sampleSize, WaveGen_Wave2TD, 
+ 189              		.loc 1 284 0
+ 190 0018 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 191 001a 0123     		movs	r3, #1
+ 192 001c 0246     		mov	r2, r0
+ 193 001e 3146     		mov	r1, r6
+ 194 0020 FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 195              	.LVL19:
+ 285:Generated_Source\PSoC5/WaveGen.c ****                                     (uint8)CY_DMA_TD_INC_SRC_ADR | (uint8)WaveGen_Wave2_DMA__TD_TER
+ 286:Generated_Source\PSoC5/WaveGen.c **** 	
+ 287:Generated_Source\PSoC5/WaveGen.c **** 	/* Set the TD source and destination address */
+ 288:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaTdSetAddress(WaveGen_Wave2TD, LO16((uint32)wavePtr), LO16(WaveGen_DAC8__D));
+ 196              		.loc 1 288 0
+ 197 0024 45F68332 		movw	r2, #23427
+ 198 0028 A9B2     		uxth	r1, r5
+ 199 002a E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 200 002c FFF7FEFF 		bl	CyDmaTdSetAddress
+ 201              	.LVL20:
+ 289:Generated_Source\PSoC5/WaveGen.c **** 	
+ 290:Generated_Source\PSoC5/WaveGen.c **** 	/* Associate the TD with the channel */
+ 291:Generated_Source\PSoC5/WaveGen.c **** 	(void)CyDmaChSetInitialTd(WaveGen_Wave2Chan, WaveGen_Wave2TD);
+ 202              		.loc 1 291 0
+ 203 0030 E178     		ldrb	r1, [r4, #3]	@ zero_extendqisi2
+ 204 0032 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+ 205 0034 FFF7FEFF 		bl	CyDmaChSetInitialTd
+ 206              	.LVL21:
+ 207 0038 70BD     		pop	{r4, r5, r6, pc}
+ 208              	.LVL22:
+ 209              	.L16:
+ 210 003a 00BF     		.align	2
+ 211              	.L15:
+ 212 003c 00000000 		.word	.LANCHOR0
+ 213              		.cfi_endproc
+ 214              	.LFE6:
+ 215              		.size	WaveGen_Wave2Setup, .-WaveGen_Wave2Setup
+ 216              		.section	.text.WaveGen_Init,"ax",%progbits
+ 217              		.align	2
+ 218              		.global	WaveGen_Init
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.type	WaveGen_Init, %function
+ 222              	WaveGen_Init:
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 10
+
+
+ 223              	.LFB0:
+  44:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_Init();
+ 224              		.loc 1 44 0
+ 225              		.cfi_startproc
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228 0000 10B5     		push	{r4, lr}
+ 229              		.cfi_def_cfa_offset 8
+ 230              		.cfi_offset 4, -8
+ 231              		.cfi_offset 14, -4
+  45:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_SetSpeed(WaveGen_HIGHSPEED);
+ 232              		.loc 1 45 0
+ 233 0002 FFF7FEFF 		bl	WaveGen_VDAC8_Init
+ 234              	.LVL23:
+  46:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_VDAC8_SetRange(WaveGen_DAC_RANGE);
+ 235              		.loc 1 46 0
+ 236 0006 0220     		movs	r0, #2
+ 237 0008 FFF7FEFF 		bl	WaveGen_VDAC8_SetSpeed
+ 238              	.LVL24:
+  47:Generated_Source\PSoC5/WaveGen.c **** 
+ 239              		.loc 1 47 0
+ 240 000c 0420     		movs	r0, #4
+ 241 000e FFF7FEFF 		bl	WaveGen_VDAC8_SetRange
+ 242              	.LVL25:
+  58:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave2TD = CyDmaTdAllocate();
+ 243              		.loc 1 58 0
+ 244 0012 FFF7FEFF 		bl	CyDmaTdAllocate
+ 245              	.LVL26:
+ 246 0016 084C     		ldr	r4, .L19
+ 247 0018 A070     		strb	r0, [r4, #2]
+  59:Generated_Source\PSoC5/WaveGen.c **** 	
+ 248              		.loc 1 59 0
+ 249 001a FFF7FEFF 		bl	CyDmaTdAllocate
+ 250              	.LVL27:
+ 251 001e E070     		strb	r0, [r4, #3]
+  62:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave2Setup(WaveGen_wave2, WaveGen_WAVE2_LENGTH) ;
+ 252              		.loc 1 62 0
+ 253 0020 064C     		ldr	r4, .L19+4
+ 254 0022 4FF47A71 		mov	r1, #1000
+ 255 0026 2046     		mov	r0, r4
+ 256 0028 FFF7FEFF 		bl	WaveGen_Wave1Setup
+ 257              	.LVL28:
+  63:Generated_Source\PSoC5/WaveGen.c **** 	
+ 258              		.loc 1 63 0
+ 259 002c 4FF47A71 		mov	r1, #1000
+ 260 0030 6018     		adds	r0, r4, r1
+ 261 0032 FFF7FEFF 		bl	WaveGen_Wave2Setup
+ 262              	.LVL29:
+ 263 0036 10BD     		pop	{r4, pc}
+ 264              	.L20:
+ 265              		.align	2
+ 266              	.L19:
+ 267 0038 00000000 		.word	.LANCHOR0
+ 268 003c 00000000 		.word	.LANCHOR1
+ 269              		.cfi_endproc
+ 270              	.LFE0:
+ 271              		.size	WaveGen_Init, .-WaveGen_Init
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 11
+
+
+ 272              		.section	.text.WaveGen_Start,"ax",%progbits
+ 273              		.align	2
+ 274              		.global	WaveGen_Start
+ 275              		.thumb
+ 276              		.thumb_func
+ 277              		.type	WaveGen_Start, %function
+ 278              	WaveGen_Start:
+ 279              	.LFB2:
+ 130:Generated_Source\PSoC5/WaveGen.c **** 	/* If not Initialized then initialize all required hardware and software */
+ 280              		.loc 1 130 0
+ 281              		.cfi_startproc
+ 282              		@ args = 0, pretend = 0, frame = 0
+ 283              		@ frame_needed = 0, uses_anonymous_args = 0
+ 284 0000 08B5     		push	{r3, lr}
+ 285              		.cfi_def_cfa_offset 8
+ 286              		.cfi_offset 3, -8
+ 287              		.cfi_offset 14, -4
+ 132:Generated_Source\PSoC5/WaveGen.c **** 	{
+ 288              		.loc 1 132 0
+ 289 0002 054B     		ldr	r3, .L24
+ 290 0004 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 291 0006 23B9     		cbnz	r3, .L22
+ 134:Generated_Source\PSoC5/WaveGen.c **** 		WaveGen_initVar = 1u;
+ 292              		.loc 1 134 0
+ 293 0008 FFF7FEFF 		bl	WaveGen_Init
+ 294              	.LVL30:
+ 135:Generated_Source\PSoC5/WaveGen.c **** 	}
+ 295              		.loc 1 135 0
+ 296 000c 0122     		movs	r2, #1
+ 297 000e 024B     		ldr	r3, .L24
+ 298 0010 1A71     		strb	r2, [r3, #4]
+ 299              	.L22:
+ 138:Generated_Source\PSoC5/WaveGen.c **** }
+ 300              		.loc 1 138 0
+ 301 0012 FFF7FEFF 		bl	WaveGen_Enable
+ 302              	.LVL31:
+ 303 0016 08BD     		pop	{r3, pc}
+ 304              	.L25:
+ 305              		.align	2
+ 306              	.L24:
+ 307 0018 00000000 		.word	.LANCHOR0
+ 308              		.cfi_endproc
+ 309              	.LFE2:
+ 310              		.size	WaveGen_Start, .-WaveGen_Start
+ 311              		.section	.text.WaveGen_StartEx,"ax",%progbits
+ 312              		.align	2
+ 313              		.global	WaveGen_StartEx
+ 314              		.thumb
+ 315              		.thumb_func
+ 316              		.type	WaveGen_StartEx, %function
+ 317              	WaveGen_StartEx:
+ 318              	.LFB3:
+ 165:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave1Setup(wavePtr1, sampleSize1);
+ 319              		.loc 1 165 0
+ 320              		.cfi_startproc
+ 321              		@ args = 0, pretend = 0, frame = 0
+ 322              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 12
+
+
+ 323              	.LVL32:
+ 324 0000 38B5     		push	{r3, r4, r5, lr}
+ 325              		.cfi_def_cfa_offset 16
+ 326              		.cfi_offset 3, -16
+ 327              		.cfi_offset 4, -12
+ 328              		.cfi_offset 5, -8
+ 329              		.cfi_offset 14, -4
+ 330 0002 1446     		mov	r4, r2
+ 331 0004 1D46     		mov	r5, r3
+ 166:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Wave2Setup(wavePtr2, sampleSize2);
+ 332              		.loc 1 166 0
+ 333 0006 FFF7FEFF 		bl	WaveGen_Wave1Setup
+ 334              	.LVL33:
+ 167:Generated_Source\PSoC5/WaveGen.c **** 	WaveGen_Start();
+ 335              		.loc 1 167 0
+ 336 000a 2946     		mov	r1, r5
+ 337 000c 2046     		mov	r0, r4
+ 338 000e FFF7FEFF 		bl	WaveGen_Wave2Setup
+ 339              	.LVL34:
+ 168:Generated_Source\PSoC5/WaveGen.c **** }
+ 340              		.loc 1 168 0
+ 341 0012 FFF7FEFF 		bl	WaveGen_Start
+ 342              	.LVL35:
+ 343 0016 38BD     		pop	{r3, r4, r5, pc}
+ 344              		.cfi_endproc
+ 345              	.LFE3:
+ 346              		.size	WaveGen_StartEx, .-WaveGen_StartEx
+ 347              		.global	WaveGen_wave2
+ 348              		.global	WaveGen_wave1
+ 349              		.global	WaveGen_initVar
+ 350              		.section	.rodata
+ 351              		.align	2
+ 352              		.set	.LANCHOR1,. + 0
+ 353              		.type	WaveGen_wave1, %object
+ 354              		.size	WaveGen_wave1, 1000
+ 355              	WaveGen_wave1:
+ 356 0000 80       		.byte	-128
+ 357 0001 80       		.byte	-128
+ 358 0002 81       		.byte	-127
+ 359 0003 82       		.byte	-126
+ 360 0004 83       		.byte	-125
+ 361 0005 83       		.byte	-125
+ 362 0006 84       		.byte	-124
+ 363 0007 85       		.byte	-123
+ 364 0008 86       		.byte	-122
+ 365 0009 87       		.byte	-121
+ 366 000a 87       		.byte	-121
+ 367 000b 88       		.byte	-120
+ 368 000c 89       		.byte	-119
+ 369 000d 8A       		.byte	-118
+ 370 000e 8A       		.byte	-118
+ 371 000f 8B       		.byte	-117
+ 372 0010 8C       		.byte	-116
+ 373 0011 8D       		.byte	-115
+ 374 0012 8E       		.byte	-114
+ 375 0013 8E       		.byte	-114
+ 376 0014 8F       		.byte	-113
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 13
+
+
+ 377 0015 90       		.byte	-112
+ 378 0016 91       		.byte	-111
+ 379 0017 92       		.byte	-110
+ 380 0018 92       		.byte	-110
+ 381 0019 93       		.byte	-109
+ 382 001a 94       		.byte	-108
+ 383 001b 95       		.byte	-107
+ 384 001c 95       		.byte	-107
+ 385 001d 96       		.byte	-106
+ 386 001e 97       		.byte	-105
+ 387 001f 98       		.byte	-104
+ 388 0020 98       		.byte	-104
+ 389 0021 99       		.byte	-103
+ 390 0022 9A       		.byte	-102
+ 391 0023 9B       		.byte	-101
+ 392 0024 9C       		.byte	-100
+ 393 0025 9C       		.byte	-100
+ 394 0026 9D       		.byte	-99
+ 395 0027 9E       		.byte	-98
+ 396 0028 9F       		.byte	-97
+ 397 0029 9F       		.byte	-97
+ 398 002a A0       		.byte	-96
+ 399 002b A1       		.byte	-95
+ 400 002c A2       		.byte	-94
+ 401 002d A2       		.byte	-94
+ 402 002e A3       		.byte	-93
+ 403 002f A4       		.byte	-92
+ 404 0030 A5       		.byte	-91
+ 405 0031 A5       		.byte	-91
+ 406 0032 A6       		.byte	-90
+ 407 0033 A7       		.byte	-89
+ 408 0034 A8       		.byte	-88
+ 409 0035 A8       		.byte	-88
+ 410 0036 A9       		.byte	-87
+ 411 0037 AA       		.byte	-86
+ 412 0038 AB       		.byte	-85
+ 413 0039 AB       		.byte	-85
+ 414 003a AC       		.byte	-84
+ 415 003b AD       		.byte	-83
+ 416 003c AE       		.byte	-82
+ 417 003d AE       		.byte	-82
+ 418 003e AF       		.byte	-81
+ 419 003f B0       		.byte	-80
+ 420 0040 B0       		.byte	-80
+ 421 0041 B1       		.byte	-79
+ 422 0042 B2       		.byte	-78
+ 423 0043 B3       		.byte	-77
+ 424 0044 B3       		.byte	-77
+ 425 0045 B4       		.byte	-76
+ 426 0046 B5       		.byte	-75
+ 427 0047 B5       		.byte	-75
+ 428 0048 B6       		.byte	-74
+ 429 0049 B7       		.byte	-73
+ 430 004a B8       		.byte	-72
+ 431 004b B8       		.byte	-72
+ 432 004c B9       		.byte	-71
+ 433 004d BA       		.byte	-70
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 14
+
+
+ 434 004e BA       		.byte	-70
+ 435 004f BB       		.byte	-69
+ 436 0050 BC       		.byte	-68
+ 437 0051 BC       		.byte	-68
+ 438 0052 BD       		.byte	-67
+ 439 0053 BE       		.byte	-66
+ 440 0054 BE       		.byte	-66
+ 441 0055 BF       		.byte	-65
+ 442 0056 C0       		.byte	-64
+ 443 0057 C0       		.byte	-64
+ 444 0058 C1       		.byte	-63
+ 445 0059 C2       		.byte	-62
+ 446 005a C2       		.byte	-62
+ 447 005b C3       		.byte	-61
+ 448 005c C4       		.byte	-60
+ 449 005d C4       		.byte	-60
+ 450 005e C5       		.byte	-59
+ 451 005f C6       		.byte	-58
+ 452 0060 C6       		.byte	-58
+ 453 0061 C7       		.byte	-57
+ 454 0062 C8       		.byte	-56
+ 455 0063 C8       		.byte	-56
+ 456 0064 C9       		.byte	-55
+ 457 0065 CA       		.byte	-54
+ 458 0066 CA       		.byte	-54
+ 459 0067 CB       		.byte	-53
+ 460 0068 CB       		.byte	-53
+ 461 0069 CC       		.byte	-52
+ 462 006a CD       		.byte	-51
+ 463 006b CD       		.byte	-51
+ 464 006c CE       		.byte	-50
+ 465 006d CF       		.byte	-49
+ 466 006e CF       		.byte	-49
+ 467 006f D0       		.byte	-48
+ 468 0070 D0       		.byte	-48
+ 469 0071 D1       		.byte	-47
+ 470 0072 D2       		.byte	-46
+ 471 0073 D2       		.byte	-46
+ 472 0074 D3       		.byte	-45
+ 473 0075 D3       		.byte	-45
+ 474 0076 D4       		.byte	-44
+ 475 0077 D4       		.byte	-44
+ 476 0078 D5       		.byte	-43
+ 477 0079 D6       		.byte	-42
+ 478 007a D6       		.byte	-42
+ 479 007b D7       		.byte	-41
+ 480 007c D7       		.byte	-41
+ 481 007d D8       		.byte	-40
+ 482 007e D8       		.byte	-40
+ 483 007f D9       		.byte	-39
+ 484 0080 DA       		.byte	-38
+ 485 0081 DA       		.byte	-38
+ 486 0082 DB       		.byte	-37
+ 487 0083 DB       		.byte	-37
+ 488 0084 DC       		.byte	-36
+ 489 0085 DC       		.byte	-36
+ 490 0086 DD       		.byte	-35
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 15
+
+
+ 491 0087 DD       		.byte	-35
+ 492 0088 DE       		.byte	-34
+ 493 0089 DE       		.byte	-34
+ 494 008a DF       		.byte	-33
+ 495 008b DF       		.byte	-33
+ 496 008c E0       		.byte	-32
+ 497 008d E0       		.byte	-32
+ 498 008e E1       		.byte	-31
+ 499 008f E1       		.byte	-31
+ 500 0090 E2       		.byte	-30
+ 501 0091 E2       		.byte	-30
+ 502 0092 E3       		.byte	-29
+ 503 0093 E3       		.byte	-29
+ 504 0094 E4       		.byte	-28
+ 505 0095 E4       		.byte	-28
+ 506 0096 E5       		.byte	-27
+ 507 0097 E5       		.byte	-27
+ 508 0098 E6       		.byte	-26
+ 509 0099 E6       		.byte	-26
+ 510 009a E6       		.byte	-26
+ 511 009b E7       		.byte	-25
+ 512 009c E7       		.byte	-25
+ 513 009d E8       		.byte	-24
+ 514 009e E8       		.byte	-24
+ 515 009f E9       		.byte	-23
+ 516 00a0 E9       		.byte	-23
+ 517 00a1 E9       		.byte	-23
+ 518 00a2 EA       		.byte	-22
+ 519 00a3 EA       		.byte	-22
+ 520 00a4 EB       		.byte	-21
+ 521 00a5 EB       		.byte	-21
+ 522 00a6 EB       		.byte	-21
+ 523 00a7 EC       		.byte	-20
+ 524 00a8 EC       		.byte	-20
+ 525 00a9 ED       		.byte	-19
+ 526 00aa ED       		.byte	-19
+ 527 00ab ED       		.byte	-19
+ 528 00ac EE       		.byte	-18
+ 529 00ad EE       		.byte	-18
+ 530 00ae EF       		.byte	-17
+ 531 00af EF       		.byte	-17
+ 532 00b0 EF       		.byte	-17
+ 533 00b1 F0       		.byte	-16
+ 534 00b2 F0       		.byte	-16
+ 535 00b3 F0       		.byte	-16
+ 536 00b4 F1       		.byte	-15
+ 537 00b5 F1       		.byte	-15
+ 538 00b6 F1       		.byte	-15
+ 539 00b7 F2       		.byte	-14
+ 540 00b8 F2       		.byte	-14
+ 541 00b9 F2       		.byte	-14
+ 542 00ba F3       		.byte	-13
+ 543 00bb F3       		.byte	-13
+ 544 00bc F3       		.byte	-13
+ 545 00bd F3       		.byte	-13
+ 546 00be F4       		.byte	-12
+ 547 00bf F4       		.byte	-12
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 16
+
+
+ 548 00c0 F4       		.byte	-12
+ 549 00c1 F5       		.byte	-11
+ 550 00c2 F5       		.byte	-11
+ 551 00c3 F5       		.byte	-11
+ 552 00c4 F5       		.byte	-11
+ 553 00c5 F6       		.byte	-10
+ 554 00c6 F6       		.byte	-10
+ 555 00c7 F6       		.byte	-10
+ 556 00c8 F6       		.byte	-10
+ 557 00c9 F7       		.byte	-9
+ 558 00ca F7       		.byte	-9
+ 559 00cb F7       		.byte	-9
+ 560 00cc F7       		.byte	-9
+ 561 00cd F8       		.byte	-8
+ 562 00ce F8       		.byte	-8
+ 563 00cf F8       		.byte	-8
+ 564 00d0 F8       		.byte	-8
+ 565 00d1 F8       		.byte	-8
+ 566 00d2 F9       		.byte	-7
+ 567 00d3 F9       		.byte	-7
+ 568 00d4 F9       		.byte	-7
+ 569 00d5 F9       		.byte	-7
+ 570 00d6 F9       		.byte	-7
+ 571 00d7 F9       		.byte	-7
+ 572 00d8 FA       		.byte	-6
+ 573 00d9 FA       		.byte	-6
+ 574 00da FA       		.byte	-6
+ 575 00db FA       		.byte	-6
+ 576 00dc FA       		.byte	-6
+ 577 00dd FA       		.byte	-6
+ 578 00de FB       		.byte	-5
+ 579 00df FB       		.byte	-5
+ 580 00e0 FB       		.byte	-5
+ 581 00e1 FB       		.byte	-5
+ 582 00e2 FB       		.byte	-5
+ 583 00e3 FB       		.byte	-5
+ 584 00e4 FB       		.byte	-5
+ 585 00e5 FB       		.byte	-5
+ 586 00e6 FC       		.byte	-4
+ 587 00e7 FC       		.byte	-4
+ 588 00e8 FC       		.byte	-4
+ 589 00e9 FC       		.byte	-4
+ 590 00ea FC       		.byte	-4
+ 591 00eb FC       		.byte	-4
+ 592 00ec FC       		.byte	-4
+ 593 00ed FC       		.byte	-4
+ 594 00ee FC       		.byte	-4
+ 595 00ef FC       		.byte	-4
+ 596 00f0 FC       		.byte	-4
+ 597 00f1 FC       		.byte	-4
+ 598 00f2 FC       		.byte	-4
+ 599 00f3 FC       		.byte	-4
+ 600 00f4 FC       		.byte	-4
+ 601 00f5 FC       		.byte	-4
+ 602 00f6 FC       		.byte	-4
+ 603 00f7 FC       		.byte	-4
+ 604 00f8 FC       		.byte	-4
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 17
+
+
+ 605 00f9 FC       		.byte	-4
+ 606 00fa FC       		.byte	-4
+ 607 00fb FC       		.byte	-4
+ 608 00fc FC       		.byte	-4
+ 609 00fd FC       		.byte	-4
+ 610 00fe FC       		.byte	-4
+ 611 00ff FC       		.byte	-4
+ 612 0100 FC       		.byte	-4
+ 613 0101 FC       		.byte	-4
+ 614 0102 FC       		.byte	-4
+ 615 0103 FC       		.byte	-4
+ 616 0104 FC       		.byte	-4
+ 617 0105 FC       		.byte	-4
+ 618 0106 FC       		.byte	-4
+ 619 0107 FC       		.byte	-4
+ 620 0108 FC       		.byte	-4
+ 621 0109 FC       		.byte	-4
+ 622 010a FC       		.byte	-4
+ 623 010b FC       		.byte	-4
+ 624 010c FC       		.byte	-4
+ 625 010d FC       		.byte	-4
+ 626 010e FC       		.byte	-4
+ 627 010f FB       		.byte	-5
+ 628 0110 FB       		.byte	-5
+ 629 0111 FB       		.byte	-5
+ 630 0112 FB       		.byte	-5
+ 631 0113 FB       		.byte	-5
+ 632 0114 FB       		.byte	-5
+ 633 0115 FB       		.byte	-5
+ 634 0116 FB       		.byte	-5
+ 635 0117 FA       		.byte	-6
+ 636 0118 FA       		.byte	-6
+ 637 0119 FA       		.byte	-6
+ 638 011a FA       		.byte	-6
+ 639 011b FA       		.byte	-6
+ 640 011c FA       		.byte	-6
+ 641 011d F9       		.byte	-7
+ 642 011e F9       		.byte	-7
+ 643 011f F9       		.byte	-7
+ 644 0120 F9       		.byte	-7
+ 645 0121 F9       		.byte	-7
+ 646 0122 F9       		.byte	-7
+ 647 0123 F8       		.byte	-8
+ 648 0124 F8       		.byte	-8
+ 649 0125 F8       		.byte	-8
+ 650 0126 F8       		.byte	-8
+ 651 0127 F8       		.byte	-8
+ 652 0128 F7       		.byte	-9
+ 653 0129 F7       		.byte	-9
+ 654 012a F7       		.byte	-9
+ 655 012b F7       		.byte	-9
+ 656 012c F6       		.byte	-10
+ 657 012d F6       		.byte	-10
+ 658 012e F6       		.byte	-10
+ 659 012f F6       		.byte	-10
+ 660 0130 F5       		.byte	-11
+ 661 0131 F5       		.byte	-11
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 18
+
+
+ 662 0132 F5       		.byte	-11
+ 663 0133 F5       		.byte	-11
+ 664 0134 F4       		.byte	-12
+ 665 0135 F4       		.byte	-12
+ 666 0136 F4       		.byte	-12
+ 667 0137 F3       		.byte	-13
+ 668 0138 F3       		.byte	-13
+ 669 0139 F3       		.byte	-13
+ 670 013a F3       		.byte	-13
+ 671 013b F2       		.byte	-14
+ 672 013c F2       		.byte	-14
+ 673 013d F2       		.byte	-14
+ 674 013e F1       		.byte	-15
+ 675 013f F1       		.byte	-15
+ 676 0140 F1       		.byte	-15
+ 677 0141 F0       		.byte	-16
+ 678 0142 F0       		.byte	-16
+ 679 0143 F0       		.byte	-16
+ 680 0144 EF       		.byte	-17
+ 681 0145 EF       		.byte	-17
+ 682 0146 EF       		.byte	-17
+ 683 0147 EE       		.byte	-18
+ 684 0148 EE       		.byte	-18
+ 685 0149 ED       		.byte	-19
+ 686 014a ED       		.byte	-19
+ 687 014b ED       		.byte	-19
+ 688 014c EC       		.byte	-20
+ 689 014d EC       		.byte	-20
+ 690 014e EB       		.byte	-21
+ 691 014f EB       		.byte	-21
+ 692 0150 EB       		.byte	-21
+ 693 0151 EA       		.byte	-22
+ 694 0152 EA       		.byte	-22
+ 695 0153 E9       		.byte	-23
+ 696 0154 E9       		.byte	-23
+ 697 0155 E9       		.byte	-23
+ 698 0156 E8       		.byte	-24
+ 699 0157 E8       		.byte	-24
+ 700 0158 E7       		.byte	-25
+ 701 0159 E7       		.byte	-25
+ 702 015a E6       		.byte	-26
+ 703 015b E6       		.byte	-26
+ 704 015c E6       		.byte	-26
+ 705 015d E5       		.byte	-27
+ 706 015e E5       		.byte	-27
+ 707 015f E4       		.byte	-28
+ 708 0160 E4       		.byte	-28
+ 709 0161 E3       		.byte	-29
+ 710 0162 E3       		.byte	-29
+ 711 0163 E2       		.byte	-30
+ 712 0164 E2       		.byte	-30
+ 713 0165 E1       		.byte	-31
+ 714 0166 E1       		.byte	-31
+ 715 0167 E0       		.byte	-32
+ 716 0168 E0       		.byte	-32
+ 717 0169 DF       		.byte	-33
+ 718 016a DF       		.byte	-33
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 19
+
+
+ 719 016b DE       		.byte	-34
+ 720 016c DE       		.byte	-34
+ 721 016d DD       		.byte	-35
+ 722 016e DD       		.byte	-35
+ 723 016f DC       		.byte	-36
+ 724 0170 DC       		.byte	-36
+ 725 0171 DB       		.byte	-37
+ 726 0172 DB       		.byte	-37
+ 727 0173 DA       		.byte	-38
+ 728 0174 DA       		.byte	-38
+ 729 0175 D9       		.byte	-39
+ 730 0176 D8       		.byte	-40
+ 731 0177 D8       		.byte	-40
+ 732 0178 D7       		.byte	-41
+ 733 0179 D7       		.byte	-41
+ 734 017a D6       		.byte	-42
+ 735 017b D6       		.byte	-42
+ 736 017c D5       		.byte	-43
+ 737 017d D4       		.byte	-44
+ 738 017e D4       		.byte	-44
+ 739 017f D3       		.byte	-45
+ 740 0180 D3       		.byte	-45
+ 741 0181 D2       		.byte	-46
+ 742 0182 D2       		.byte	-46
+ 743 0183 D1       		.byte	-47
+ 744 0184 D0       		.byte	-48
+ 745 0185 D0       		.byte	-48
+ 746 0186 CF       		.byte	-49
+ 747 0187 CF       		.byte	-49
+ 748 0188 CE       		.byte	-50
+ 749 0189 CD       		.byte	-51
+ 750 018a CD       		.byte	-51
+ 751 018b CC       		.byte	-52
+ 752 018c CB       		.byte	-53
+ 753 018d CB       		.byte	-53
+ 754 018e CA       		.byte	-54
+ 755 018f CA       		.byte	-54
+ 756 0190 C9       		.byte	-55
+ 757 0191 C8       		.byte	-56
+ 758 0192 C8       		.byte	-56
+ 759 0193 C7       		.byte	-57
+ 760 0194 C6       		.byte	-58
+ 761 0195 C6       		.byte	-58
+ 762 0196 C5       		.byte	-59
+ 763 0197 C4       		.byte	-60
+ 764 0198 C4       		.byte	-60
+ 765 0199 C3       		.byte	-61
+ 766 019a C2       		.byte	-62
+ 767 019b C2       		.byte	-62
+ 768 019c C1       		.byte	-63
+ 769 019d C0       		.byte	-64
+ 770 019e C0       		.byte	-64
+ 771 019f BF       		.byte	-65
+ 772 01a0 BE       		.byte	-66
+ 773 01a1 BE       		.byte	-66
+ 774 01a2 BD       		.byte	-67
+ 775 01a3 BC       		.byte	-68
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 20
+
+
+ 776 01a4 BC       		.byte	-68
+ 777 01a5 BB       		.byte	-69
+ 778 01a6 BA       		.byte	-70
+ 779 01a7 BA       		.byte	-70
+ 780 01a8 B9       		.byte	-71
+ 781 01a9 B8       		.byte	-72
+ 782 01aa B8       		.byte	-72
+ 783 01ab B7       		.byte	-73
+ 784 01ac B6       		.byte	-74
+ 785 01ad B5       		.byte	-75
+ 786 01ae B5       		.byte	-75
+ 787 01af B4       		.byte	-76
+ 788 01b0 B3       		.byte	-77
+ 789 01b1 B3       		.byte	-77
+ 790 01b2 B2       		.byte	-78
+ 791 01b3 B1       		.byte	-79
+ 792 01b4 B0       		.byte	-80
+ 793 01b5 B0       		.byte	-80
+ 794 01b6 AF       		.byte	-81
+ 795 01b7 AE       		.byte	-82
+ 796 01b8 AE       		.byte	-82
+ 797 01b9 AD       		.byte	-83
+ 798 01ba AC       		.byte	-84
+ 799 01bb AB       		.byte	-85
+ 800 01bc AB       		.byte	-85
+ 801 01bd AA       		.byte	-86
+ 802 01be A9       		.byte	-87
+ 803 01bf A8       		.byte	-88
+ 804 01c0 A8       		.byte	-88
+ 805 01c1 A7       		.byte	-89
+ 806 01c2 A6       		.byte	-90
+ 807 01c3 A5       		.byte	-91
+ 808 01c4 A5       		.byte	-91
+ 809 01c5 A4       		.byte	-92
+ 810 01c6 A3       		.byte	-93
+ 811 01c7 A2       		.byte	-94
+ 812 01c8 A2       		.byte	-94
+ 813 01c9 A1       		.byte	-95
+ 814 01ca A0       		.byte	-96
+ 815 01cb 9F       		.byte	-97
+ 816 01cc 9F       		.byte	-97
+ 817 01cd 9E       		.byte	-98
+ 818 01ce 9D       		.byte	-99
+ 819 01cf 9C       		.byte	-100
+ 820 01d0 9C       		.byte	-100
+ 821 01d1 9B       		.byte	-101
+ 822 01d2 9A       		.byte	-102
+ 823 01d3 99       		.byte	-103
+ 824 01d4 98       		.byte	-104
+ 825 01d5 98       		.byte	-104
+ 826 01d6 97       		.byte	-105
+ 827 01d7 96       		.byte	-106
+ 828 01d8 95       		.byte	-107
+ 829 01d9 95       		.byte	-107
+ 830 01da 94       		.byte	-108
+ 831 01db 93       		.byte	-109
+ 832 01dc 92       		.byte	-110
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 21
+
+
+ 833 01dd 92       		.byte	-110
+ 834 01de 91       		.byte	-111
+ 835 01df 90       		.byte	-112
+ 836 01e0 8F       		.byte	-113
+ 837 01e1 8E       		.byte	-114
+ 838 01e2 8E       		.byte	-114
+ 839 01e3 8D       		.byte	-115
+ 840 01e4 8C       		.byte	-116
+ 841 01e5 8B       		.byte	-117
+ 842 01e6 8A       		.byte	-118
+ 843 01e7 8A       		.byte	-118
+ 844 01e8 89       		.byte	-119
+ 845 01e9 88       		.byte	-120
+ 846 01ea 87       		.byte	-121
+ 847 01eb 87       		.byte	-121
+ 848 01ec 86       		.byte	-122
+ 849 01ed 85       		.byte	-123
+ 850 01ee 84       		.byte	-124
+ 851 01ef 83       		.byte	-125
+ 852 01f0 83       		.byte	-125
+ 853 01f1 82       		.byte	-126
+ 854 01f2 81       		.byte	-127
+ 855 01f3 80       		.byte	-128
+ 856 01f4 80       		.byte	-128
+ 857 01f5 7F       		.byte	127
+ 858 01f6 7E       		.byte	126
+ 859 01f7 7D       		.byte	125
+ 860 01f8 7C       		.byte	124
+ 861 01f9 7C       		.byte	124
+ 862 01fa 7B       		.byte	123
+ 863 01fb 7A       		.byte	122
+ 864 01fc 79       		.byte	121
+ 865 01fd 78       		.byte	120
+ 866 01fe 78       		.byte	120
+ 867 01ff 77       		.byte	119
+ 868 0200 76       		.byte	118
+ 869 0201 75       		.byte	117
+ 870 0202 75       		.byte	117
+ 871 0203 74       		.byte	116
+ 872 0204 73       		.byte	115
+ 873 0205 72       		.byte	114
+ 874 0206 71       		.byte	113
+ 875 0207 71       		.byte	113
+ 876 0208 70       		.byte	112
+ 877 0209 6F       		.byte	111
+ 878 020a 6E       		.byte	110
+ 879 020b 6D       		.byte	109
+ 880 020c 6D       		.byte	109
+ 881 020d 6C       		.byte	108
+ 882 020e 6B       		.byte	107
+ 883 020f 6A       		.byte	106
+ 884 0210 6A       		.byte	106
+ 885 0211 69       		.byte	105
+ 886 0212 68       		.byte	104
+ 887 0213 67       		.byte	103
+ 888 0214 67       		.byte	103
+ 889 0215 66       		.byte	102
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 22
+
+
+ 890 0216 65       		.byte	101
+ 891 0217 64       		.byte	100
+ 892 0218 63       		.byte	99
+ 893 0219 63       		.byte	99
+ 894 021a 62       		.byte	98
+ 895 021b 61       		.byte	97
+ 896 021c 60       		.byte	96
+ 897 021d 60       		.byte	96
+ 898 021e 5F       		.byte	95
+ 899 021f 5E       		.byte	94
+ 900 0220 5D       		.byte	93
+ 901 0221 5D       		.byte	93
+ 902 0222 5C       		.byte	92
+ 903 0223 5B       		.byte	91
+ 904 0224 5A       		.byte	90
+ 905 0225 5A       		.byte	90
+ 906 0226 59       		.byte	89
+ 907 0227 58       		.byte	88
+ 908 0228 57       		.byte	87
+ 909 0229 57       		.byte	87
+ 910 022a 56       		.byte	86
+ 911 022b 55       		.byte	85
+ 912 022c 54       		.byte	84
+ 913 022d 54       		.byte	84
+ 914 022e 53       		.byte	83
+ 915 022f 52       		.byte	82
+ 916 0230 51       		.byte	81
+ 917 0231 51       		.byte	81
+ 918 0232 50       		.byte	80
+ 919 0233 4F       		.byte	79
+ 920 0234 4F       		.byte	79
+ 921 0235 4E       		.byte	78
+ 922 0236 4D       		.byte	77
+ 923 0237 4C       		.byte	76
+ 924 0238 4C       		.byte	76
+ 925 0239 4B       		.byte	75
+ 926 023a 4A       		.byte	74
+ 927 023b 4A       		.byte	74
+ 928 023c 49       		.byte	73
+ 929 023d 48       		.byte	72
+ 930 023e 47       		.byte	71
+ 931 023f 47       		.byte	71
+ 932 0240 46       		.byte	70
+ 933 0241 45       		.byte	69
+ 934 0242 45       		.byte	69
+ 935 0243 44       		.byte	68
+ 936 0244 43       		.byte	67
+ 937 0245 43       		.byte	67
+ 938 0246 42       		.byte	66
+ 939 0247 41       		.byte	65
+ 940 0248 41       		.byte	65
+ 941 0249 40       		.byte	64
+ 942 024a 3F       		.byte	63
+ 943 024b 3F       		.byte	63
+ 944 024c 3E       		.byte	62
+ 945 024d 3D       		.byte	61
+ 946 024e 3D       		.byte	61
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 23
+
+
+ 947 024f 3C       		.byte	60
+ 948 0250 3B       		.byte	59
+ 949 0251 3B       		.byte	59
+ 950 0252 3A       		.byte	58
+ 951 0253 39       		.byte	57
+ 952 0254 39       		.byte	57
+ 953 0255 38       		.byte	56
+ 954 0256 37       		.byte	55
+ 955 0257 37       		.byte	55
+ 956 0258 36       		.byte	54
+ 957 0259 35       		.byte	53
+ 958 025a 35       		.byte	53
+ 959 025b 34       		.byte	52
+ 960 025c 34       		.byte	52
+ 961 025d 33       		.byte	51
+ 962 025e 32       		.byte	50
+ 963 025f 32       		.byte	50
+ 964 0260 31       		.byte	49
+ 965 0261 30       		.byte	48
+ 966 0262 30       		.byte	48
+ 967 0263 2F       		.byte	47
+ 968 0264 2F       		.byte	47
+ 969 0265 2E       		.byte	46
+ 970 0266 2D       		.byte	45
+ 971 0267 2D       		.byte	45
+ 972 0268 2C       		.byte	44
+ 973 0269 2C       		.byte	44
+ 974 026a 2B       		.byte	43
+ 975 026b 2B       		.byte	43
+ 976 026c 2A       		.byte	42
+ 977 026d 29       		.byte	41
+ 978 026e 29       		.byte	41
+ 979 026f 28       		.byte	40
+ 980 0270 28       		.byte	40
+ 981 0271 27       		.byte	39
+ 982 0272 27       		.byte	39
+ 983 0273 26       		.byte	38
+ 984 0274 25       		.byte	37
+ 985 0275 25       		.byte	37
+ 986 0276 24       		.byte	36
+ 987 0277 24       		.byte	36
+ 988 0278 23       		.byte	35
+ 989 0279 23       		.byte	35
+ 990 027a 22       		.byte	34
+ 991 027b 22       		.byte	34
+ 992 027c 21       		.byte	33
+ 993 027d 21       		.byte	33
+ 994 027e 20       		.byte	32
+ 995 027f 20       		.byte	32
+ 996 0280 1F       		.byte	31
+ 997 0281 1F       		.byte	31
+ 998 0282 1E       		.byte	30
+ 999 0283 1E       		.byte	30
+ 1000 0284 1D       		.byte	29
+ 1001 0285 1D       		.byte	29
+ 1002 0286 1C       		.byte	28
+ 1003 0287 1C       		.byte	28
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 24
+
+
+ 1004 0288 1B       		.byte	27
+ 1005 0289 1B       		.byte	27
+ 1006 028a 1A       		.byte	26
+ 1007 028b 1A       		.byte	26
+ 1008 028c 19       		.byte	25
+ 1009 028d 19       		.byte	25
+ 1010 028e 19       		.byte	25
+ 1011 028f 18       		.byte	24
+ 1012 0290 18       		.byte	24
+ 1013 0291 17       		.byte	23
+ 1014 0292 17       		.byte	23
+ 1015 0293 16       		.byte	22
+ 1016 0294 16       		.byte	22
+ 1017 0295 16       		.byte	22
+ 1018 0296 15       		.byte	21
+ 1019 0297 15       		.byte	21
+ 1020 0298 14       		.byte	20
+ 1021 0299 14       		.byte	20
+ 1022 029a 14       		.byte	20
+ 1023 029b 13       		.byte	19
+ 1024 029c 13       		.byte	19
+ 1025 029d 12       		.byte	18
+ 1026 029e 12       		.byte	18
+ 1027 029f 12       		.byte	18
+ 1028 02a0 11       		.byte	17
+ 1029 02a1 11       		.byte	17
+ 1030 02a2 10       		.byte	16
+ 1031 02a3 10       		.byte	16
+ 1032 02a4 10       		.byte	16
+ 1033 02a5 0F       		.byte	15
+ 1034 02a6 0F       		.byte	15
+ 1035 02a7 0F       		.byte	15
+ 1036 02a8 0E       		.byte	14
+ 1037 02a9 0E       		.byte	14
+ 1038 02aa 0E       		.byte	14
+ 1039 02ab 0D       		.byte	13
+ 1040 02ac 0D       		.byte	13
+ 1041 02ad 0D       		.byte	13
+ 1042 02ae 0C       		.byte	12
+ 1043 02af 0C       		.byte	12
+ 1044 02b0 0C       		.byte	12
+ 1045 02b1 0C       		.byte	12
+ 1046 02b2 0B       		.byte	11
+ 1047 02b3 0B       		.byte	11
+ 1048 02b4 0B       		.byte	11
+ 1049 02b5 0A       		.byte	10
+ 1050 02b6 0A       		.byte	10
+ 1051 02b7 0A       		.byte	10
+ 1052 02b8 0A       		.byte	10
+ 1053 02b9 09       		.byte	9
+ 1054 02ba 09       		.byte	9
+ 1055 02bb 09       		.byte	9
+ 1056 02bc 09       		.byte	9
+ 1057 02bd 08       		.byte	8
+ 1058 02be 08       		.byte	8
+ 1059 02bf 08       		.byte	8
+ 1060 02c0 08       		.byte	8
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 25
+
+
+ 1061 02c1 07       		.byte	7
+ 1062 02c2 07       		.byte	7
+ 1063 02c3 07       		.byte	7
+ 1064 02c4 07       		.byte	7
+ 1065 02c5 07       		.byte	7
+ 1066 02c6 06       		.byte	6
+ 1067 02c7 06       		.byte	6
+ 1068 02c8 06       		.byte	6
+ 1069 02c9 06       		.byte	6
+ 1070 02ca 06       		.byte	6
+ 1071 02cb 06       		.byte	6
+ 1072 02cc 05       		.byte	5
+ 1073 02cd 05       		.byte	5
+ 1074 02ce 05       		.byte	5
+ 1075 02cf 05       		.byte	5
+ 1076 02d0 05       		.byte	5
+ 1077 02d1 05       		.byte	5
+ 1078 02d2 04       		.byte	4
+ 1079 02d3 04       		.byte	4
+ 1080 02d4 04       		.byte	4
+ 1081 02d5 04       		.byte	4
+ 1082 02d6 04       		.byte	4
+ 1083 02d7 04       		.byte	4
+ 1084 02d8 04       		.byte	4
+ 1085 02d9 04       		.byte	4
+ 1086 02da 03       		.byte	3
+ 1087 02db 03       		.byte	3
+ 1088 02dc 03       		.byte	3
+ 1089 02dd 03       		.byte	3
+ 1090 02de 03       		.byte	3
+ 1091 02df 03       		.byte	3
+ 1092 02e0 03       		.byte	3
+ 1093 02e1 03       		.byte	3
+ 1094 02e2 03       		.byte	3
+ 1095 02e3 03       		.byte	3
+ 1096 02e4 03       		.byte	3
+ 1097 02e5 03       		.byte	3
+ 1098 02e6 03       		.byte	3
+ 1099 02e7 03       		.byte	3
+ 1100 02e8 03       		.byte	3
+ 1101 02e9 03       		.byte	3
+ 1102 02ea 03       		.byte	3
+ 1103 02eb 03       		.byte	3
+ 1104 02ec 03       		.byte	3
+ 1105 02ed 03       		.byte	3
+ 1106 02ee 03       		.byte	3
+ 1107 02ef 03       		.byte	3
+ 1108 02f0 03       		.byte	3
+ 1109 02f1 03       		.byte	3
+ 1110 02f2 03       		.byte	3
+ 1111 02f3 03       		.byte	3
+ 1112 02f4 03       		.byte	3
+ 1113 02f5 03       		.byte	3
+ 1114 02f6 03       		.byte	3
+ 1115 02f7 03       		.byte	3
+ 1116 02f8 03       		.byte	3
+ 1117 02f9 03       		.byte	3
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 26
+
+
+ 1118 02fa 03       		.byte	3
+ 1119 02fb 03       		.byte	3
+ 1120 02fc 03       		.byte	3
+ 1121 02fd 03       		.byte	3
+ 1122 02fe 03       		.byte	3
+ 1123 02ff 03       		.byte	3
+ 1124 0300 03       		.byte	3
+ 1125 0301 03       		.byte	3
+ 1126 0302 03       		.byte	3
+ 1127 0303 04       		.byte	4
+ 1128 0304 04       		.byte	4
+ 1129 0305 04       		.byte	4
+ 1130 0306 04       		.byte	4
+ 1131 0307 04       		.byte	4
+ 1132 0308 04       		.byte	4
+ 1133 0309 04       		.byte	4
+ 1134 030a 04       		.byte	4
+ 1135 030b 05       		.byte	5
+ 1136 030c 05       		.byte	5
+ 1137 030d 05       		.byte	5
+ 1138 030e 05       		.byte	5
+ 1139 030f 05       		.byte	5
+ 1140 0310 05       		.byte	5
+ 1141 0311 06       		.byte	6
+ 1142 0312 06       		.byte	6
+ 1143 0313 06       		.byte	6
+ 1144 0314 06       		.byte	6
+ 1145 0315 06       		.byte	6
+ 1146 0316 06       		.byte	6
+ 1147 0317 07       		.byte	7
+ 1148 0318 07       		.byte	7
+ 1149 0319 07       		.byte	7
+ 1150 031a 07       		.byte	7
+ 1151 031b 07       		.byte	7
+ 1152 031c 08       		.byte	8
+ 1153 031d 08       		.byte	8
+ 1154 031e 08       		.byte	8
+ 1155 031f 08       		.byte	8
+ 1156 0320 09       		.byte	9
+ 1157 0321 09       		.byte	9
+ 1158 0322 09       		.byte	9
+ 1159 0323 09       		.byte	9
+ 1160 0324 0A       		.byte	10
+ 1161 0325 0A       		.byte	10
+ 1162 0326 0A       		.byte	10
+ 1163 0327 0A       		.byte	10
+ 1164 0328 0B       		.byte	11
+ 1165 0329 0B       		.byte	11
+ 1166 032a 0B       		.byte	11
+ 1167 032b 0C       		.byte	12
+ 1168 032c 0C       		.byte	12
+ 1169 032d 0C       		.byte	12
+ 1170 032e 0C       		.byte	12
+ 1171 032f 0D       		.byte	13
+ 1172 0330 0D       		.byte	13
+ 1173 0331 0D       		.byte	13
+ 1174 0332 0E       		.byte	14
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 27
+
+
+ 1175 0333 0E       		.byte	14
+ 1176 0334 0E       		.byte	14
+ 1177 0335 0F       		.byte	15
+ 1178 0336 0F       		.byte	15
+ 1179 0337 0F       		.byte	15
+ 1180 0338 10       		.byte	16
+ 1181 0339 10       		.byte	16
+ 1182 033a 10       		.byte	16
+ 1183 033b 11       		.byte	17
+ 1184 033c 11       		.byte	17
+ 1185 033d 12       		.byte	18
+ 1186 033e 12       		.byte	18
+ 1187 033f 12       		.byte	18
+ 1188 0340 13       		.byte	19
+ 1189 0341 13       		.byte	19
+ 1190 0342 14       		.byte	20
+ 1191 0343 14       		.byte	20
+ 1192 0344 14       		.byte	20
+ 1193 0345 15       		.byte	21
+ 1194 0346 15       		.byte	21
+ 1195 0347 16       		.byte	22
+ 1196 0348 16       		.byte	22
+ 1197 0349 16       		.byte	22
+ 1198 034a 17       		.byte	23
+ 1199 034b 17       		.byte	23
+ 1200 034c 18       		.byte	24
+ 1201 034d 18       		.byte	24
+ 1202 034e 19       		.byte	25
+ 1203 034f 19       		.byte	25
+ 1204 0350 19       		.byte	25
+ 1205 0351 1A       		.byte	26
+ 1206 0352 1A       		.byte	26
+ 1207 0353 1B       		.byte	27
+ 1208 0354 1B       		.byte	27
+ 1209 0355 1C       		.byte	28
+ 1210 0356 1C       		.byte	28
+ 1211 0357 1D       		.byte	29
+ 1212 0358 1D       		.byte	29
+ 1213 0359 1E       		.byte	30
+ 1214 035a 1E       		.byte	30
+ 1215 035b 1F       		.byte	31
+ 1216 035c 1F       		.byte	31
+ 1217 035d 20       		.byte	32
+ 1218 035e 20       		.byte	32
+ 1219 035f 21       		.byte	33
+ 1220 0360 21       		.byte	33
+ 1221 0361 22       		.byte	34
+ 1222 0362 22       		.byte	34
+ 1223 0363 23       		.byte	35
+ 1224 0364 23       		.byte	35
+ 1225 0365 24       		.byte	36
+ 1226 0366 24       		.byte	36
+ 1227 0367 25       		.byte	37
+ 1228 0368 25       		.byte	37
+ 1229 0369 26       		.byte	38
+ 1230 036a 27       		.byte	39
+ 1231 036b 27       		.byte	39
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 28
+
+
+ 1232 036c 28       		.byte	40
+ 1233 036d 28       		.byte	40
+ 1234 036e 29       		.byte	41
+ 1235 036f 29       		.byte	41
+ 1236 0370 2A       		.byte	42
+ 1237 0371 2B       		.byte	43
+ 1238 0372 2B       		.byte	43
+ 1239 0373 2C       		.byte	44
+ 1240 0374 2C       		.byte	44
+ 1241 0375 2D       		.byte	45
+ 1242 0376 2D       		.byte	45
+ 1243 0377 2E       		.byte	46
+ 1244 0378 2F       		.byte	47
+ 1245 0379 2F       		.byte	47
+ 1246 037a 30       		.byte	48
+ 1247 037b 30       		.byte	48
+ 1248 037c 31       		.byte	49
+ 1249 037d 32       		.byte	50
+ 1250 037e 32       		.byte	50
+ 1251 037f 33       		.byte	51
+ 1252 0380 34       		.byte	52
+ 1253 0381 34       		.byte	52
+ 1254 0382 35       		.byte	53
+ 1255 0383 35       		.byte	53
+ 1256 0384 36       		.byte	54
+ 1257 0385 37       		.byte	55
+ 1258 0386 37       		.byte	55
+ 1259 0387 38       		.byte	56
+ 1260 0388 39       		.byte	57
+ 1261 0389 39       		.byte	57
+ 1262 038a 3A       		.byte	58
+ 1263 038b 3B       		.byte	59
+ 1264 038c 3B       		.byte	59
+ 1265 038d 3C       		.byte	60
+ 1266 038e 3D       		.byte	61
+ 1267 038f 3D       		.byte	61
+ 1268 0390 3E       		.byte	62
+ 1269 0391 3F       		.byte	63
+ 1270 0392 3F       		.byte	63
+ 1271 0393 40       		.byte	64
+ 1272 0394 41       		.byte	65
+ 1273 0395 41       		.byte	65
+ 1274 0396 42       		.byte	66
+ 1275 0397 43       		.byte	67
+ 1276 0398 43       		.byte	67
+ 1277 0399 44       		.byte	68
+ 1278 039a 45       		.byte	69
+ 1279 039b 45       		.byte	69
+ 1280 039c 46       		.byte	70
+ 1281 039d 47       		.byte	71
+ 1282 039e 47       		.byte	71
+ 1283 039f 48       		.byte	72
+ 1284 03a0 49       		.byte	73
+ 1285 03a1 4A       		.byte	74
+ 1286 03a2 4A       		.byte	74
+ 1287 03a3 4B       		.byte	75
+ 1288 03a4 4C       		.byte	76
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 29
+
+
+ 1289 03a5 4C       		.byte	76
+ 1290 03a6 4D       		.byte	77
+ 1291 03a7 4E       		.byte	78
+ 1292 03a8 4F       		.byte	79
+ 1293 03a9 4F       		.byte	79
+ 1294 03aa 50       		.byte	80
+ 1295 03ab 51       		.byte	81
+ 1296 03ac 51       		.byte	81
+ 1297 03ad 52       		.byte	82
+ 1298 03ae 53       		.byte	83
+ 1299 03af 54       		.byte	84
+ 1300 03b0 54       		.byte	84
+ 1301 03b1 55       		.byte	85
+ 1302 03b2 56       		.byte	86
+ 1303 03b3 57       		.byte	87
+ 1304 03b4 57       		.byte	87
+ 1305 03b5 58       		.byte	88
+ 1306 03b6 59       		.byte	89
+ 1307 03b7 5A       		.byte	90
+ 1308 03b8 5A       		.byte	90
+ 1309 03b9 5B       		.byte	91
+ 1310 03ba 5C       		.byte	92
+ 1311 03bb 5D       		.byte	93
+ 1312 03bc 5D       		.byte	93
+ 1313 03bd 5E       		.byte	94
+ 1314 03be 5F       		.byte	95
+ 1315 03bf 60       		.byte	96
+ 1316 03c0 60       		.byte	96
+ 1317 03c1 61       		.byte	97
+ 1318 03c2 62       		.byte	98
+ 1319 03c3 63       		.byte	99
+ 1320 03c4 63       		.byte	99
+ 1321 03c5 64       		.byte	100
+ 1322 03c6 65       		.byte	101
+ 1323 03c7 66       		.byte	102
+ 1324 03c8 67       		.byte	103
+ 1325 03c9 67       		.byte	103
+ 1326 03ca 68       		.byte	104
+ 1327 03cb 69       		.byte	105
+ 1328 03cc 6A       		.byte	106
+ 1329 03cd 6A       		.byte	106
+ 1330 03ce 6B       		.byte	107
+ 1331 03cf 6C       		.byte	108
+ 1332 03d0 6D       		.byte	109
+ 1333 03d1 6D       		.byte	109
+ 1334 03d2 6E       		.byte	110
+ 1335 03d3 6F       		.byte	111
+ 1336 03d4 70       		.byte	112
+ 1337 03d5 71       		.byte	113
+ 1338 03d6 71       		.byte	113
+ 1339 03d7 72       		.byte	114
+ 1340 03d8 73       		.byte	115
+ 1341 03d9 74       		.byte	116
+ 1342 03da 75       		.byte	117
+ 1343 03db 75       		.byte	117
+ 1344 03dc 76       		.byte	118
+ 1345 03dd 77       		.byte	119
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 30
+
+
+ 1346 03de 78       		.byte	120
+ 1347 03df 78       		.byte	120
+ 1348 03e0 79       		.byte	121
+ 1349 03e1 7A       		.byte	122
+ 1350 03e2 7B       		.byte	123
+ 1351 03e3 7C       		.byte	124
+ 1352 03e4 7C       		.byte	124
+ 1353 03e5 7D       		.byte	125
+ 1354 03e6 7E       		.byte	126
+ 1355 03e7 7F       		.byte	127
+ 1356              		.type	WaveGen_wave2, %object
+ 1357              		.size	WaveGen_wave2, 1000
+ 1358              	WaveGen_wave2:
+ 1359 03e8 80       		.byte	-128
+ 1360 03e9 80       		.byte	-128
+ 1361 03ea 81       		.byte	-127
+ 1362 03eb 82       		.byte	-126
+ 1363 03ec 83       		.byte	-125
+ 1364 03ed 83       		.byte	-125
+ 1365 03ee 84       		.byte	-124
+ 1366 03ef 85       		.byte	-123
+ 1367 03f0 86       		.byte	-122
+ 1368 03f1 87       		.byte	-121
+ 1369 03f2 87       		.byte	-121
+ 1370 03f3 88       		.byte	-120
+ 1371 03f4 89       		.byte	-119
+ 1372 03f5 8A       		.byte	-118
+ 1373 03f6 8A       		.byte	-118
+ 1374 03f7 8B       		.byte	-117
+ 1375 03f8 8C       		.byte	-116
+ 1376 03f9 8D       		.byte	-115
+ 1377 03fa 8E       		.byte	-114
+ 1378 03fb 8E       		.byte	-114
+ 1379 03fc 8F       		.byte	-113
+ 1380 03fd 90       		.byte	-112
+ 1381 03fe 91       		.byte	-111
+ 1382 03ff 92       		.byte	-110
+ 1383 0400 92       		.byte	-110
+ 1384 0401 93       		.byte	-109
+ 1385 0402 94       		.byte	-108
+ 1386 0403 95       		.byte	-107
+ 1387 0404 95       		.byte	-107
+ 1388 0405 96       		.byte	-106
+ 1389 0406 97       		.byte	-105
+ 1390 0407 98       		.byte	-104
+ 1391 0408 98       		.byte	-104
+ 1392 0409 99       		.byte	-103
+ 1393 040a 9A       		.byte	-102
+ 1394 040b 9B       		.byte	-101
+ 1395 040c 9C       		.byte	-100
+ 1396 040d 9C       		.byte	-100
+ 1397 040e 9D       		.byte	-99
+ 1398 040f 9E       		.byte	-98
+ 1399 0410 9F       		.byte	-97
+ 1400 0411 9F       		.byte	-97
+ 1401 0412 A0       		.byte	-96
+ 1402 0413 A1       		.byte	-95
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 31
+
+
+ 1403 0414 A2       		.byte	-94
+ 1404 0415 A2       		.byte	-94
+ 1405 0416 A3       		.byte	-93
+ 1406 0417 A4       		.byte	-92
+ 1407 0418 A5       		.byte	-91
+ 1408 0419 A5       		.byte	-91
+ 1409 041a A6       		.byte	-90
+ 1410 041b A7       		.byte	-89
+ 1411 041c A8       		.byte	-88
+ 1412 041d A8       		.byte	-88
+ 1413 041e A9       		.byte	-87
+ 1414 041f AA       		.byte	-86
+ 1415 0420 AB       		.byte	-85
+ 1416 0421 AB       		.byte	-85
+ 1417 0422 AC       		.byte	-84
+ 1418 0423 AD       		.byte	-83
+ 1419 0424 AE       		.byte	-82
+ 1420 0425 AE       		.byte	-82
+ 1421 0426 AF       		.byte	-81
+ 1422 0427 B0       		.byte	-80
+ 1423 0428 B0       		.byte	-80
+ 1424 0429 B1       		.byte	-79
+ 1425 042a B2       		.byte	-78
+ 1426 042b B3       		.byte	-77
+ 1427 042c B3       		.byte	-77
+ 1428 042d B4       		.byte	-76
+ 1429 042e B5       		.byte	-75
+ 1430 042f B5       		.byte	-75
+ 1431 0430 B6       		.byte	-74
+ 1432 0431 B7       		.byte	-73
+ 1433 0432 B8       		.byte	-72
+ 1434 0433 B8       		.byte	-72
+ 1435 0434 B9       		.byte	-71
+ 1436 0435 BA       		.byte	-70
+ 1437 0436 BA       		.byte	-70
+ 1438 0437 BB       		.byte	-69
+ 1439 0438 BC       		.byte	-68
+ 1440 0439 BC       		.byte	-68
+ 1441 043a BD       		.byte	-67
+ 1442 043b BE       		.byte	-66
+ 1443 043c BE       		.byte	-66
+ 1444 043d BF       		.byte	-65
+ 1445 043e C0       		.byte	-64
+ 1446 043f C0       		.byte	-64
+ 1447 0440 C1       		.byte	-63
+ 1448 0441 C2       		.byte	-62
+ 1449 0442 C2       		.byte	-62
+ 1450 0443 C3       		.byte	-61
+ 1451 0444 C4       		.byte	-60
+ 1452 0445 C4       		.byte	-60
+ 1453 0446 C5       		.byte	-59
+ 1454 0447 C6       		.byte	-58
+ 1455 0448 C6       		.byte	-58
+ 1456 0449 C7       		.byte	-57
+ 1457 044a C8       		.byte	-56
+ 1458 044b C8       		.byte	-56
+ 1459 044c C9       		.byte	-55
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 32
+
+
+ 1460 044d CA       		.byte	-54
+ 1461 044e CA       		.byte	-54
+ 1462 044f CB       		.byte	-53
+ 1463 0450 CB       		.byte	-53
+ 1464 0451 CC       		.byte	-52
+ 1465 0452 CD       		.byte	-51
+ 1466 0453 CD       		.byte	-51
+ 1467 0454 CE       		.byte	-50
+ 1468 0455 CF       		.byte	-49
+ 1469 0456 CF       		.byte	-49
+ 1470 0457 D0       		.byte	-48
+ 1471 0458 D0       		.byte	-48
+ 1472 0459 D1       		.byte	-47
+ 1473 045a D2       		.byte	-46
+ 1474 045b D2       		.byte	-46
+ 1475 045c D3       		.byte	-45
+ 1476 045d D3       		.byte	-45
+ 1477 045e D4       		.byte	-44
+ 1478 045f D4       		.byte	-44
+ 1479 0460 D5       		.byte	-43
+ 1480 0461 D6       		.byte	-42
+ 1481 0462 D6       		.byte	-42
+ 1482 0463 D7       		.byte	-41
+ 1483 0464 D7       		.byte	-41
+ 1484 0465 D8       		.byte	-40
+ 1485 0466 D8       		.byte	-40
+ 1486 0467 D9       		.byte	-39
+ 1487 0468 DA       		.byte	-38
+ 1488 0469 DA       		.byte	-38
+ 1489 046a DB       		.byte	-37
+ 1490 046b DB       		.byte	-37
+ 1491 046c DC       		.byte	-36
+ 1492 046d DC       		.byte	-36
+ 1493 046e DD       		.byte	-35
+ 1494 046f DD       		.byte	-35
+ 1495 0470 DE       		.byte	-34
+ 1496 0471 DE       		.byte	-34
+ 1497 0472 DF       		.byte	-33
+ 1498 0473 DF       		.byte	-33
+ 1499 0474 E0       		.byte	-32
+ 1500 0475 E0       		.byte	-32
+ 1501 0476 E1       		.byte	-31
+ 1502 0477 E1       		.byte	-31
+ 1503 0478 E2       		.byte	-30
+ 1504 0479 E2       		.byte	-30
+ 1505 047a E3       		.byte	-29
+ 1506 047b E3       		.byte	-29
+ 1507 047c E4       		.byte	-28
+ 1508 047d E4       		.byte	-28
+ 1509 047e E5       		.byte	-27
+ 1510 047f E5       		.byte	-27
+ 1511 0480 E6       		.byte	-26
+ 1512 0481 E6       		.byte	-26
+ 1513 0482 E6       		.byte	-26
+ 1514 0483 E7       		.byte	-25
+ 1515 0484 E7       		.byte	-25
+ 1516 0485 E8       		.byte	-24
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 33
+
+
+ 1517 0486 E8       		.byte	-24
+ 1518 0487 E9       		.byte	-23
+ 1519 0488 E9       		.byte	-23
+ 1520 0489 E9       		.byte	-23
+ 1521 048a EA       		.byte	-22
+ 1522 048b EA       		.byte	-22
+ 1523 048c EB       		.byte	-21
+ 1524 048d EB       		.byte	-21
+ 1525 048e EB       		.byte	-21
+ 1526 048f EC       		.byte	-20
+ 1527 0490 EC       		.byte	-20
+ 1528 0491 ED       		.byte	-19
+ 1529 0492 ED       		.byte	-19
+ 1530 0493 ED       		.byte	-19
+ 1531 0494 EE       		.byte	-18
+ 1532 0495 EE       		.byte	-18
+ 1533 0496 EF       		.byte	-17
+ 1534 0497 EF       		.byte	-17
+ 1535 0498 EF       		.byte	-17
+ 1536 0499 F0       		.byte	-16
+ 1537 049a F0       		.byte	-16
+ 1538 049b F0       		.byte	-16
+ 1539 049c F1       		.byte	-15
+ 1540 049d F1       		.byte	-15
+ 1541 049e F1       		.byte	-15
+ 1542 049f F2       		.byte	-14
+ 1543 04a0 F2       		.byte	-14
+ 1544 04a1 F2       		.byte	-14
+ 1545 04a2 F3       		.byte	-13
+ 1546 04a3 F3       		.byte	-13
+ 1547 04a4 F3       		.byte	-13
+ 1548 04a5 F3       		.byte	-13
+ 1549 04a6 F4       		.byte	-12
+ 1550 04a7 F4       		.byte	-12
+ 1551 04a8 F4       		.byte	-12
+ 1552 04a9 F5       		.byte	-11
+ 1553 04aa F5       		.byte	-11
+ 1554 04ab F5       		.byte	-11
+ 1555 04ac F5       		.byte	-11
+ 1556 04ad F6       		.byte	-10
+ 1557 04ae F6       		.byte	-10
+ 1558 04af F6       		.byte	-10
+ 1559 04b0 F6       		.byte	-10
+ 1560 04b1 F7       		.byte	-9
+ 1561 04b2 F7       		.byte	-9
+ 1562 04b3 F7       		.byte	-9
+ 1563 04b4 F7       		.byte	-9
+ 1564 04b5 F8       		.byte	-8
+ 1565 04b6 F8       		.byte	-8
+ 1566 04b7 F8       		.byte	-8
+ 1567 04b8 F8       		.byte	-8
+ 1568 04b9 F8       		.byte	-8
+ 1569 04ba F9       		.byte	-7
+ 1570 04bb F9       		.byte	-7
+ 1571 04bc F9       		.byte	-7
+ 1572 04bd F9       		.byte	-7
+ 1573 04be F9       		.byte	-7
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 34
+
+
+ 1574 04bf F9       		.byte	-7
+ 1575 04c0 FA       		.byte	-6
+ 1576 04c1 FA       		.byte	-6
+ 1577 04c2 FA       		.byte	-6
+ 1578 04c3 FA       		.byte	-6
+ 1579 04c4 FA       		.byte	-6
+ 1580 04c5 FA       		.byte	-6
+ 1581 04c6 FB       		.byte	-5
+ 1582 04c7 FB       		.byte	-5
+ 1583 04c8 FB       		.byte	-5
+ 1584 04c9 FB       		.byte	-5
+ 1585 04ca FB       		.byte	-5
+ 1586 04cb FB       		.byte	-5
+ 1587 04cc FB       		.byte	-5
+ 1588 04cd FB       		.byte	-5
+ 1589 04ce FC       		.byte	-4
+ 1590 04cf FC       		.byte	-4
+ 1591 04d0 FC       		.byte	-4
+ 1592 04d1 FC       		.byte	-4
+ 1593 04d2 FC       		.byte	-4
+ 1594 04d3 FC       		.byte	-4
+ 1595 04d4 FC       		.byte	-4
+ 1596 04d5 FC       		.byte	-4
+ 1597 04d6 FC       		.byte	-4
+ 1598 04d7 FC       		.byte	-4
+ 1599 04d8 FC       		.byte	-4
+ 1600 04d9 FC       		.byte	-4
+ 1601 04da FC       		.byte	-4
+ 1602 04db FC       		.byte	-4
+ 1603 04dc FC       		.byte	-4
+ 1604 04dd FC       		.byte	-4
+ 1605 04de FC       		.byte	-4
+ 1606 04df FC       		.byte	-4
+ 1607 04e0 FC       		.byte	-4
+ 1608 04e1 FC       		.byte	-4
+ 1609 04e2 FC       		.byte	-4
+ 1610 04e3 FC       		.byte	-4
+ 1611 04e4 FC       		.byte	-4
+ 1612 04e5 FC       		.byte	-4
+ 1613 04e6 FC       		.byte	-4
+ 1614 04e7 FC       		.byte	-4
+ 1615 04e8 FC       		.byte	-4
+ 1616 04e9 FC       		.byte	-4
+ 1617 04ea FC       		.byte	-4
+ 1618 04eb FC       		.byte	-4
+ 1619 04ec FC       		.byte	-4
+ 1620 04ed FC       		.byte	-4
+ 1621 04ee FC       		.byte	-4
+ 1622 04ef FC       		.byte	-4
+ 1623 04f0 FC       		.byte	-4
+ 1624 04f1 FC       		.byte	-4
+ 1625 04f2 FC       		.byte	-4
+ 1626 04f3 FC       		.byte	-4
+ 1627 04f4 FC       		.byte	-4
+ 1628 04f5 FC       		.byte	-4
+ 1629 04f6 FC       		.byte	-4
+ 1630 04f7 FB       		.byte	-5
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 35
+
+
+ 1631 04f8 FB       		.byte	-5
+ 1632 04f9 FB       		.byte	-5
+ 1633 04fa FB       		.byte	-5
+ 1634 04fb FB       		.byte	-5
+ 1635 04fc FB       		.byte	-5
+ 1636 04fd FB       		.byte	-5
+ 1637 04fe FB       		.byte	-5
+ 1638 04ff FA       		.byte	-6
+ 1639 0500 FA       		.byte	-6
+ 1640 0501 FA       		.byte	-6
+ 1641 0502 FA       		.byte	-6
+ 1642 0503 FA       		.byte	-6
+ 1643 0504 FA       		.byte	-6
+ 1644 0505 F9       		.byte	-7
+ 1645 0506 F9       		.byte	-7
+ 1646 0507 F9       		.byte	-7
+ 1647 0508 F9       		.byte	-7
+ 1648 0509 F9       		.byte	-7
+ 1649 050a F9       		.byte	-7
+ 1650 050b F8       		.byte	-8
+ 1651 050c F8       		.byte	-8
+ 1652 050d F8       		.byte	-8
+ 1653 050e F8       		.byte	-8
+ 1654 050f F8       		.byte	-8
+ 1655 0510 F7       		.byte	-9
+ 1656 0511 F7       		.byte	-9
+ 1657 0512 F7       		.byte	-9
+ 1658 0513 F7       		.byte	-9
+ 1659 0514 F6       		.byte	-10
+ 1660 0515 F6       		.byte	-10
+ 1661 0516 F6       		.byte	-10
+ 1662 0517 F6       		.byte	-10
+ 1663 0518 F5       		.byte	-11
+ 1664 0519 F5       		.byte	-11
+ 1665 051a F5       		.byte	-11
+ 1666 051b F5       		.byte	-11
+ 1667 051c F4       		.byte	-12
+ 1668 051d F4       		.byte	-12
+ 1669 051e F4       		.byte	-12
+ 1670 051f F3       		.byte	-13
+ 1671 0520 F3       		.byte	-13
+ 1672 0521 F3       		.byte	-13
+ 1673 0522 F3       		.byte	-13
+ 1674 0523 F2       		.byte	-14
+ 1675 0524 F2       		.byte	-14
+ 1676 0525 F2       		.byte	-14
+ 1677 0526 F1       		.byte	-15
+ 1678 0527 F1       		.byte	-15
+ 1679 0528 F1       		.byte	-15
+ 1680 0529 F0       		.byte	-16
+ 1681 052a F0       		.byte	-16
+ 1682 052b F0       		.byte	-16
+ 1683 052c EF       		.byte	-17
+ 1684 052d EF       		.byte	-17
+ 1685 052e EF       		.byte	-17
+ 1686 052f EE       		.byte	-18
+ 1687 0530 EE       		.byte	-18
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 36
+
+
+ 1688 0531 ED       		.byte	-19
+ 1689 0532 ED       		.byte	-19
+ 1690 0533 ED       		.byte	-19
+ 1691 0534 EC       		.byte	-20
+ 1692 0535 EC       		.byte	-20
+ 1693 0536 EB       		.byte	-21
+ 1694 0537 EB       		.byte	-21
+ 1695 0538 EB       		.byte	-21
+ 1696 0539 EA       		.byte	-22
+ 1697 053a EA       		.byte	-22
+ 1698 053b E9       		.byte	-23
+ 1699 053c E9       		.byte	-23
+ 1700 053d E9       		.byte	-23
+ 1701 053e E8       		.byte	-24
+ 1702 053f E8       		.byte	-24
+ 1703 0540 E7       		.byte	-25
+ 1704 0541 E7       		.byte	-25
+ 1705 0542 E6       		.byte	-26
+ 1706 0543 E6       		.byte	-26
+ 1707 0544 E6       		.byte	-26
+ 1708 0545 E5       		.byte	-27
+ 1709 0546 E5       		.byte	-27
+ 1710 0547 E4       		.byte	-28
+ 1711 0548 E4       		.byte	-28
+ 1712 0549 E3       		.byte	-29
+ 1713 054a E3       		.byte	-29
+ 1714 054b E2       		.byte	-30
+ 1715 054c E2       		.byte	-30
+ 1716 054d E1       		.byte	-31
+ 1717 054e E1       		.byte	-31
+ 1718 054f E0       		.byte	-32
+ 1719 0550 E0       		.byte	-32
+ 1720 0551 DF       		.byte	-33
+ 1721 0552 DF       		.byte	-33
+ 1722 0553 DE       		.byte	-34
+ 1723 0554 DE       		.byte	-34
+ 1724 0555 DD       		.byte	-35
+ 1725 0556 DD       		.byte	-35
+ 1726 0557 DC       		.byte	-36
+ 1727 0558 DC       		.byte	-36
+ 1728 0559 DB       		.byte	-37
+ 1729 055a DB       		.byte	-37
+ 1730 055b DA       		.byte	-38
+ 1731 055c DA       		.byte	-38
+ 1732 055d D9       		.byte	-39
+ 1733 055e D8       		.byte	-40
+ 1734 055f D8       		.byte	-40
+ 1735 0560 D7       		.byte	-41
+ 1736 0561 D7       		.byte	-41
+ 1737 0562 D6       		.byte	-42
+ 1738 0563 D6       		.byte	-42
+ 1739 0564 D5       		.byte	-43
+ 1740 0565 D4       		.byte	-44
+ 1741 0566 D4       		.byte	-44
+ 1742 0567 D3       		.byte	-45
+ 1743 0568 D3       		.byte	-45
+ 1744 0569 D2       		.byte	-46
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 37
+
+
+ 1745 056a D2       		.byte	-46
+ 1746 056b D1       		.byte	-47
+ 1747 056c D0       		.byte	-48
+ 1748 056d D0       		.byte	-48
+ 1749 056e CF       		.byte	-49
+ 1750 056f CF       		.byte	-49
+ 1751 0570 CE       		.byte	-50
+ 1752 0571 CD       		.byte	-51
+ 1753 0572 CD       		.byte	-51
+ 1754 0573 CC       		.byte	-52
+ 1755 0574 CB       		.byte	-53
+ 1756 0575 CB       		.byte	-53
+ 1757 0576 CA       		.byte	-54
+ 1758 0577 CA       		.byte	-54
+ 1759 0578 C9       		.byte	-55
+ 1760 0579 C8       		.byte	-56
+ 1761 057a C8       		.byte	-56
+ 1762 057b C7       		.byte	-57
+ 1763 057c C6       		.byte	-58
+ 1764 057d C6       		.byte	-58
+ 1765 057e C5       		.byte	-59
+ 1766 057f C4       		.byte	-60
+ 1767 0580 C4       		.byte	-60
+ 1768 0581 C3       		.byte	-61
+ 1769 0582 C2       		.byte	-62
+ 1770 0583 C2       		.byte	-62
+ 1771 0584 C1       		.byte	-63
+ 1772 0585 C0       		.byte	-64
+ 1773 0586 C0       		.byte	-64
+ 1774 0587 BF       		.byte	-65
+ 1775 0588 BE       		.byte	-66
+ 1776 0589 BE       		.byte	-66
+ 1777 058a BD       		.byte	-67
+ 1778 058b BC       		.byte	-68
+ 1779 058c BC       		.byte	-68
+ 1780 058d BB       		.byte	-69
+ 1781 058e BA       		.byte	-70
+ 1782 058f BA       		.byte	-70
+ 1783 0590 B9       		.byte	-71
+ 1784 0591 B8       		.byte	-72
+ 1785 0592 B8       		.byte	-72
+ 1786 0593 B7       		.byte	-73
+ 1787 0594 B6       		.byte	-74
+ 1788 0595 B5       		.byte	-75
+ 1789 0596 B5       		.byte	-75
+ 1790 0597 B4       		.byte	-76
+ 1791 0598 B3       		.byte	-77
+ 1792 0599 B3       		.byte	-77
+ 1793 059a B2       		.byte	-78
+ 1794 059b B1       		.byte	-79
+ 1795 059c B0       		.byte	-80
+ 1796 059d B0       		.byte	-80
+ 1797 059e AF       		.byte	-81
+ 1798 059f AE       		.byte	-82
+ 1799 05a0 AE       		.byte	-82
+ 1800 05a1 AD       		.byte	-83
+ 1801 05a2 AC       		.byte	-84
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 38
+
+
+ 1802 05a3 AB       		.byte	-85
+ 1803 05a4 AB       		.byte	-85
+ 1804 05a5 AA       		.byte	-86
+ 1805 05a6 A9       		.byte	-87
+ 1806 05a7 A8       		.byte	-88
+ 1807 05a8 A8       		.byte	-88
+ 1808 05a9 A7       		.byte	-89
+ 1809 05aa A6       		.byte	-90
+ 1810 05ab A5       		.byte	-91
+ 1811 05ac A5       		.byte	-91
+ 1812 05ad A4       		.byte	-92
+ 1813 05ae A3       		.byte	-93
+ 1814 05af A2       		.byte	-94
+ 1815 05b0 A2       		.byte	-94
+ 1816 05b1 A1       		.byte	-95
+ 1817 05b2 A0       		.byte	-96
+ 1818 05b3 9F       		.byte	-97
+ 1819 05b4 9F       		.byte	-97
+ 1820 05b5 9E       		.byte	-98
+ 1821 05b6 9D       		.byte	-99
+ 1822 05b7 9C       		.byte	-100
+ 1823 05b8 9C       		.byte	-100
+ 1824 05b9 9B       		.byte	-101
+ 1825 05ba 9A       		.byte	-102
+ 1826 05bb 99       		.byte	-103
+ 1827 05bc 98       		.byte	-104
+ 1828 05bd 98       		.byte	-104
+ 1829 05be 97       		.byte	-105
+ 1830 05bf 96       		.byte	-106
+ 1831 05c0 95       		.byte	-107
+ 1832 05c1 95       		.byte	-107
+ 1833 05c2 94       		.byte	-108
+ 1834 05c3 93       		.byte	-109
+ 1835 05c4 92       		.byte	-110
+ 1836 05c5 92       		.byte	-110
+ 1837 05c6 91       		.byte	-111
+ 1838 05c7 90       		.byte	-112
+ 1839 05c8 8F       		.byte	-113
+ 1840 05c9 8E       		.byte	-114
+ 1841 05ca 8E       		.byte	-114
+ 1842 05cb 8D       		.byte	-115
+ 1843 05cc 8C       		.byte	-116
+ 1844 05cd 8B       		.byte	-117
+ 1845 05ce 8A       		.byte	-118
+ 1846 05cf 8A       		.byte	-118
+ 1847 05d0 89       		.byte	-119
+ 1848 05d1 88       		.byte	-120
+ 1849 05d2 87       		.byte	-121
+ 1850 05d3 87       		.byte	-121
+ 1851 05d4 86       		.byte	-122
+ 1852 05d5 85       		.byte	-123
+ 1853 05d6 84       		.byte	-124
+ 1854 05d7 83       		.byte	-125
+ 1855 05d8 83       		.byte	-125
+ 1856 05d9 82       		.byte	-126
+ 1857 05da 81       		.byte	-127
+ 1858 05db 80       		.byte	-128
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 39
+
+
+ 1859 05dc 80       		.byte	-128
+ 1860 05dd 7F       		.byte	127
+ 1861 05de 7E       		.byte	126
+ 1862 05df 7D       		.byte	125
+ 1863 05e0 7C       		.byte	124
+ 1864 05e1 7C       		.byte	124
+ 1865 05e2 7B       		.byte	123
+ 1866 05e3 7A       		.byte	122
+ 1867 05e4 79       		.byte	121
+ 1868 05e5 78       		.byte	120
+ 1869 05e6 78       		.byte	120
+ 1870 05e7 77       		.byte	119
+ 1871 05e8 76       		.byte	118
+ 1872 05e9 75       		.byte	117
+ 1873 05ea 75       		.byte	117
+ 1874 05eb 74       		.byte	116
+ 1875 05ec 73       		.byte	115
+ 1876 05ed 72       		.byte	114
+ 1877 05ee 71       		.byte	113
+ 1878 05ef 71       		.byte	113
+ 1879 05f0 70       		.byte	112
+ 1880 05f1 6F       		.byte	111
+ 1881 05f2 6E       		.byte	110
+ 1882 05f3 6D       		.byte	109
+ 1883 05f4 6D       		.byte	109
+ 1884 05f5 6C       		.byte	108
+ 1885 05f6 6B       		.byte	107
+ 1886 05f7 6A       		.byte	106
+ 1887 05f8 6A       		.byte	106
+ 1888 05f9 69       		.byte	105
+ 1889 05fa 68       		.byte	104
+ 1890 05fb 67       		.byte	103
+ 1891 05fc 67       		.byte	103
+ 1892 05fd 66       		.byte	102
+ 1893 05fe 65       		.byte	101
+ 1894 05ff 64       		.byte	100
+ 1895 0600 63       		.byte	99
+ 1896 0601 63       		.byte	99
+ 1897 0602 62       		.byte	98
+ 1898 0603 61       		.byte	97
+ 1899 0604 60       		.byte	96
+ 1900 0605 60       		.byte	96
+ 1901 0606 5F       		.byte	95
+ 1902 0607 5E       		.byte	94
+ 1903 0608 5D       		.byte	93
+ 1904 0609 5D       		.byte	93
+ 1905 060a 5C       		.byte	92
+ 1906 060b 5B       		.byte	91
+ 1907 060c 5A       		.byte	90
+ 1908 060d 5A       		.byte	90
+ 1909 060e 59       		.byte	89
+ 1910 060f 58       		.byte	88
+ 1911 0610 57       		.byte	87
+ 1912 0611 57       		.byte	87
+ 1913 0612 56       		.byte	86
+ 1914 0613 55       		.byte	85
+ 1915 0614 54       		.byte	84
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 40
+
+
+ 1916 0615 54       		.byte	84
+ 1917 0616 53       		.byte	83
+ 1918 0617 52       		.byte	82
+ 1919 0618 51       		.byte	81
+ 1920 0619 51       		.byte	81
+ 1921 061a 50       		.byte	80
+ 1922 061b 4F       		.byte	79
+ 1923 061c 4F       		.byte	79
+ 1924 061d 4E       		.byte	78
+ 1925 061e 4D       		.byte	77
+ 1926 061f 4C       		.byte	76
+ 1927 0620 4C       		.byte	76
+ 1928 0621 4B       		.byte	75
+ 1929 0622 4A       		.byte	74
+ 1930 0623 4A       		.byte	74
+ 1931 0624 49       		.byte	73
+ 1932 0625 48       		.byte	72
+ 1933 0626 47       		.byte	71
+ 1934 0627 47       		.byte	71
+ 1935 0628 46       		.byte	70
+ 1936 0629 45       		.byte	69
+ 1937 062a 45       		.byte	69
+ 1938 062b 44       		.byte	68
+ 1939 062c 43       		.byte	67
+ 1940 062d 43       		.byte	67
+ 1941 062e 42       		.byte	66
+ 1942 062f 41       		.byte	65
+ 1943 0630 41       		.byte	65
+ 1944 0631 40       		.byte	64
+ 1945 0632 3F       		.byte	63
+ 1946 0633 3F       		.byte	63
+ 1947 0634 3E       		.byte	62
+ 1948 0635 3D       		.byte	61
+ 1949 0636 3D       		.byte	61
+ 1950 0637 3C       		.byte	60
+ 1951 0638 3B       		.byte	59
+ 1952 0639 3B       		.byte	59
+ 1953 063a 3A       		.byte	58
+ 1954 063b 39       		.byte	57
+ 1955 063c 39       		.byte	57
+ 1956 063d 38       		.byte	56
+ 1957 063e 37       		.byte	55
+ 1958 063f 37       		.byte	55
+ 1959 0640 36       		.byte	54
+ 1960 0641 35       		.byte	53
+ 1961 0642 35       		.byte	53
+ 1962 0643 34       		.byte	52
+ 1963 0644 34       		.byte	52
+ 1964 0645 33       		.byte	51
+ 1965 0646 32       		.byte	50
+ 1966 0647 32       		.byte	50
+ 1967 0648 31       		.byte	49
+ 1968 0649 30       		.byte	48
+ 1969 064a 30       		.byte	48
+ 1970 064b 2F       		.byte	47
+ 1971 064c 2F       		.byte	47
+ 1972 064d 2E       		.byte	46
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 41
+
+
+ 1973 064e 2D       		.byte	45
+ 1974 064f 2D       		.byte	45
+ 1975 0650 2C       		.byte	44
+ 1976 0651 2C       		.byte	44
+ 1977 0652 2B       		.byte	43
+ 1978 0653 2B       		.byte	43
+ 1979 0654 2A       		.byte	42
+ 1980 0655 29       		.byte	41
+ 1981 0656 29       		.byte	41
+ 1982 0657 28       		.byte	40
+ 1983 0658 28       		.byte	40
+ 1984 0659 27       		.byte	39
+ 1985 065a 27       		.byte	39
+ 1986 065b 26       		.byte	38
+ 1987 065c 25       		.byte	37
+ 1988 065d 25       		.byte	37
+ 1989 065e 24       		.byte	36
+ 1990 065f 24       		.byte	36
+ 1991 0660 23       		.byte	35
+ 1992 0661 23       		.byte	35
+ 1993 0662 22       		.byte	34
+ 1994 0663 22       		.byte	34
+ 1995 0664 21       		.byte	33
+ 1996 0665 21       		.byte	33
+ 1997 0666 20       		.byte	32
+ 1998 0667 20       		.byte	32
+ 1999 0668 1F       		.byte	31
+ 2000 0669 1F       		.byte	31
+ 2001 066a 1E       		.byte	30
+ 2002 066b 1E       		.byte	30
+ 2003 066c 1D       		.byte	29
+ 2004 066d 1D       		.byte	29
+ 2005 066e 1C       		.byte	28
+ 2006 066f 1C       		.byte	28
+ 2007 0670 1B       		.byte	27
+ 2008 0671 1B       		.byte	27
+ 2009 0672 1A       		.byte	26
+ 2010 0673 1A       		.byte	26
+ 2011 0674 19       		.byte	25
+ 2012 0675 19       		.byte	25
+ 2013 0676 19       		.byte	25
+ 2014 0677 18       		.byte	24
+ 2015 0678 18       		.byte	24
+ 2016 0679 17       		.byte	23
+ 2017 067a 17       		.byte	23
+ 2018 067b 16       		.byte	22
+ 2019 067c 16       		.byte	22
+ 2020 067d 16       		.byte	22
+ 2021 067e 15       		.byte	21
+ 2022 067f 15       		.byte	21
+ 2023 0680 14       		.byte	20
+ 2024 0681 14       		.byte	20
+ 2025 0682 14       		.byte	20
+ 2026 0683 13       		.byte	19
+ 2027 0684 13       		.byte	19
+ 2028 0685 12       		.byte	18
+ 2029 0686 12       		.byte	18
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 42
+
+
+ 2030 0687 12       		.byte	18
+ 2031 0688 11       		.byte	17
+ 2032 0689 11       		.byte	17
+ 2033 068a 10       		.byte	16
+ 2034 068b 10       		.byte	16
+ 2035 068c 10       		.byte	16
+ 2036 068d 0F       		.byte	15
+ 2037 068e 0F       		.byte	15
+ 2038 068f 0F       		.byte	15
+ 2039 0690 0E       		.byte	14
+ 2040 0691 0E       		.byte	14
+ 2041 0692 0E       		.byte	14
+ 2042 0693 0D       		.byte	13
+ 2043 0694 0D       		.byte	13
+ 2044 0695 0D       		.byte	13
+ 2045 0696 0C       		.byte	12
+ 2046 0697 0C       		.byte	12
+ 2047 0698 0C       		.byte	12
+ 2048 0699 0C       		.byte	12
+ 2049 069a 0B       		.byte	11
+ 2050 069b 0B       		.byte	11
+ 2051 069c 0B       		.byte	11
+ 2052 069d 0A       		.byte	10
+ 2053 069e 0A       		.byte	10
+ 2054 069f 0A       		.byte	10
+ 2055 06a0 0A       		.byte	10
+ 2056 06a1 09       		.byte	9
+ 2057 06a2 09       		.byte	9
+ 2058 06a3 09       		.byte	9
+ 2059 06a4 09       		.byte	9
+ 2060 06a5 08       		.byte	8
+ 2061 06a6 08       		.byte	8
+ 2062 06a7 08       		.byte	8
+ 2063 06a8 08       		.byte	8
+ 2064 06a9 07       		.byte	7
+ 2065 06aa 07       		.byte	7
+ 2066 06ab 07       		.byte	7
+ 2067 06ac 07       		.byte	7
+ 2068 06ad 07       		.byte	7
+ 2069 06ae 06       		.byte	6
+ 2070 06af 06       		.byte	6
+ 2071 06b0 06       		.byte	6
+ 2072 06b1 06       		.byte	6
+ 2073 06b2 06       		.byte	6
+ 2074 06b3 06       		.byte	6
+ 2075 06b4 05       		.byte	5
+ 2076 06b5 05       		.byte	5
+ 2077 06b6 05       		.byte	5
+ 2078 06b7 05       		.byte	5
+ 2079 06b8 05       		.byte	5
+ 2080 06b9 05       		.byte	5
+ 2081 06ba 04       		.byte	4
+ 2082 06bb 04       		.byte	4
+ 2083 06bc 04       		.byte	4
+ 2084 06bd 04       		.byte	4
+ 2085 06be 04       		.byte	4
+ 2086 06bf 04       		.byte	4
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 43
+
+
+ 2087 06c0 04       		.byte	4
+ 2088 06c1 04       		.byte	4
+ 2089 06c2 03       		.byte	3
+ 2090 06c3 03       		.byte	3
+ 2091 06c4 03       		.byte	3
+ 2092 06c5 03       		.byte	3
+ 2093 06c6 03       		.byte	3
+ 2094 06c7 03       		.byte	3
+ 2095 06c8 03       		.byte	3
+ 2096 06c9 03       		.byte	3
+ 2097 06ca 03       		.byte	3
+ 2098 06cb 03       		.byte	3
+ 2099 06cc 03       		.byte	3
+ 2100 06cd 03       		.byte	3
+ 2101 06ce 03       		.byte	3
+ 2102 06cf 03       		.byte	3
+ 2103 06d0 03       		.byte	3
+ 2104 06d1 03       		.byte	3
+ 2105 06d2 03       		.byte	3
+ 2106 06d3 03       		.byte	3
+ 2107 06d4 03       		.byte	3
+ 2108 06d5 03       		.byte	3
+ 2109 06d6 03       		.byte	3
+ 2110 06d7 03       		.byte	3
+ 2111 06d8 03       		.byte	3
+ 2112 06d9 03       		.byte	3
+ 2113 06da 03       		.byte	3
+ 2114 06db 03       		.byte	3
+ 2115 06dc 03       		.byte	3
+ 2116 06dd 03       		.byte	3
+ 2117 06de 03       		.byte	3
+ 2118 06df 03       		.byte	3
+ 2119 06e0 03       		.byte	3
+ 2120 06e1 03       		.byte	3
+ 2121 06e2 03       		.byte	3
+ 2122 06e3 03       		.byte	3
+ 2123 06e4 03       		.byte	3
+ 2124 06e5 03       		.byte	3
+ 2125 06e6 03       		.byte	3
+ 2126 06e7 03       		.byte	3
+ 2127 06e8 03       		.byte	3
+ 2128 06e9 03       		.byte	3
+ 2129 06ea 03       		.byte	3
+ 2130 06eb 04       		.byte	4
+ 2131 06ec 04       		.byte	4
+ 2132 06ed 04       		.byte	4
+ 2133 06ee 04       		.byte	4
+ 2134 06ef 04       		.byte	4
+ 2135 06f0 04       		.byte	4
+ 2136 06f1 04       		.byte	4
+ 2137 06f2 04       		.byte	4
+ 2138 06f3 05       		.byte	5
+ 2139 06f4 05       		.byte	5
+ 2140 06f5 05       		.byte	5
+ 2141 06f6 05       		.byte	5
+ 2142 06f7 05       		.byte	5
+ 2143 06f8 05       		.byte	5
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 44
+
+
+ 2144 06f9 06       		.byte	6
+ 2145 06fa 06       		.byte	6
+ 2146 06fb 06       		.byte	6
+ 2147 06fc 06       		.byte	6
+ 2148 06fd 06       		.byte	6
+ 2149 06fe 06       		.byte	6
+ 2150 06ff 07       		.byte	7
+ 2151 0700 07       		.byte	7
+ 2152 0701 07       		.byte	7
+ 2153 0702 07       		.byte	7
+ 2154 0703 07       		.byte	7
+ 2155 0704 08       		.byte	8
+ 2156 0705 08       		.byte	8
+ 2157 0706 08       		.byte	8
+ 2158 0707 08       		.byte	8
+ 2159 0708 09       		.byte	9
+ 2160 0709 09       		.byte	9
+ 2161 070a 09       		.byte	9
+ 2162 070b 09       		.byte	9
+ 2163 070c 0A       		.byte	10
+ 2164 070d 0A       		.byte	10
+ 2165 070e 0A       		.byte	10
+ 2166 070f 0A       		.byte	10
+ 2167 0710 0B       		.byte	11
+ 2168 0711 0B       		.byte	11
+ 2169 0712 0B       		.byte	11
+ 2170 0713 0C       		.byte	12
+ 2171 0714 0C       		.byte	12
+ 2172 0715 0C       		.byte	12
+ 2173 0716 0C       		.byte	12
+ 2174 0717 0D       		.byte	13
+ 2175 0718 0D       		.byte	13
+ 2176 0719 0D       		.byte	13
+ 2177 071a 0E       		.byte	14
+ 2178 071b 0E       		.byte	14
+ 2179 071c 0E       		.byte	14
+ 2180 071d 0F       		.byte	15
+ 2181 071e 0F       		.byte	15
+ 2182 071f 0F       		.byte	15
+ 2183 0720 10       		.byte	16
+ 2184 0721 10       		.byte	16
+ 2185 0722 10       		.byte	16
+ 2186 0723 11       		.byte	17
+ 2187 0724 11       		.byte	17
+ 2188 0725 12       		.byte	18
+ 2189 0726 12       		.byte	18
+ 2190 0727 12       		.byte	18
+ 2191 0728 13       		.byte	19
+ 2192 0729 13       		.byte	19
+ 2193 072a 14       		.byte	20
+ 2194 072b 14       		.byte	20
+ 2195 072c 14       		.byte	20
+ 2196 072d 15       		.byte	21
+ 2197 072e 15       		.byte	21
+ 2198 072f 16       		.byte	22
+ 2199 0730 16       		.byte	22
+ 2200 0731 16       		.byte	22
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 45
+
+
+ 2201 0732 17       		.byte	23
+ 2202 0733 17       		.byte	23
+ 2203 0734 18       		.byte	24
+ 2204 0735 18       		.byte	24
+ 2205 0736 19       		.byte	25
+ 2206 0737 19       		.byte	25
+ 2207 0738 19       		.byte	25
+ 2208 0739 1A       		.byte	26
+ 2209 073a 1A       		.byte	26
+ 2210 073b 1B       		.byte	27
+ 2211 073c 1B       		.byte	27
+ 2212 073d 1C       		.byte	28
+ 2213 073e 1C       		.byte	28
+ 2214 073f 1D       		.byte	29
+ 2215 0740 1D       		.byte	29
+ 2216 0741 1E       		.byte	30
+ 2217 0742 1E       		.byte	30
+ 2218 0743 1F       		.byte	31
+ 2219 0744 1F       		.byte	31
+ 2220 0745 20       		.byte	32
+ 2221 0746 20       		.byte	32
+ 2222 0747 21       		.byte	33
+ 2223 0748 21       		.byte	33
+ 2224 0749 22       		.byte	34
+ 2225 074a 22       		.byte	34
+ 2226 074b 23       		.byte	35
+ 2227 074c 23       		.byte	35
+ 2228 074d 24       		.byte	36
+ 2229 074e 24       		.byte	36
+ 2230 074f 25       		.byte	37
+ 2231 0750 25       		.byte	37
+ 2232 0751 26       		.byte	38
+ 2233 0752 27       		.byte	39
+ 2234 0753 27       		.byte	39
+ 2235 0754 28       		.byte	40
+ 2236 0755 28       		.byte	40
+ 2237 0756 29       		.byte	41
+ 2238 0757 29       		.byte	41
+ 2239 0758 2A       		.byte	42
+ 2240 0759 2B       		.byte	43
+ 2241 075a 2B       		.byte	43
+ 2242 075b 2C       		.byte	44
+ 2243 075c 2C       		.byte	44
+ 2244 075d 2D       		.byte	45
+ 2245 075e 2D       		.byte	45
+ 2246 075f 2E       		.byte	46
+ 2247 0760 2F       		.byte	47
+ 2248 0761 2F       		.byte	47
+ 2249 0762 30       		.byte	48
+ 2250 0763 30       		.byte	48
+ 2251 0764 31       		.byte	49
+ 2252 0765 32       		.byte	50
+ 2253 0766 32       		.byte	50
+ 2254 0767 33       		.byte	51
+ 2255 0768 34       		.byte	52
+ 2256 0769 34       		.byte	52
+ 2257 076a 35       		.byte	53
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 46
+
+
+ 2258 076b 35       		.byte	53
+ 2259 076c 36       		.byte	54
+ 2260 076d 37       		.byte	55
+ 2261 076e 37       		.byte	55
+ 2262 076f 38       		.byte	56
+ 2263 0770 39       		.byte	57
+ 2264 0771 39       		.byte	57
+ 2265 0772 3A       		.byte	58
+ 2266 0773 3B       		.byte	59
+ 2267 0774 3B       		.byte	59
+ 2268 0775 3C       		.byte	60
+ 2269 0776 3D       		.byte	61
+ 2270 0777 3D       		.byte	61
+ 2271 0778 3E       		.byte	62
+ 2272 0779 3F       		.byte	63
+ 2273 077a 3F       		.byte	63
+ 2274 077b 40       		.byte	64
+ 2275 077c 41       		.byte	65
+ 2276 077d 41       		.byte	65
+ 2277 077e 42       		.byte	66
+ 2278 077f 43       		.byte	67
+ 2279 0780 43       		.byte	67
+ 2280 0781 44       		.byte	68
+ 2281 0782 45       		.byte	69
+ 2282 0783 45       		.byte	69
+ 2283 0784 46       		.byte	70
+ 2284 0785 47       		.byte	71
+ 2285 0786 47       		.byte	71
+ 2286 0787 48       		.byte	72
+ 2287 0788 49       		.byte	73
+ 2288 0789 4A       		.byte	74
+ 2289 078a 4A       		.byte	74
+ 2290 078b 4B       		.byte	75
+ 2291 078c 4C       		.byte	76
+ 2292 078d 4C       		.byte	76
+ 2293 078e 4D       		.byte	77
+ 2294 078f 4E       		.byte	78
+ 2295 0790 4F       		.byte	79
+ 2296 0791 4F       		.byte	79
+ 2297 0792 50       		.byte	80
+ 2298 0793 51       		.byte	81
+ 2299 0794 51       		.byte	81
+ 2300 0795 52       		.byte	82
+ 2301 0796 53       		.byte	83
+ 2302 0797 54       		.byte	84
+ 2303 0798 54       		.byte	84
+ 2304 0799 55       		.byte	85
+ 2305 079a 56       		.byte	86
+ 2306 079b 57       		.byte	87
+ 2307 079c 57       		.byte	87
+ 2308 079d 58       		.byte	88
+ 2309 079e 59       		.byte	89
+ 2310 079f 5A       		.byte	90
+ 2311 07a0 5A       		.byte	90
+ 2312 07a1 5B       		.byte	91
+ 2313 07a2 5C       		.byte	92
+ 2314 07a3 5D       		.byte	93
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 47
+
+
+ 2315 07a4 5D       		.byte	93
+ 2316 07a5 5E       		.byte	94
+ 2317 07a6 5F       		.byte	95
+ 2318 07a7 60       		.byte	96
+ 2319 07a8 60       		.byte	96
+ 2320 07a9 61       		.byte	97
+ 2321 07aa 62       		.byte	98
+ 2322 07ab 63       		.byte	99
+ 2323 07ac 63       		.byte	99
+ 2324 07ad 64       		.byte	100
+ 2325 07ae 65       		.byte	101
+ 2326 07af 66       		.byte	102
+ 2327 07b0 67       		.byte	103
+ 2328 07b1 67       		.byte	103
+ 2329 07b2 68       		.byte	104
+ 2330 07b3 69       		.byte	105
+ 2331 07b4 6A       		.byte	106
+ 2332 07b5 6A       		.byte	106
+ 2333 07b6 6B       		.byte	107
+ 2334 07b7 6C       		.byte	108
+ 2335 07b8 6D       		.byte	109
+ 2336 07b9 6D       		.byte	109
+ 2337 07ba 6E       		.byte	110
+ 2338 07bb 6F       		.byte	111
+ 2339 07bc 70       		.byte	112
+ 2340 07bd 71       		.byte	113
+ 2341 07be 71       		.byte	113
+ 2342 07bf 72       		.byte	114
+ 2343 07c0 73       		.byte	115
+ 2344 07c1 74       		.byte	116
+ 2345 07c2 75       		.byte	117
+ 2346 07c3 75       		.byte	117
+ 2347 07c4 76       		.byte	118
+ 2348 07c5 77       		.byte	119
+ 2349 07c6 78       		.byte	120
+ 2350 07c7 78       		.byte	120
+ 2351 07c8 79       		.byte	121
+ 2352 07c9 7A       		.byte	122
+ 2353 07ca 7B       		.byte	123
+ 2354 07cb 7C       		.byte	124
+ 2355 07cc 7C       		.byte	124
+ 2356 07cd 7D       		.byte	125
+ 2357 07ce 7E       		.byte	126
+ 2358 07cf 7F       		.byte	127
+ 2359              		.bss
+ 2360              		.set	.LANCHOR0,. + 0
+ 2361              		.type	WaveGen_Wave1Chan, %object
+ 2362              		.size	WaveGen_Wave1Chan, 1
+ 2363              	WaveGen_Wave1Chan:
+ 2364 0000 00       		.space	1
+ 2365              		.type	WaveGen_Wave2Chan, %object
+ 2366              		.size	WaveGen_Wave2Chan, 1
+ 2367              	WaveGen_Wave2Chan:
+ 2368 0001 00       		.space	1
+ 2369              		.type	WaveGen_Wave1TD, %object
+ 2370              		.size	WaveGen_Wave1TD, 1
+ 2371              	WaveGen_Wave1TD:
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 48
+
+
+ 2372 0002 00       		.space	1
+ 2373              		.type	WaveGen_Wave2TD, %object
+ 2374              		.size	WaveGen_Wave2TD, 1
+ 2375              	WaveGen_Wave2TD:
+ 2376 0003 00       		.space	1
+ 2377              		.type	WaveGen_initVar, %object
+ 2378              		.size	WaveGen_initVar, 1
+ 2379              	WaveGen_initVar:
+ 2380 0004 00       		.space	1
+ 2381              		.text
+ 2382              	.Letext0:
+ 2383              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 2384              		.file 3 "Generated_Source\\PSoC5/WaveGen_VDAC8.h"
+ 2385              		.file 4 "Generated_Source\\PSoC5/CYDMAC.H"
+ 2386              		.file 5 "Generated_Source\\PSoC5/WaveGen_Wave1_DMA_dma.h"
+ 2387              		.file 6 "Generated_Source\\PSoC5/WaveGen_Wave2_DMA_dma.h"
+ 2388              		.section	.debug_info,"",%progbits
+ 2389              	.Ldebug_info0:
+ 2390 0000 DA040000 		.4byte	0x4da
+ 2391 0004 0400     		.2byte	0x4
+ 2392 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 2393 000a 04       		.byte	0x4
+ 2394 000b 01       		.uleb128 0x1
+ 2395 000c 8F010000 		.4byte	.LASF51
+ 2396 0010 0C       		.byte	0xc
+ 2397 0011 2D010000 		.4byte	.LASF52
+ 2398 0015 51000000 		.4byte	.LASF53
+ 2399 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 2400 001d 00000000 		.4byte	0
+ 2401 0021 00000000 		.4byte	.Ldebug_line0
+ 2402 0025 02       		.uleb128 0x2
+ 2403 0026 01       		.byte	0x1
+ 2404 0027 06       		.byte	0x6
+ 2405 0028 F2030000 		.4byte	.LASF0
+ 2406 002c 02       		.uleb128 0x2
+ 2407 002d 01       		.byte	0x1
+ 2408 002e 08       		.byte	0x8
+ 2409 002f A8020000 		.4byte	.LASF1
+ 2410 0033 02       		.uleb128 0x2
+ 2411 0034 02       		.byte	0x2
+ 2412 0035 05       		.byte	0x5
+ 2413 0036 F7020000 		.4byte	.LASF2
+ 2414 003a 02       		.uleb128 0x2
+ 2415 003b 02       		.byte	0x2
+ 2416 003c 07       		.byte	0x7
+ 2417 003d BE000000 		.4byte	.LASF3
+ 2418 0041 02       		.uleb128 0x2
+ 2419 0042 04       		.byte	0x4
+ 2420 0043 05       		.byte	0x5
+ 2421 0044 D0030000 		.4byte	.LASF4
+ 2422 0048 02       		.uleb128 0x2
+ 2423 0049 04       		.byte	0x4
+ 2424 004a 07       		.byte	0x7
+ 2425 004b 35020000 		.4byte	.LASF5
+ 2426 004f 02       		.uleb128 0x2
+ 2427 0050 08       		.byte	0x8
+ 2428 0051 05       		.byte	0x5
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 49
+
+
+ 2429 0052 78030000 		.4byte	.LASF6
+ 2430 0056 02       		.uleb128 0x2
+ 2431 0057 08       		.byte	0x8
+ 2432 0058 07       		.byte	0x7
+ 2433 0059 4A030000 		.4byte	.LASF7
+ 2434 005d 03       		.uleb128 0x3
+ 2435 005e 04       		.byte	0x4
+ 2436 005f 05       		.byte	0x5
+ 2437 0060 696E7400 		.ascii	"int\000"
+ 2438 0064 02       		.uleb128 0x2
+ 2439 0065 04       		.byte	0x4
+ 2440 0066 07       		.byte	0x7
+ 2441 0067 2F030000 		.4byte	.LASF8
+ 2442 006b 04       		.uleb128 0x4
+ 2443 006c 4F020000 		.4byte	.LASF9
+ 2444 0070 02       		.byte	0x2
+ 2445 0071 E401     		.2byte	0x1e4
+ 2446 0073 2C000000 		.4byte	0x2c
+ 2447 0077 04       		.uleb128 0x4
+ 2448 0078 21030000 		.4byte	.LASF10
+ 2449 007c 02       		.byte	0x2
+ 2450 007d E501     		.2byte	0x1e5
+ 2451 007f 3A000000 		.4byte	0x3a
+ 2452 0083 04       		.uleb128 0x4
+ 2453 0084 28030000 		.4byte	.LASF11
+ 2454 0088 02       		.byte	0x2
+ 2455 0089 E601     		.2byte	0x1e6
+ 2456 008b 48000000 		.4byte	0x48
+ 2457 008f 02       		.uleb128 0x2
+ 2458 0090 04       		.byte	0x4
+ 2459 0091 04       		.byte	0x4
+ 2460 0092 7E010000 		.4byte	.LASF12
+ 2461 0096 02       		.uleb128 0x2
+ 2462 0097 08       		.byte	0x8
+ 2463 0098 04       		.byte	0x4
+ 2464 0099 CD020000 		.4byte	.LASF13
+ 2465 009d 02       		.uleb128 0x2
+ 2466 009e 01       		.byte	0x1
+ 2467 009f 08       		.byte	0x8
+ 2468 00a0 96030000 		.4byte	.LASF14
+ 2469 00a4 02       		.uleb128 0x2
+ 2470 00a5 08       		.byte	0x8
+ 2471 00a6 04       		.byte	0x4
+ 2472 00a7 E6030000 		.4byte	.LASF15
+ 2473 00ab 02       		.uleb128 0x2
+ 2474 00ac 04       		.byte	0x4
+ 2475 00ad 07       		.byte	0x7
+ 2476 00ae 6F030000 		.4byte	.LASF16
+ 2477 00b2 05       		.uleb128 0x5
+ 2478 00b3 20000000 		.4byte	.LASF17
+ 2479 00b7 01       		.byte	0x1
+ 2480 00b8 56       		.byte	0x56
+ 2481 00b9 00000000 		.4byte	.LFB1
+ 2482 00bd 24000000 		.4byte	.LFE1-.LFB1
+ 2483 00c1 01       		.uleb128 0x1
+ 2484 00c2 9C       		.byte	0x9c
+ 2485 00c3 06010000 		.4byte	0x106
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 50
+
+
+ 2486 00c7 06       		.uleb128 0x6
+ 2487 00c8 06000000 		.4byte	.LVL0
+ 2488 00cc 43040000 		.4byte	0x443
+ 2489 00d0 07       		.uleb128 0x7
+ 2490 00d1 10000000 		.4byte	.LVL1
+ 2491 00d5 4E040000 		.4byte	0x44e
+ 2492 00d9 E3000000 		.4byte	0xe3
+ 2493 00dd 08       		.uleb128 0x8
+ 2494 00de 01       		.uleb128 0x1
+ 2495 00df 51       		.byte	0x51
+ 2496 00e0 01       		.uleb128 0x1
+ 2497 00e1 31       		.byte	0x31
+ 2498 00e2 00       		.byte	0
+ 2499 00e3 07       		.uleb128 0x7
+ 2500 00e4 18000000 		.4byte	.LVL2
+ 2501 00e8 4E040000 		.4byte	0x44e
+ 2502 00ec F6000000 		.4byte	0xf6
+ 2503 00f0 08       		.uleb128 0x8
+ 2504 00f1 01       		.uleb128 0x1
+ 2505 00f2 51       		.byte	0x51
+ 2506 00f3 01       		.uleb128 0x1
+ 2507 00f4 31       		.byte	0x31
+ 2508 00f5 00       		.byte	0
+ 2509 00f6 09       		.uleb128 0x9
+ 2510 00f7 1E000000 		.4byte	.LVL3
+ 2511 00fb 59040000 		.4byte	0x459
+ 2512 00ff 08       		.uleb128 0x8
+ 2513 0100 01       		.uleb128 0x1
+ 2514 0101 50       		.byte	0x50
+ 2515 0102 01       		.uleb128 0x1
+ 2516 0103 30       		.byte	0x30
+ 2517 0104 00       		.byte	0
+ 2518 0105 00       		.byte	0
+ 2519 0106 05       		.uleb128 0x5
+ 2520 0107 E5000000 		.4byte	.LASF18
+ 2521 010b 01       		.byte	0x1
+ 2522 010c BB       		.byte	0xbb
+ 2523 010d 00000000 		.4byte	.LFB4
+ 2524 0111 1C000000 		.4byte	.LFE4-.LFB4
+ 2525 0115 01       		.uleb128 0x1
+ 2526 0116 9C       		.byte	0x9c
+ 2527 0117 37010000 		.4byte	0x137
+ 2528 011b 06       		.uleb128 0x6
+ 2529 011c 0A000000 		.4byte	.LVL4
+ 2530 0120 64040000 		.4byte	0x464
+ 2531 0124 06       		.uleb128 0x6
+ 2532 0125 10000000 		.4byte	.LVL5
+ 2533 0129 64040000 		.4byte	0x464
+ 2534 012d 06       		.uleb128 0x6
+ 2535 012e 14000000 		.4byte	.LVL6
+ 2536 0132 6F040000 		.4byte	0x46f
+ 2537 0136 00       		.byte	0
+ 2538 0137 05       		.uleb128 0x5
+ 2539 0138 55020000 		.4byte	.LASF19
+ 2540 013c 01       		.byte	0x1
+ 2541 013d DA       		.byte	0xda
+ 2542 013e 00000000 		.4byte	.LFB5
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 51
+
+
+ 2543 0142 40000000 		.4byte	.LFE5-.LFB5
+ 2544 0146 01       		.uleb128 0x1
+ 2545 0147 9C       		.byte	0x9c
+ 2546 0148 CF010000 		.4byte	0x1cf
+ 2547 014c 0A       		.uleb128 0xa
+ 2548 014d 47020000 		.4byte	.LASF20
+ 2549 0151 01       		.byte	0x1
+ 2550 0152 DA       		.byte	0xda
+ 2551 0153 CF010000 		.4byte	0x1cf
+ 2552 0157 00000000 		.4byte	.LLST0
+ 2553 015b 0A       		.uleb128 0xa
+ 2554 015c 84010000 		.4byte	.LASF21
+ 2555 0160 01       		.byte	0x1
+ 2556 0161 DA       		.byte	0xda
+ 2557 0162 77000000 		.4byte	0x77
+ 2558 0166 2C000000 		.4byte	.LLST1
+ 2559 016a 07       		.uleb128 0x7
+ 2560 016b 14000000 		.4byte	.LVL10
+ 2561 016f 7A040000 		.4byte	0x47a
+ 2562 0173 91010000 		.4byte	0x191
+ 2563 0177 08       		.uleb128 0x8
+ 2564 0178 01       		.uleb128 0x1
+ 2565 0179 50       		.byte	0x50
+ 2566 017a 01       		.uleb128 0x1
+ 2567 017b 31       		.byte	0x31
+ 2568 017c 08       		.uleb128 0x8
+ 2569 017d 01       		.uleb128 0x1
+ 2570 017e 51       		.byte	0x51
+ 2571 017f 01       		.uleb128 0x1
+ 2572 0180 31       		.byte	0x31
+ 2573 0181 08       		.uleb128 0x8
+ 2574 0182 01       		.uleb128 0x1
+ 2575 0183 52       		.byte	0x52
+ 2576 0184 04       		.uleb128 0x4
+ 2577 0185 75       		.byte	0x75
+ 2578 0186 00       		.sleb128 0
+ 2579 0187 40       		.byte	0x40
+ 2580 0188 25       		.byte	0x25
+ 2581 0189 08       		.uleb128 0x8
+ 2582 018a 01       		.uleb128 0x1
+ 2583 018b 53       		.byte	0x53
+ 2584 018c 03       		.uleb128 0x3
+ 2585 018d 0A       		.byte	0xa
+ 2586 018e 0040     		.2byte	0x4000
+ 2587 0190 00       		.byte	0
+ 2588 0191 07       		.uleb128 0x7
+ 2589 0192 24000000 		.4byte	.LVL11
+ 2590 0196 85040000 		.4byte	0x485
+ 2591 019a AA010000 		.4byte	0x1aa
+ 2592 019e 08       		.uleb128 0x8
+ 2593 019f 01       		.uleb128 0x1
+ 2594 01a0 51       		.byte	0x51
+ 2595 01a1 02       		.uleb128 0x2
+ 2596 01a2 76       		.byte	0x76
+ 2597 01a3 00       		.sleb128 0
+ 2598 01a4 08       		.uleb128 0x8
+ 2599 01a5 01       		.uleb128 0x1
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 52
+
+
+ 2600 01a6 53       		.byte	0x53
+ 2601 01a7 01       		.uleb128 0x1
+ 2602 01a8 31       		.byte	0x31
+ 2603 01a9 00       		.byte	0
+ 2604 01aa 07       		.uleb128 0x7
+ 2605 01ab 30000000 		.4byte	.LVL12
+ 2606 01af 90040000 		.4byte	0x490
+ 2607 01b3 C5010000 		.4byte	0x1c5
+ 2608 01b7 08       		.uleb128 0x8
+ 2609 01b8 01       		.uleb128 0x1
+ 2610 01b9 51       		.byte	0x51
+ 2611 01ba 02       		.uleb128 0x2
+ 2612 01bb 75       		.byte	0x75
+ 2613 01bc 00       		.sleb128 0
+ 2614 01bd 08       		.uleb128 0x8
+ 2615 01be 01       		.uleb128 0x1
+ 2616 01bf 52       		.byte	0x52
+ 2617 01c0 03       		.uleb128 0x3
+ 2618 01c1 0A       		.byte	0xa
+ 2619 01c2 835B     		.2byte	0x5b83
+ 2620 01c4 00       		.byte	0
+ 2621 01c5 06       		.uleb128 0x6
+ 2622 01c6 38000000 		.4byte	.LVL13
+ 2623 01ca 9B040000 		.4byte	0x49b
+ 2624 01ce 00       		.byte	0
+ 2625 01cf 0B       		.uleb128 0xb
+ 2626 01d0 04       		.byte	0x4
+ 2627 01d1 D5010000 		.4byte	0x1d5
+ 2628 01d5 0C       		.uleb128 0xc
+ 2629 01d6 6B000000 		.4byte	0x6b
+ 2630 01da 0D       		.uleb128 0xd
+ 2631 01db 95020000 		.4byte	.LASF22
+ 2632 01df 01       		.byte	0x1
+ 2633 01e0 0801     		.2byte	0x108
+ 2634 01e2 00000000 		.4byte	.LFB6
+ 2635 01e6 40000000 		.4byte	.LFE6-.LFB6
+ 2636 01ea 01       		.uleb128 0x1
+ 2637 01eb 9C       		.byte	0x9c
+ 2638 01ec 75020000 		.4byte	0x275
+ 2639 01f0 0E       		.uleb128 0xe
+ 2640 01f1 47020000 		.4byte	.LASF20
+ 2641 01f5 01       		.byte	0x1
+ 2642 01f6 0801     		.2byte	0x108
+ 2643 01f8 CF010000 		.4byte	0x1cf
+ 2644 01fc 4D000000 		.4byte	.LLST2
+ 2645 0200 0E       		.uleb128 0xe
+ 2646 0201 84010000 		.4byte	.LASF21
+ 2647 0205 01       		.byte	0x1
+ 2648 0206 0801     		.2byte	0x108
+ 2649 0208 77000000 		.4byte	0x77
+ 2650 020c 79000000 		.4byte	.LLST3
+ 2651 0210 07       		.uleb128 0x7
+ 2652 0211 14000000 		.4byte	.LVL18
+ 2653 0215 A6040000 		.4byte	0x4a6
+ 2654 0219 37020000 		.4byte	0x237
+ 2655 021d 08       		.uleb128 0x8
+ 2656 021e 01       		.uleb128 0x1
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 53
+
+
+ 2657 021f 50       		.byte	0x50
+ 2658 0220 01       		.uleb128 0x1
+ 2659 0221 31       		.byte	0x31
+ 2660 0222 08       		.uleb128 0x8
+ 2661 0223 01       		.uleb128 0x1
+ 2662 0224 51       		.byte	0x51
+ 2663 0225 01       		.uleb128 0x1
+ 2664 0226 31       		.byte	0x31
+ 2665 0227 08       		.uleb128 0x8
+ 2666 0228 01       		.uleb128 0x1
+ 2667 0229 52       		.byte	0x52
+ 2668 022a 04       		.uleb128 0x4
+ 2669 022b 75       		.byte	0x75
+ 2670 022c 00       		.sleb128 0
+ 2671 022d 40       		.byte	0x40
+ 2672 022e 25       		.byte	0x25
+ 2673 022f 08       		.uleb128 0x8
+ 2674 0230 01       		.uleb128 0x1
+ 2675 0231 53       		.byte	0x53
+ 2676 0232 03       		.uleb128 0x3
+ 2677 0233 0A       		.byte	0xa
+ 2678 0234 0040     		.2byte	0x4000
+ 2679 0236 00       		.byte	0
+ 2680 0237 07       		.uleb128 0x7
+ 2681 0238 24000000 		.4byte	.LVL19
+ 2682 023c 85040000 		.4byte	0x485
+ 2683 0240 50020000 		.4byte	0x250
+ 2684 0244 08       		.uleb128 0x8
+ 2685 0245 01       		.uleb128 0x1
+ 2686 0246 51       		.byte	0x51
+ 2687 0247 02       		.uleb128 0x2
+ 2688 0248 76       		.byte	0x76
+ 2689 0249 00       		.sleb128 0
+ 2690 024a 08       		.uleb128 0x8
+ 2691 024b 01       		.uleb128 0x1
+ 2692 024c 53       		.byte	0x53
+ 2693 024d 01       		.uleb128 0x1
+ 2694 024e 31       		.byte	0x31
+ 2695 024f 00       		.byte	0
+ 2696 0250 07       		.uleb128 0x7
+ 2697 0251 30000000 		.4byte	.LVL20
+ 2698 0255 90040000 		.4byte	0x490
+ 2699 0259 6B020000 		.4byte	0x26b
+ 2700 025d 08       		.uleb128 0x8
+ 2701 025e 01       		.uleb128 0x1
+ 2702 025f 51       		.byte	0x51
+ 2703 0260 02       		.uleb128 0x2
+ 2704 0261 75       		.byte	0x75
+ 2705 0262 00       		.sleb128 0
+ 2706 0263 08       		.uleb128 0x8
+ 2707 0264 01       		.uleb128 0x1
+ 2708 0265 52       		.byte	0x52
+ 2709 0266 03       		.uleb128 0x3
+ 2710 0267 0A       		.byte	0xa
+ 2711 0268 835B     		.2byte	0x5b83
+ 2712 026a 00       		.byte	0
+ 2713 026b 06       		.uleb128 0x6
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 54
+
+
+ 2714 026c 38000000 		.4byte	.LVL21
+ 2715 0270 9B040000 		.4byte	0x49b
+ 2716 0274 00       		.byte	0
+ 2717 0275 05       		.uleb128 0x5
+ 2718 0276 D9030000 		.4byte	.LASF23
+ 2719 027a 01       		.byte	0x1
+ 2720 027b 2B       		.byte	0x2b
+ 2721 027c 00000000 		.4byte	.LFB0
+ 2722 0280 40000000 		.4byte	.LFE0-.LFB0
+ 2723 0284 01       		.uleb128 0x1
+ 2724 0285 9C       		.byte	0x9c
+ 2725 0286 FF020000 		.4byte	0x2ff
+ 2726 028a 06       		.uleb128 0x6
+ 2727 028b 06000000 		.4byte	.LVL23
+ 2728 028f B1040000 		.4byte	0x4b1
+ 2729 0293 07       		.uleb128 0x7
+ 2730 0294 0C000000 		.4byte	.LVL24
+ 2731 0298 BC040000 		.4byte	0x4bc
+ 2732 029c A6020000 		.4byte	0x2a6
+ 2733 02a0 08       		.uleb128 0x8
+ 2734 02a1 01       		.uleb128 0x1
+ 2735 02a2 50       		.byte	0x50
+ 2736 02a3 01       		.uleb128 0x1
+ 2737 02a4 32       		.byte	0x32
+ 2738 02a5 00       		.byte	0
+ 2739 02a6 07       		.uleb128 0x7
+ 2740 02a7 12000000 		.4byte	.LVL25
+ 2741 02ab C7040000 		.4byte	0x4c7
+ 2742 02af B9020000 		.4byte	0x2b9
+ 2743 02b3 08       		.uleb128 0x8
+ 2744 02b4 01       		.uleb128 0x1
+ 2745 02b5 50       		.byte	0x50
+ 2746 02b6 01       		.uleb128 0x1
+ 2747 02b7 34       		.byte	0x34
+ 2748 02b8 00       		.byte	0
+ 2749 02b9 06       		.uleb128 0x6
+ 2750 02ba 16000000 		.4byte	.LVL26
+ 2751 02be D2040000 		.4byte	0x4d2
+ 2752 02c2 06       		.uleb128 0x6
+ 2753 02c3 1E000000 		.4byte	.LVL27
+ 2754 02c7 D2040000 		.4byte	0x4d2
+ 2755 02cb 07       		.uleb128 0x7
+ 2756 02cc 2C000000 		.4byte	.LVL28
+ 2757 02d0 37010000 		.4byte	0x137
+ 2758 02d4 E6020000 		.4byte	0x2e6
+ 2759 02d8 08       		.uleb128 0x8
+ 2760 02d9 01       		.uleb128 0x1
+ 2761 02da 50       		.byte	0x50
+ 2762 02db 02       		.uleb128 0x2
+ 2763 02dc 74       		.byte	0x74
+ 2764 02dd 00       		.sleb128 0
+ 2765 02de 08       		.uleb128 0x8
+ 2766 02df 01       		.uleb128 0x1
+ 2767 02e0 51       		.byte	0x51
+ 2768 02e1 03       		.uleb128 0x3
+ 2769 02e2 0A       		.byte	0xa
+ 2770 02e3 E803     		.2byte	0x3e8
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 55
+
+
+ 2771 02e5 00       		.byte	0
+ 2772 02e6 09       		.uleb128 0x9
+ 2773 02e7 36000000 		.4byte	.LVL29
+ 2774 02eb DA010000 		.4byte	0x1da
+ 2775 02ef 08       		.uleb128 0x8
+ 2776 02f0 01       		.uleb128 0x1
+ 2777 02f1 50       		.byte	0x50
+ 2778 02f2 03       		.uleb128 0x3
+ 2779 02f3 74       		.byte	0x74
+ 2780 02f4 E807     		.sleb128 1000
+ 2781 02f6 08       		.uleb128 0x8
+ 2782 02f7 01       		.uleb128 0x1
+ 2783 02f8 51       		.byte	0x51
+ 2784 02f9 03       		.uleb128 0x3
+ 2785 02fa 0A       		.byte	0xa
+ 2786 02fb E803     		.2byte	0x3e8
+ 2787 02fd 00       		.byte	0
+ 2788 02fe 00       		.byte	0
+ 2789 02ff 05       		.uleb128 0x5
+ 2790 0300 C2030000 		.4byte	.LASF24
+ 2791 0304 01       		.byte	0x1
+ 2792 0305 81       		.byte	0x81
+ 2793 0306 00000000 		.4byte	.LFB2
+ 2794 030a 1C000000 		.4byte	.LFE2-.LFB2
+ 2795 030e 01       		.uleb128 0x1
+ 2796 030f 9C       		.byte	0x9c
+ 2797 0310 27030000 		.4byte	0x327
+ 2798 0314 06       		.uleb128 0x6
+ 2799 0315 0C000000 		.4byte	.LVL30
+ 2800 0319 75020000 		.4byte	0x275
+ 2801 031d 06       		.uleb128 0x6
+ 2802 031e 16000000 		.4byte	.LVL31
+ 2803 0322 B2000000 		.4byte	0xb2
+ 2804 0326 00       		.byte	0
+ 2805 0327 05       		.uleb128 0x5
+ 2806 0328 9B030000 		.4byte	.LASF25
+ 2807 032c 01       		.byte	0x1
+ 2808 032d A3       		.byte	0xa3
+ 2809 032e 00000000 		.4byte	.LFB3
+ 2810 0332 18000000 		.4byte	.LFE3-.LFB3
+ 2811 0336 01       		.uleb128 0x1
+ 2812 0337 9C       		.byte	0x9c
+ 2813 0338 B1030000 		.4byte	0x3b1
+ 2814 033c 0A       		.uleb128 0xa
+ 2815 033d 1B010000 		.4byte	.LASF26
+ 2816 0341 01       		.byte	0x1
+ 2817 0342 A3       		.byte	0xa3
+ 2818 0343 CF010000 		.4byte	0x1cf
+ 2819 0347 9A000000 		.4byte	.LLST4
+ 2820 034b 0A       		.uleb128 0xa
+ 2821 034c 7D020000 		.4byte	.LASF27
+ 2822 0350 01       		.byte	0x1
+ 2823 0351 A3       		.byte	0xa3
+ 2824 0352 77000000 		.4byte	0x77
+ 2825 0356 BB000000 		.4byte	.LLST5
+ 2826 035a 0A       		.uleb128 0xa
+ 2827 035b 24010000 		.4byte	.LASF28
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 56
+
+
+ 2828 035f 01       		.byte	0x1
+ 2829 0360 A3       		.byte	0xa3
+ 2830 0361 CF010000 		.4byte	0x1cf
+ 2831 0365 DC000000 		.4byte	.LLST6
+ 2832 0369 0A       		.uleb128 0xa
+ 2833 036a 89020000 		.4byte	.LASF29
+ 2834 036e 01       		.byte	0x1
+ 2835 036f A3       		.byte	0xa3
+ 2836 0370 77000000 		.4byte	0x77
+ 2837 0374 FA000000 		.4byte	.LLST7
+ 2838 0378 07       		.uleb128 0x7
+ 2839 0379 0A000000 		.4byte	.LVL33
+ 2840 037d 37010000 		.4byte	0x137
+ 2841 0381 8D030000 		.4byte	0x38d
+ 2842 0385 08       		.uleb128 0x8
+ 2843 0386 01       		.uleb128 0x1
+ 2844 0387 50       		.byte	0x50
+ 2845 0388 03       		.uleb128 0x3
+ 2846 0389 F3       		.byte	0xf3
+ 2847 038a 01       		.uleb128 0x1
+ 2848 038b 50       		.byte	0x50
+ 2849 038c 00       		.byte	0
+ 2850 038d 07       		.uleb128 0x7
+ 2851 038e 12000000 		.4byte	.LVL34
+ 2852 0392 DA010000 		.4byte	0x1da
+ 2853 0396 A7030000 		.4byte	0x3a7
+ 2854 039a 08       		.uleb128 0x8
+ 2855 039b 01       		.uleb128 0x1
+ 2856 039c 50       		.byte	0x50
+ 2857 039d 02       		.uleb128 0x2
+ 2858 039e 74       		.byte	0x74
+ 2859 039f 00       		.sleb128 0
+ 2860 03a0 08       		.uleb128 0x8
+ 2861 03a1 01       		.uleb128 0x1
+ 2862 03a2 51       		.byte	0x51
+ 2863 03a3 02       		.uleb128 0x2
+ 2864 03a4 75       		.byte	0x75
+ 2865 03a5 00       		.sleb128 0
+ 2866 03a6 00       		.byte	0
+ 2867 03a7 06       		.uleb128 0x6
+ 2868 03a8 16000000 		.4byte	.LVL35
+ 2869 03ac FF020000 		.4byte	0x2ff
+ 2870 03b0 00       		.byte	0
+ 2871 03b1 0F       		.uleb128 0xf
+ 2872 03b2 01030000 		.4byte	.LASF30
+ 2873 03b6 01       		.byte	0x1
+ 2874 03b7 17       		.byte	0x17
+ 2875 03b8 6B000000 		.4byte	0x6b
+ 2876 03bc 05       		.uleb128 0x5
+ 2877 03bd 03       		.byte	0x3
+ 2878 03be 00000000 		.4byte	WaveGen_Wave1Chan
+ 2879 03c2 0F       		.uleb128 0xf
+ 2880 03c3 F2000000 		.4byte	.LASF31
+ 2881 03c7 01       		.byte	0x1
+ 2882 03c8 18       		.byte	0x18
+ 2883 03c9 6B000000 		.4byte	0x6b
+ 2884 03cd 05       		.uleb128 0x5
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 57
+
+
+ 2885 03ce 03       		.byte	0x3
+ 2886 03cf 01000000 		.4byte	WaveGen_Wave2Chan
+ 2887 03d3 0F       		.uleb128 0xf
+ 2888 03d4 86030000 		.4byte	.LASF32
+ 2889 03d8 01       		.byte	0x1
+ 2890 03d9 19       		.byte	0x19
+ 2891 03da 6B000000 		.4byte	0x6b
+ 2892 03de 05       		.uleb128 0x5
+ 2893 03df 03       		.byte	0x3
+ 2894 03e0 02000000 		.4byte	WaveGen_Wave1TD
+ 2895 03e4 0F       		.uleb128 0xf
+ 2896 03e5 2F000000 		.4byte	.LASF33
+ 2897 03e9 01       		.byte	0x1
+ 2898 03ea 1A       		.byte	0x1a
+ 2899 03eb 6B000000 		.4byte	0x6b
+ 2900 03ef 05       		.uleb128 0x5
+ 2901 03f0 03       		.byte	0x3
+ 2902 03f1 03000000 		.4byte	WaveGen_Wave2TD
+ 2903 03f5 10       		.uleb128 0x10
+ 2904 03f6 D4020000 		.4byte	.LASF34
+ 2905 03fa 01       		.byte	0x1
+ 2906 03fb 12       		.byte	0x12
+ 2907 03fc 6B000000 		.4byte	0x6b
+ 2908 0400 05       		.uleb128 0x5
+ 2909 0401 03       		.byte	0x3
+ 2910 0402 00000000 		.4byte	WaveGen_initVar
+ 2911 0406 11       		.uleb128 0x11
+ 2912 0407 D5010000 		.4byte	0x1d5
+ 2913 040b 17040000 		.4byte	0x417
+ 2914 040f 12       		.uleb128 0x12
+ 2915 0410 AB000000 		.4byte	0xab
+ 2916 0414 E703     		.2byte	0x3e7
+ 2917 0416 00       		.byte	0
+ 2918 0417 10       		.uleb128 0x10
+ 2919 0418 3C030000 		.4byte	.LASF35
+ 2920 041c 01       		.byte	0x1
+ 2921 041d 14       		.byte	0x14
+ 2922 041e 28040000 		.4byte	0x428
+ 2923 0422 05       		.uleb128 0x5
+ 2924 0423 03       		.byte	0x3
+ 2925 0424 00000000 		.4byte	WaveGen_wave1
+ 2926 0428 0C       		.uleb128 0xc
+ 2927 0429 06040000 		.4byte	0x406
+ 2928 042d 10       		.uleb128 0x10
+ 2929 042e 61030000 		.4byte	.LASF36
+ 2930 0432 01       		.byte	0x1
+ 2931 0433 15       		.byte	0x15
+ 2932 0434 3E040000 		.4byte	0x43e
+ 2933 0438 05       		.uleb128 0x5
+ 2934 0439 03       		.byte	0x3
+ 2935 043a 00000000 		.4byte	WaveGen_wave2
+ 2936 043e 0C       		.uleb128 0xc
+ 2937 043f 06040000 		.4byte	0x406
+ 2938 0443 13       		.uleb128 0x13
+ 2939 0444 68020000 		.4byte	.LASF37
+ 2940 0448 68020000 		.4byte	.LASF37
+ 2941 044c 03       		.byte	0x3
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 58
+
+
+ 2942 044d 3A       		.byte	0x3a
+ 2943 044e 13       		.uleb128 0x13
+ 2944 044f 13030000 		.4byte	.LASF38
+ 2945 0453 13030000 		.4byte	.LASF38
+ 2946 0457 04       		.byte	0x4
+ 2947 0458 29       		.byte	0x29
+ 2948 0459 13       		.uleb128 0x13
+ 2949 045a AB030000 		.4byte	.LASF39
+ 2950 045e AB030000 		.4byte	.LASF39
+ 2951 0462 03       		.byte	0x3
+ 2952 0463 37       		.byte	0x37
+ 2953 0464 13       		.uleb128 0x13
+ 2954 0465 FE030000 		.4byte	.LASF40
+ 2955 0469 FE030000 		.4byte	.LASF40
+ 2956 046d 04       		.byte	0x4
+ 2957 046e 2A       		.byte	0x2a
+ 2958 046f 13       		.uleb128 0x13
+ 2959 0470 E4020000 		.4byte	.LASF41
+ 2960 0474 E4020000 		.4byte	.LASF41
+ 2961 0478 03       		.byte	0x3
+ 2962 0479 34       		.byte	0x34
+ 2963 047a 13       		.uleb128 0x13
+ 2964 047b 00000000 		.4byte	.LASF42
+ 2965 047f 00000000 		.4byte	.LASF42
+ 2966 0483 05       		.byte	0x5
+ 2967 0484 1E       		.byte	0x1e
+ 2968 0485 13       		.uleb128 0x13
+ 2969 0486 1D020000 		.4byte	.LASF43
+ 2970 048a 1D020000 		.4byte	.LASF43
+ 2971 048e 04       		.byte	0x4
+ 2972 048f 3B       		.byte	0x3b
+ 2973 0490 13       		.uleb128 0x13
+ 2974 0491 3F000000 		.4byte	.LASF44
+ 2975 0495 3F000000 		.4byte	.LASF44
+ 2976 0499 04       		.byte	0x4
+ 2977 049a 3F       		.byte	0x3f
+ 2978 049b 13       		.uleb128 0x13
+ 2979 049c D1000000 		.4byte	.LASF45
+ 2980 04a0 D1000000 		.4byte	.LASF45
+ 2981 04a4 04       		.byte	0x4
+ 2982 04a5 2F       		.byte	0x2f
+ 2983 04a6 13       		.uleb128 0x13
+ 2984 04a7 5E010000 		.4byte	.LASF46
+ 2985 04ab 5E010000 		.4byte	.LASF46
+ 2986 04af 06       		.byte	0x6
+ 2987 04b0 1E       		.byte	0x1e
+ 2988 04b1 13       		.uleb128 0x13
+ 2989 04b2 AB000000 		.4byte	.LASF47
+ 2990 04b6 AB000000 		.4byte	.LASF47
+ 2991 04ba 03       		.byte	0x3
+ 2992 04bb 39       		.byte	0x39
+ 2993 04bc 13       		.uleb128 0x13
+ 2994 04bd B6020000 		.4byte	.LASF48
+ 2995 04c1 B6020000 		.4byte	.LASF48
+ 2996 04c5 03       		.byte	0x3
+ 2997 04c6 35       		.byte	0x35
+ 2998 04c7 13       		.uleb128 0x13
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 59
+
+
+ 2999 04c8 04010000 		.4byte	.LASF49
+ 3000 04cc 04010000 		.4byte	.LASF49
+ 3001 04d0 03       		.byte	0x3
+ 3002 04d1 36       		.byte	0x36
+ 3003 04d2 13       		.uleb128 0x13
+ 3004 04d3 4E010000 		.4byte	.LASF50
+ 3005 04d7 4E010000 		.4byte	.LASF50
+ 3006 04db 04       		.byte	0x4
+ 3007 04dc 38       		.byte	0x38
+ 3008 04dd 00       		.byte	0
+ 3009              		.section	.debug_abbrev,"",%progbits
+ 3010              	.Ldebug_abbrev0:
+ 3011 0000 01       		.uleb128 0x1
+ 3012 0001 11       		.uleb128 0x11
+ 3013 0002 01       		.byte	0x1
+ 3014 0003 25       		.uleb128 0x25
+ 3015 0004 0E       		.uleb128 0xe
+ 3016 0005 13       		.uleb128 0x13
+ 3017 0006 0B       		.uleb128 0xb
+ 3018 0007 03       		.uleb128 0x3
+ 3019 0008 0E       		.uleb128 0xe
+ 3020 0009 1B       		.uleb128 0x1b
+ 3021 000a 0E       		.uleb128 0xe
+ 3022 000b 55       		.uleb128 0x55
+ 3023 000c 17       		.uleb128 0x17
+ 3024 000d 11       		.uleb128 0x11
+ 3025 000e 01       		.uleb128 0x1
+ 3026 000f 10       		.uleb128 0x10
+ 3027 0010 17       		.uleb128 0x17
+ 3028 0011 00       		.byte	0
+ 3029 0012 00       		.byte	0
+ 3030 0013 02       		.uleb128 0x2
+ 3031 0014 24       		.uleb128 0x24
+ 3032 0015 00       		.byte	0
+ 3033 0016 0B       		.uleb128 0xb
+ 3034 0017 0B       		.uleb128 0xb
+ 3035 0018 3E       		.uleb128 0x3e
+ 3036 0019 0B       		.uleb128 0xb
+ 3037 001a 03       		.uleb128 0x3
+ 3038 001b 0E       		.uleb128 0xe
+ 3039 001c 00       		.byte	0
+ 3040 001d 00       		.byte	0
+ 3041 001e 03       		.uleb128 0x3
+ 3042 001f 24       		.uleb128 0x24
+ 3043 0020 00       		.byte	0
+ 3044 0021 0B       		.uleb128 0xb
+ 3045 0022 0B       		.uleb128 0xb
+ 3046 0023 3E       		.uleb128 0x3e
+ 3047 0024 0B       		.uleb128 0xb
+ 3048 0025 03       		.uleb128 0x3
+ 3049 0026 08       		.uleb128 0x8
+ 3050 0027 00       		.byte	0
+ 3051 0028 00       		.byte	0
+ 3052 0029 04       		.uleb128 0x4
+ 3053 002a 16       		.uleb128 0x16
+ 3054 002b 00       		.byte	0
+ 3055 002c 03       		.uleb128 0x3
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 60
+
+
+ 3056 002d 0E       		.uleb128 0xe
+ 3057 002e 3A       		.uleb128 0x3a
+ 3058 002f 0B       		.uleb128 0xb
+ 3059 0030 3B       		.uleb128 0x3b
+ 3060 0031 05       		.uleb128 0x5
+ 3061 0032 49       		.uleb128 0x49
+ 3062 0033 13       		.uleb128 0x13
+ 3063 0034 00       		.byte	0
+ 3064 0035 00       		.byte	0
+ 3065 0036 05       		.uleb128 0x5
+ 3066 0037 2E       		.uleb128 0x2e
+ 3067 0038 01       		.byte	0x1
+ 3068 0039 3F       		.uleb128 0x3f
+ 3069 003a 19       		.uleb128 0x19
+ 3070 003b 03       		.uleb128 0x3
+ 3071 003c 0E       		.uleb128 0xe
+ 3072 003d 3A       		.uleb128 0x3a
+ 3073 003e 0B       		.uleb128 0xb
+ 3074 003f 3B       		.uleb128 0x3b
+ 3075 0040 0B       		.uleb128 0xb
+ 3076 0041 27       		.uleb128 0x27
+ 3077 0042 19       		.uleb128 0x19
+ 3078 0043 11       		.uleb128 0x11
+ 3079 0044 01       		.uleb128 0x1
+ 3080 0045 12       		.uleb128 0x12
+ 3081 0046 06       		.uleb128 0x6
+ 3082 0047 40       		.uleb128 0x40
+ 3083 0048 18       		.uleb128 0x18
+ 3084 0049 9742     		.uleb128 0x2117
+ 3085 004b 19       		.uleb128 0x19
+ 3086 004c 01       		.uleb128 0x1
+ 3087 004d 13       		.uleb128 0x13
+ 3088 004e 00       		.byte	0
+ 3089 004f 00       		.byte	0
+ 3090 0050 06       		.uleb128 0x6
+ 3091 0051 898201   		.uleb128 0x4109
+ 3092 0054 00       		.byte	0
+ 3093 0055 11       		.uleb128 0x11
+ 3094 0056 01       		.uleb128 0x1
+ 3095 0057 31       		.uleb128 0x31
+ 3096 0058 13       		.uleb128 0x13
+ 3097 0059 00       		.byte	0
+ 3098 005a 00       		.byte	0
+ 3099 005b 07       		.uleb128 0x7
+ 3100 005c 898201   		.uleb128 0x4109
+ 3101 005f 01       		.byte	0x1
+ 3102 0060 11       		.uleb128 0x11
+ 3103 0061 01       		.uleb128 0x1
+ 3104 0062 31       		.uleb128 0x31
+ 3105 0063 13       		.uleb128 0x13
+ 3106 0064 01       		.uleb128 0x1
+ 3107 0065 13       		.uleb128 0x13
+ 3108 0066 00       		.byte	0
+ 3109 0067 00       		.byte	0
+ 3110 0068 08       		.uleb128 0x8
+ 3111 0069 8A8201   		.uleb128 0x410a
+ 3112 006c 00       		.byte	0
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 61
+
+
+ 3113 006d 02       		.uleb128 0x2
+ 3114 006e 18       		.uleb128 0x18
+ 3115 006f 9142     		.uleb128 0x2111
+ 3116 0071 18       		.uleb128 0x18
+ 3117 0072 00       		.byte	0
+ 3118 0073 00       		.byte	0
+ 3119 0074 09       		.uleb128 0x9
+ 3120 0075 898201   		.uleb128 0x4109
+ 3121 0078 01       		.byte	0x1
+ 3122 0079 11       		.uleb128 0x11
+ 3123 007a 01       		.uleb128 0x1
+ 3124 007b 31       		.uleb128 0x31
+ 3125 007c 13       		.uleb128 0x13
+ 3126 007d 00       		.byte	0
+ 3127 007e 00       		.byte	0
+ 3128 007f 0A       		.uleb128 0xa
+ 3129 0080 05       		.uleb128 0x5
+ 3130 0081 00       		.byte	0
+ 3131 0082 03       		.uleb128 0x3
+ 3132 0083 0E       		.uleb128 0xe
+ 3133 0084 3A       		.uleb128 0x3a
+ 3134 0085 0B       		.uleb128 0xb
+ 3135 0086 3B       		.uleb128 0x3b
+ 3136 0087 0B       		.uleb128 0xb
+ 3137 0088 49       		.uleb128 0x49
+ 3138 0089 13       		.uleb128 0x13
+ 3139 008a 02       		.uleb128 0x2
+ 3140 008b 17       		.uleb128 0x17
+ 3141 008c 00       		.byte	0
+ 3142 008d 00       		.byte	0
+ 3143 008e 0B       		.uleb128 0xb
+ 3144 008f 0F       		.uleb128 0xf
+ 3145 0090 00       		.byte	0
+ 3146 0091 0B       		.uleb128 0xb
+ 3147 0092 0B       		.uleb128 0xb
+ 3148 0093 49       		.uleb128 0x49
+ 3149 0094 13       		.uleb128 0x13
+ 3150 0095 00       		.byte	0
+ 3151 0096 00       		.byte	0
+ 3152 0097 0C       		.uleb128 0xc
+ 3153 0098 26       		.uleb128 0x26
+ 3154 0099 00       		.byte	0
+ 3155 009a 49       		.uleb128 0x49
+ 3156 009b 13       		.uleb128 0x13
+ 3157 009c 00       		.byte	0
+ 3158 009d 00       		.byte	0
+ 3159 009e 0D       		.uleb128 0xd
+ 3160 009f 2E       		.uleb128 0x2e
+ 3161 00a0 01       		.byte	0x1
+ 3162 00a1 3F       		.uleb128 0x3f
+ 3163 00a2 19       		.uleb128 0x19
+ 3164 00a3 03       		.uleb128 0x3
+ 3165 00a4 0E       		.uleb128 0xe
+ 3166 00a5 3A       		.uleb128 0x3a
+ 3167 00a6 0B       		.uleb128 0xb
+ 3168 00a7 3B       		.uleb128 0x3b
+ 3169 00a8 05       		.uleb128 0x5
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 62
+
+
+ 3170 00a9 27       		.uleb128 0x27
+ 3171 00aa 19       		.uleb128 0x19
+ 3172 00ab 11       		.uleb128 0x11
+ 3173 00ac 01       		.uleb128 0x1
+ 3174 00ad 12       		.uleb128 0x12
+ 3175 00ae 06       		.uleb128 0x6
+ 3176 00af 40       		.uleb128 0x40
+ 3177 00b0 18       		.uleb128 0x18
+ 3178 00b1 9742     		.uleb128 0x2117
+ 3179 00b3 19       		.uleb128 0x19
+ 3180 00b4 01       		.uleb128 0x1
+ 3181 00b5 13       		.uleb128 0x13
+ 3182 00b6 00       		.byte	0
+ 3183 00b7 00       		.byte	0
+ 3184 00b8 0E       		.uleb128 0xe
+ 3185 00b9 05       		.uleb128 0x5
+ 3186 00ba 00       		.byte	0
+ 3187 00bb 03       		.uleb128 0x3
+ 3188 00bc 0E       		.uleb128 0xe
+ 3189 00bd 3A       		.uleb128 0x3a
+ 3190 00be 0B       		.uleb128 0xb
+ 3191 00bf 3B       		.uleb128 0x3b
+ 3192 00c0 05       		.uleb128 0x5
+ 3193 00c1 49       		.uleb128 0x49
+ 3194 00c2 13       		.uleb128 0x13
+ 3195 00c3 02       		.uleb128 0x2
+ 3196 00c4 17       		.uleb128 0x17
+ 3197 00c5 00       		.byte	0
+ 3198 00c6 00       		.byte	0
+ 3199 00c7 0F       		.uleb128 0xf
+ 3200 00c8 34       		.uleb128 0x34
+ 3201 00c9 00       		.byte	0
+ 3202 00ca 03       		.uleb128 0x3
+ 3203 00cb 0E       		.uleb128 0xe
+ 3204 00cc 3A       		.uleb128 0x3a
+ 3205 00cd 0B       		.uleb128 0xb
+ 3206 00ce 3B       		.uleb128 0x3b
+ 3207 00cf 0B       		.uleb128 0xb
+ 3208 00d0 49       		.uleb128 0x49
+ 3209 00d1 13       		.uleb128 0x13
+ 3210 00d2 02       		.uleb128 0x2
+ 3211 00d3 18       		.uleb128 0x18
+ 3212 00d4 00       		.byte	0
+ 3213 00d5 00       		.byte	0
+ 3214 00d6 10       		.uleb128 0x10
+ 3215 00d7 34       		.uleb128 0x34
+ 3216 00d8 00       		.byte	0
+ 3217 00d9 03       		.uleb128 0x3
+ 3218 00da 0E       		.uleb128 0xe
+ 3219 00db 3A       		.uleb128 0x3a
+ 3220 00dc 0B       		.uleb128 0xb
+ 3221 00dd 3B       		.uleb128 0x3b
+ 3222 00de 0B       		.uleb128 0xb
+ 3223 00df 49       		.uleb128 0x49
+ 3224 00e0 13       		.uleb128 0x13
+ 3225 00e1 3F       		.uleb128 0x3f
+ 3226 00e2 19       		.uleb128 0x19
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 63
+
+
+ 3227 00e3 02       		.uleb128 0x2
+ 3228 00e4 18       		.uleb128 0x18
+ 3229 00e5 00       		.byte	0
+ 3230 00e6 00       		.byte	0
+ 3231 00e7 11       		.uleb128 0x11
+ 3232 00e8 01       		.uleb128 0x1
+ 3233 00e9 01       		.byte	0x1
+ 3234 00ea 49       		.uleb128 0x49
+ 3235 00eb 13       		.uleb128 0x13
+ 3236 00ec 01       		.uleb128 0x1
+ 3237 00ed 13       		.uleb128 0x13
+ 3238 00ee 00       		.byte	0
+ 3239 00ef 00       		.byte	0
+ 3240 00f0 12       		.uleb128 0x12
+ 3241 00f1 21       		.uleb128 0x21
+ 3242 00f2 00       		.byte	0
+ 3243 00f3 49       		.uleb128 0x49
+ 3244 00f4 13       		.uleb128 0x13
+ 3245 00f5 2F       		.uleb128 0x2f
+ 3246 00f6 05       		.uleb128 0x5
+ 3247 00f7 00       		.byte	0
+ 3248 00f8 00       		.byte	0
+ 3249 00f9 13       		.uleb128 0x13
+ 3250 00fa 2E       		.uleb128 0x2e
+ 3251 00fb 00       		.byte	0
+ 3252 00fc 3F       		.uleb128 0x3f
+ 3253 00fd 19       		.uleb128 0x19
+ 3254 00fe 3C       		.uleb128 0x3c
+ 3255 00ff 19       		.uleb128 0x19
+ 3256 0100 6E       		.uleb128 0x6e
+ 3257 0101 0E       		.uleb128 0xe
+ 3258 0102 03       		.uleb128 0x3
+ 3259 0103 0E       		.uleb128 0xe
+ 3260 0104 3A       		.uleb128 0x3a
+ 3261 0105 0B       		.uleb128 0xb
+ 3262 0106 3B       		.uleb128 0x3b
+ 3263 0107 0B       		.uleb128 0xb
+ 3264 0108 00       		.byte	0
+ 3265 0109 00       		.byte	0
+ 3266 010a 00       		.byte	0
+ 3267              		.section	.debug_loc,"",%progbits
+ 3268              	.Ldebug_loc0:
+ 3269              	.LLST0:
+ 3270 0000 00000000 		.4byte	.LVL7
+ 3271 0004 10000000 		.4byte	.LVL9
+ 3272 0008 0100     		.2byte	0x1
+ 3273 000a 50       		.byte	0x50
+ 3274 000b 10000000 		.4byte	.LVL9
+ 3275 000f 3A000000 		.4byte	.LVL14
+ 3276 0013 0100     		.2byte	0x1
+ 3277 0015 55       		.byte	0x55
+ 3278 0016 3A000000 		.4byte	.LVL14
+ 3279 001a 40000000 		.4byte	.LFE5
+ 3280 001e 0400     		.2byte	0x4
+ 3281 0020 F3       		.byte	0xf3
+ 3282 0021 01       		.uleb128 0x1
+ 3283 0022 50       		.byte	0x50
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 64
+
+
+ 3284 0023 9F       		.byte	0x9f
+ 3285 0024 00000000 		.4byte	0
+ 3286 0028 00000000 		.4byte	0
+ 3287              	.LLST1:
+ 3288 002c 00000000 		.4byte	.LVL7
+ 3289 0030 0E000000 		.4byte	.LVL8
+ 3290 0034 0100     		.2byte	0x1
+ 3291 0036 51       		.byte	0x51
+ 3292 0037 0E000000 		.4byte	.LVL8
+ 3293 003b 40000000 		.4byte	.LFE5
+ 3294 003f 0400     		.2byte	0x4
+ 3295 0041 F3       		.byte	0xf3
+ 3296 0042 01       		.uleb128 0x1
+ 3297 0043 51       		.byte	0x51
+ 3298 0044 9F       		.byte	0x9f
+ 3299 0045 00000000 		.4byte	0
+ 3300 0049 00000000 		.4byte	0
+ 3301              	.LLST2:
+ 3302 004d 00000000 		.4byte	.LVL15
+ 3303 0051 10000000 		.4byte	.LVL17
+ 3304 0055 0100     		.2byte	0x1
+ 3305 0057 50       		.byte	0x50
+ 3306 0058 10000000 		.4byte	.LVL17
+ 3307 005c 3A000000 		.4byte	.LVL22
+ 3308 0060 0100     		.2byte	0x1
+ 3309 0062 55       		.byte	0x55
+ 3310 0063 3A000000 		.4byte	.LVL22
+ 3311 0067 40000000 		.4byte	.LFE6
+ 3312 006b 0400     		.2byte	0x4
+ 3313 006d F3       		.byte	0xf3
+ 3314 006e 01       		.uleb128 0x1
+ 3315 006f 50       		.byte	0x50
+ 3316 0070 9F       		.byte	0x9f
+ 3317 0071 00000000 		.4byte	0
+ 3318 0075 00000000 		.4byte	0
+ 3319              	.LLST3:
+ 3320 0079 00000000 		.4byte	.LVL15
+ 3321 007d 0E000000 		.4byte	.LVL16
+ 3322 0081 0100     		.2byte	0x1
+ 3323 0083 51       		.byte	0x51
+ 3324 0084 0E000000 		.4byte	.LVL16
+ 3325 0088 40000000 		.4byte	.LFE6
+ 3326 008c 0400     		.2byte	0x4
+ 3327 008e F3       		.byte	0xf3
+ 3328 008f 01       		.uleb128 0x1
+ 3329 0090 51       		.byte	0x51
+ 3330 0091 9F       		.byte	0x9f
+ 3331 0092 00000000 		.4byte	0
+ 3332 0096 00000000 		.4byte	0
+ 3333              	.LLST4:
+ 3334 009a 00000000 		.4byte	.LVL32
+ 3335 009e 09000000 		.4byte	.LVL33-1
+ 3336 00a2 0100     		.2byte	0x1
+ 3337 00a4 50       		.byte	0x50
+ 3338 00a5 09000000 		.4byte	.LVL33-1
+ 3339 00a9 18000000 		.4byte	.LFE3
+ 3340 00ad 0400     		.2byte	0x4
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 65
+
+
+ 3341 00af F3       		.byte	0xf3
+ 3342 00b0 01       		.uleb128 0x1
+ 3343 00b1 50       		.byte	0x50
+ 3344 00b2 9F       		.byte	0x9f
+ 3345 00b3 00000000 		.4byte	0
+ 3346 00b7 00000000 		.4byte	0
+ 3347              	.LLST5:
+ 3348 00bb 00000000 		.4byte	.LVL32
+ 3349 00bf 09000000 		.4byte	.LVL33-1
+ 3350 00c3 0100     		.2byte	0x1
+ 3351 00c5 51       		.byte	0x51
+ 3352 00c6 09000000 		.4byte	.LVL33-1
+ 3353 00ca 18000000 		.4byte	.LFE3
+ 3354 00ce 0400     		.2byte	0x4
+ 3355 00d0 F3       		.byte	0xf3
+ 3356 00d1 01       		.uleb128 0x1
+ 3357 00d2 51       		.byte	0x51
+ 3358 00d3 9F       		.byte	0x9f
+ 3359 00d4 00000000 		.4byte	0
+ 3360 00d8 00000000 		.4byte	0
+ 3361              	.LLST6:
+ 3362 00dc 00000000 		.4byte	.LVL32
+ 3363 00e0 09000000 		.4byte	.LVL33-1
+ 3364 00e4 0100     		.2byte	0x1
+ 3365 00e6 52       		.byte	0x52
+ 3366 00e7 09000000 		.4byte	.LVL33-1
+ 3367 00eb 18000000 		.4byte	.LFE3
+ 3368 00ef 0100     		.2byte	0x1
+ 3369 00f1 54       		.byte	0x54
+ 3370 00f2 00000000 		.4byte	0
+ 3371 00f6 00000000 		.4byte	0
+ 3372              	.LLST7:
+ 3373 00fa 00000000 		.4byte	.LVL32
+ 3374 00fe 09000000 		.4byte	.LVL33-1
+ 3375 0102 0100     		.2byte	0x1
+ 3376 0104 53       		.byte	0x53
+ 3377 0105 09000000 		.4byte	.LVL33-1
+ 3378 0109 18000000 		.4byte	.LFE3
+ 3379 010d 0400     		.2byte	0x4
+ 3380 010f F3       		.byte	0xf3
+ 3381 0110 01       		.uleb128 0x1
+ 3382 0111 53       		.byte	0x53
+ 3383 0112 9F       		.byte	0x9f
+ 3384 0113 00000000 		.4byte	0
+ 3385 0117 00000000 		.4byte	0
+ 3386              		.section	.debug_aranges,"",%progbits
+ 3387 0000 4C000000 		.4byte	0x4c
+ 3388 0004 0200     		.2byte	0x2
+ 3389 0006 00000000 		.4byte	.Ldebug_info0
+ 3390 000a 04       		.byte	0x4
+ 3391 000b 00       		.byte	0
+ 3392 000c 0000     		.2byte	0
+ 3393 000e 0000     		.2byte	0
+ 3394 0010 00000000 		.4byte	.LFB1
+ 3395 0014 24000000 		.4byte	.LFE1-.LFB1
+ 3396 0018 00000000 		.4byte	.LFB4
+ 3397 001c 1C000000 		.4byte	.LFE4-.LFB4
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 66
+
+
+ 3398 0020 00000000 		.4byte	.LFB5
+ 3399 0024 40000000 		.4byte	.LFE5-.LFB5
+ 3400 0028 00000000 		.4byte	.LFB6
+ 3401 002c 40000000 		.4byte	.LFE6-.LFB6
+ 3402 0030 00000000 		.4byte	.LFB0
+ 3403 0034 40000000 		.4byte	.LFE0-.LFB0
+ 3404 0038 00000000 		.4byte	.LFB2
+ 3405 003c 1C000000 		.4byte	.LFE2-.LFB2
+ 3406 0040 00000000 		.4byte	.LFB3
+ 3407 0044 18000000 		.4byte	.LFE3-.LFB3
+ 3408 0048 00000000 		.4byte	0
+ 3409 004c 00000000 		.4byte	0
+ 3410              		.section	.debug_ranges,"",%progbits
+ 3411              	.Ldebug_ranges0:
+ 3412 0000 00000000 		.4byte	.LFB1
+ 3413 0004 24000000 		.4byte	.LFE1
+ 3414 0008 00000000 		.4byte	.LFB4
+ 3415 000c 1C000000 		.4byte	.LFE4
+ 3416 0010 00000000 		.4byte	.LFB5
+ 3417 0014 40000000 		.4byte	.LFE5
+ 3418 0018 00000000 		.4byte	.LFB6
+ 3419 001c 40000000 		.4byte	.LFE6
+ 3420 0020 00000000 		.4byte	.LFB0
+ 3421 0024 40000000 		.4byte	.LFE0
+ 3422 0028 00000000 		.4byte	.LFB2
+ 3423 002c 1C000000 		.4byte	.LFE2
+ 3424 0030 00000000 		.4byte	.LFB3
+ 3425 0034 18000000 		.4byte	.LFE3
+ 3426 0038 00000000 		.4byte	0
+ 3427 003c 00000000 		.4byte	0
+ 3428              		.section	.debug_line,"",%progbits
+ 3429              	.Ldebug_line0:
+ 3430 0000 37010000 		.section	.debug_str,"MS",%progbits,1
+ 3430      02009900 
+ 3430      00000201 
+ 3430      FB0E0D00 
+ 3430      01010101 
+ 3431              	.LASF42:
+ 3432 0000 57617665 		.ascii	"WaveGen_Wave1_DMA_DmaInitialize\000"
+ 3432      47656E5F 
+ 3432      57617665 
+ 3432      315F444D 
+ 3432      415F446D 
+ 3433              	.LASF17:
+ 3434 0020 57617665 		.ascii	"WaveGen_Enable\000"
+ 3434      47656E5F 
+ 3434      456E6162 
+ 3434      6C6500
+ 3435              	.LASF33:
+ 3436 002f 57617665 		.ascii	"WaveGen_Wave2TD\000"
+ 3436      47656E5F 
+ 3436      57617665 
+ 3436      32544400 
+ 3437              	.LASF44:
+ 3438 003f 4379446D 		.ascii	"CyDmaTdSetAddress\000"
+ 3438      61546453 
+ 3438      65744164 
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 67
+
+
+ 3438      64726573 
+ 3438      7300
+ 3439              	.LASF53:
+ 3440 0051 433A5C55 		.ascii	"C:\\Users\\minime\\Downloads\\Rosendyne\\PSoC Creat"
+ 3440      73657273 
+ 3440      5C6D696E 
+ 3440      696D655C 
+ 3440      446F776E 
+ 3441 007f 6F725C57 		.ascii	"or\\Workspace01\\SinOutputWithReporting.cydsn\000"
+ 3441      6F726B73 
+ 3441      70616365 
+ 3441      30315C53 
+ 3441      696E4F75 
+ 3442              	.LASF47:
+ 3443 00ab 57617665 		.ascii	"WaveGen_VDAC8_Init\000"
+ 3443      47656E5F 
+ 3443      56444143 
+ 3443      385F496E 
+ 3443      697400
+ 3444              	.LASF3:
+ 3445 00be 73686F72 		.ascii	"short unsigned int\000"
+ 3445      7420756E 
+ 3445      7369676E 
+ 3445      65642069 
+ 3445      6E7400
+ 3446              	.LASF45:
+ 3447 00d1 4379446D 		.ascii	"CyDmaChSetInitialTd\000"
+ 3447      61436853 
+ 3447      6574496E 
+ 3447      69746961 
+ 3447      6C546400 
+ 3448              	.LASF18:
+ 3449 00e5 57617665 		.ascii	"WaveGen_Stop\000"
+ 3449      47656E5F 
+ 3449      53746F70 
+ 3449      00
+ 3450              	.LASF31:
+ 3451 00f2 57617665 		.ascii	"WaveGen_Wave2Chan\000"
+ 3451      47656E5F 
+ 3451      57617665 
+ 3451      32436861 
+ 3451      6E00
+ 3452              	.LASF49:
+ 3453 0104 57617665 		.ascii	"WaveGen_VDAC8_SetRange\000"
+ 3453      47656E5F 
+ 3453      56444143 
+ 3453      385F5365 
+ 3453      7452616E 
+ 3454              	.LASF26:
+ 3455 011b 77617665 		.ascii	"wavePtr1\000"
+ 3455      50747231 
+ 3455      00
+ 3456              	.LASF28:
+ 3457 0124 77617665 		.ascii	"wavePtr2\000"
+ 3457      50747232 
+ 3457      00
+ 3458              	.LASF52:
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 68
+
+
+ 3459 012d 47656E65 		.ascii	"Generated_Source\\PSoC5\\WaveGen.c\000"
+ 3459      72617465 
+ 3459      645F536F 
+ 3459      75726365 
+ 3459      5C50536F 
+ 3460              	.LASF50:
+ 3461 014e 4379446D 		.ascii	"CyDmaTdAllocate\000"
+ 3461      61546441 
+ 3461      6C6C6F63 
+ 3461      61746500 
+ 3462              	.LASF46:
+ 3463 015e 57617665 		.ascii	"WaveGen_Wave2_DMA_DmaInitialize\000"
+ 3463      47656E5F 
+ 3463      57617665 
+ 3463      325F444D 
+ 3463      415F446D 
+ 3464              	.LASF12:
+ 3465 017e 666C6F61 		.ascii	"float\000"
+ 3465      7400
+ 3466              	.LASF21:
+ 3467 0184 73616D70 		.ascii	"sampleSize\000"
+ 3467      6C655369 
+ 3467      7A6500
+ 3468              	.LASF51:
+ 3469 018f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 3469      43313120 
+ 3469      352E342E 
+ 3469      31203230 
+ 3469      31363036 
+ 3470 01c2 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 3470      20726576 
+ 3470      6973696F 
+ 3470      6E203233 
+ 3470      37373135 
+ 3471 01f5 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 3471      66756E63 
+ 3471      74696F6E 
+ 3471      2D736563 
+ 3471      74696F6E 
+ 3472              	.LASF43:
+ 3473 021d 4379446D 		.ascii	"CyDmaTdSetConfiguration\000"
+ 3473      61546453 
+ 3473      6574436F 
+ 3473      6E666967 
+ 3473      75726174 
+ 3474              	.LASF5:
+ 3475 0235 6C6F6E67 		.ascii	"long unsigned int\000"
+ 3475      20756E73 
+ 3475      69676E65 
+ 3475      6420696E 
+ 3475      7400
+ 3476              	.LASF20:
+ 3477 0247 77617665 		.ascii	"wavePtr\000"
+ 3477      50747200 
+ 3478              	.LASF9:
+ 3479 024f 75696E74 		.ascii	"uint8\000"
+ 3479      3800
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 69
+
+
+ 3480              	.LASF19:
+ 3481 0255 57617665 		.ascii	"WaveGen_Wave1Setup\000"
+ 3481      47656E5F 
+ 3481      57617665 
+ 3481      31536574 
+ 3481      757000
+ 3482              	.LASF37:
+ 3483 0268 57617665 		.ascii	"WaveGen_VDAC8_Enable\000"
+ 3483      47656E5F 
+ 3483      56444143 
+ 3483      385F456E 
+ 3483      61626C65 
+ 3484              	.LASF27:
+ 3485 027d 73616D70 		.ascii	"sampleSize1\000"
+ 3485      6C655369 
+ 3485      7A653100 
+ 3486              	.LASF29:
+ 3487 0289 73616D70 		.ascii	"sampleSize2\000"
+ 3487      6C655369 
+ 3487      7A653200 
+ 3488              	.LASF22:
+ 3489 0295 57617665 		.ascii	"WaveGen_Wave2Setup\000"
+ 3489      47656E5F 
+ 3489      57617665 
+ 3489      32536574 
+ 3489      757000
+ 3490              	.LASF1:
+ 3491 02a8 756E7369 		.ascii	"unsigned char\000"
+ 3491      676E6564 
+ 3491      20636861 
+ 3491      7200
+ 3492              	.LASF48:
+ 3493 02b6 57617665 		.ascii	"WaveGen_VDAC8_SetSpeed\000"
+ 3493      47656E5F 
+ 3493      56444143 
+ 3493      385F5365 
+ 3493      74537065 
+ 3494              	.LASF13:
+ 3495 02cd 646F7562 		.ascii	"double\000"
+ 3495      6C6500
+ 3496              	.LASF34:
+ 3497 02d4 57617665 		.ascii	"WaveGen_initVar\000"
+ 3497      47656E5F 
+ 3497      696E6974 
+ 3497      56617200 
+ 3498              	.LASF41:
+ 3499 02e4 57617665 		.ascii	"WaveGen_VDAC8_Stop\000"
+ 3499      47656E5F 
+ 3499      56444143 
+ 3499      385F5374 
+ 3499      6F7000
+ 3500              	.LASF2:
+ 3501 02f7 73686F72 		.ascii	"short int\000"
+ 3501      7420696E 
+ 3501      7400
+ 3502              	.LASF30:
+ 3503 0301 57617665 		.ascii	"WaveGen_Wave1Chan\000"
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 70
+
+
+ 3503      47656E5F 
+ 3503      57617665 
+ 3503      31436861 
+ 3503      6E00
+ 3504              	.LASF38:
+ 3505 0313 4379446D 		.ascii	"CyDmaChEnable\000"
+ 3505      61436845 
+ 3505      6E61626C 
+ 3505      6500
+ 3506              	.LASF10:
+ 3507 0321 75696E74 		.ascii	"uint16\000"
+ 3507      313600
+ 3508              	.LASF11:
+ 3509 0328 75696E74 		.ascii	"uint32\000"
+ 3509      333200
+ 3510              	.LASF8:
+ 3511 032f 756E7369 		.ascii	"unsigned int\000"
+ 3511      676E6564 
+ 3511      20696E74 
+ 3511      00
+ 3512              	.LASF35:
+ 3513 033c 57617665 		.ascii	"WaveGen_wave1\000"
+ 3513      47656E5F 
+ 3513      77617665 
+ 3513      3100
+ 3514              	.LASF7:
+ 3515 034a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 3515      206C6F6E 
+ 3515      6720756E 
+ 3515      7369676E 
+ 3515      65642069 
+ 3516              	.LASF36:
+ 3517 0361 57617665 		.ascii	"WaveGen_wave2\000"
+ 3517      47656E5F 
+ 3517      77617665 
+ 3517      3200
+ 3518              	.LASF16:
+ 3519 036f 73697A65 		.ascii	"sizetype\000"
+ 3519      74797065 
+ 3519      00
+ 3520              	.LASF6:
+ 3521 0378 6C6F6E67 		.ascii	"long long int\000"
+ 3521      206C6F6E 
+ 3521      6720696E 
+ 3521      7400
+ 3522              	.LASF32:
+ 3523 0386 57617665 		.ascii	"WaveGen_Wave1TD\000"
+ 3523      47656E5F 
+ 3523      57617665 
+ 3523      31544400 
+ 3524              	.LASF14:
+ 3525 0396 63686172 		.ascii	"char\000"
+ 3525      00
+ 3526              	.LASF25:
+ 3527 039b 57617665 		.ascii	"WaveGen_StartEx\000"
+ 3527      47656E5F 
+ 3527      53746172 
+ARM GAS  C:\Users\minime\AppData\Local\Temp\ccxEhZnM.s 			page 71
+
+
+ 3527      74457800 
+ 3528              	.LASF39:
+ 3529 03ab 57617665 		.ascii	"WaveGen_VDAC8_SetValue\000"
+ 3529      47656E5F 
+ 3529      56444143 
+ 3529      385F5365 
+ 3529      7456616C 
+ 3530              	.LASF24:
+ 3531 03c2 57617665 		.ascii	"WaveGen_Start\000"
+ 3531      47656E5F 
+ 3531      53746172 
+ 3531      7400
+ 3532              	.LASF4:
+ 3533 03d0 6C6F6E67 		.ascii	"long int\000"
+ 3533      20696E74 
+ 3533      00
+ 3534              	.LASF23:
+ 3535 03d9 57617665 		.ascii	"WaveGen_Init\000"
+ 3535      47656E5F 
+ 3535      496E6974 
+ 3535      00
+ 3536              	.LASF15:
+ 3537 03e6 6C6F6E67 		.ascii	"long double\000"
+ 3537      20646F75 
+ 3537      626C6500 
+ 3538              	.LASF0:
+ 3539 03f2 7369676E 		.ascii	"signed char\000"
+ 3539      65642063 
+ 3539      68617200 
+ 3540              	.LASF40:
+ 3541 03fe 4379446D 		.ascii	"CyDmaChDisable\000"
+ 3541      61436844 
+ 3541      69736162 
+ 3541      6C6500
+ 3542              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

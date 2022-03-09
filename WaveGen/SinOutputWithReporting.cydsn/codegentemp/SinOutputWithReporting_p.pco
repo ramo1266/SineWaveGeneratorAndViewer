@@ -1,0 +1,28 @@
+dont_use_io iocell 1 0
+dont_use_io iocell 1 1
+dont_use_io iocell 1 3
+set_location "\WaveGen:Net_134\" macrocell 3 4 0 1
+set_location "\WaveGen:Net_107\" macrocell 3 4 0 0
+set_location "\WaveGen:Net_183\" macrocell 3 4 0 2
+set_location "\USBCOMM:bus_reset\" interrupt -1 -1 23
+set_location "\USBCOMM:USB\" usbcell -1 -1 0
+set_location "ClockBlock" clockblockcell -1 -1 0
+set_location "\USBCOMM:sof_int\" interrupt -1 -1 21
+set_io "WaveFormSelect(0)" iocell 0 1
+set_location "\WaveFormReader:IRQ\" interrupt -1 -1 2
+set_location "\WaveGen:VDAC8:viDAC8\" vidaccell -1 -1 3
+set_location "\USBCOMM:arb_int\" interrupt -1 -1 22
+# Note: port 15 is the logical name for port 8
+set_io "\USBCOMM:Dp(0)\" iocell 15 6
+set_location "\WaveFormReader:ADC_SAR\" sarcell -1 -1 1
+set_location "\USBCOMM:Dp\" logicalport -1 -1 8
+set_location "\USBCOMM:ep_1\" interrupt -1 -1 0
+set_location "\USBCOMM:ep_2\" interrupt -1 -1 1
+set_location "\USBCOMM:ep_0\" interrupt -1 -1 24
+set_location "\USBCOMM:dp_int\" interrupt -1 -1 12
+# Note: port 15 is the logical name for port 8
+set_io "\USBCOMM:Dm(0)\" iocell 15 7
+set_io "VAnalogOut(0)" iocell 0 0
+set_io "\WaveFormReader:Bypass(0)\" iocell 0 2
+set_location "\WaveGen:Wave2_DMA\" drqcell -1 -1 1
+set_location "\WaveGen:Wave1_DMA\" drqcell -1 -1 0

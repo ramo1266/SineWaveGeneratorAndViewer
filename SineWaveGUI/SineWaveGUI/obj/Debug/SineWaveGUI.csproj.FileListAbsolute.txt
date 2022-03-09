@@ -1,0 +1,12 @@
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\bin\Debug\SineWaveGUI.exe.config
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\bin\Debug\SineWaveGUI.exe
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\bin\Debug\SineWaveGUI.pdb
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\bin\Debug\CyUSB.dll
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.csprojAssemblyReference.cache
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.MainForm.resources
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.Properties.Resources.resources
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.csproj.GenerateResource.cache
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.csproj.CoreCompileInputs.cache
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.csproj.CopyComplete
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.exe
+C:\Users\minime\Downloads\Rosendyne\SineWaveGUI\SineWaveGUI\obj\Debug\SineWaveGUI.pdb
