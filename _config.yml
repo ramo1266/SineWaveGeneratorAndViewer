@@ -1,5 +1,7 @@
 title: Sine Wave Generator and Viewer
-description: 
+description:  Using Cypress PSoC Creator software to program Cypress microcontroller to 
+              generate and read a sine wave and Visual Studio C# application to the read the data 
+              from the micro-controller using USB interface.
 email: ramo1266@bellsouth.net
 github_username: ramo1266
 
