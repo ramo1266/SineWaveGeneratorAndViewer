@@ -1,4 +1,4 @@
-#
+# Sine Wave Generator and Viewer
 
 ### Using Cypress PSoC Creator software to program Cypress microcontroller to generate and read a sine wave. 
 
